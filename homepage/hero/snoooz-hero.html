@@ -1,0 +1,94 @@
+<!-- ============================================================
+     SNOOOZ HOMEPAGE — HERO HTML
+     Paste into your HubSpot module HTML field (or a rich-text/HTML block).
+     Requires the matching CSS and JS.
+
+     PLACEHOLDERS TO REPLACE:
+       1. .snoooz-hero__video-media  — swap the <img> for your product
+          GIF/screenshot, or replace the whole block with a <video>/<iframe>.
+       2. data-video-src on the play button — point at your demo video
+          (YouTube/Wistia/MP4). The JS reads this to open the player.
+       3. CTA hrefs — /book-a-demo and app.snoooz.ai/setup.
+     ============================================================ -->
+
+<section class="snoooz-hero" aria-label="Snoooz — put your busiest inboxes on autopilot">
+  <div class="snoooz-hero__container">
+
+    <!-- LEFT: copy -->
+    <div class="snoooz-hero__copy">
+      <p class="snoooz-hero__eyebrow">AI Email Assistant for Teams</p>
+
+      <h1>Put your busiest inboxes on <span class="snoooz-hero__accent">autopilot</span>.</h1>
+
+      <p class="snoooz-hero__sub">
+        Snoooz answers, routes, and follows up on customer email — trained on your own
+        knowledge, and escalating to your team only when it matters.
+        <strong>Review every reply until you trust Snoooz to send on its own.</strong>
+      </p>
+
+      <div class="snoooz-hero__actions">
+        <a class="snoooz-hero__cta snoooz-hero__cta--primary" href="https://snoooz.ai/book-a-demo" target="_blank" rel="noopener">
+          Book a demo
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a class="snoooz-hero__cta snoooz-hero__cta--secondary" href="https://app.snoooz.ai/setup" target="_blank" rel="noopener">Start free</a>
+      </div>
+
+      <div class="snoooz-hero__trust">
+        <span class="snoooz-hero__trust-lead">Trusted by 3,000+ businesses in 60+ countries</span>
+        <ul class="snoooz-hero__trust-badges">
+          <li>SOC 2 Type 2</li>
+          <li>ISO 27001</li>
+          <li>HIPAA</li>
+          <li>GDPR</li>
+          <li>EU data residency</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- RIGHT: product / video stage -->
+    <div class="snoooz-hero__stage">
+      <div class="snoooz-hero__video">
+
+        <!-- PLACEHOLDER MEDIA — replace this <img> with your product GIF/screenshot,
+             or swap the whole element for a poster <img>, <video>, or <iframe>. -->
+        <img class="snoooz-hero__video-media"
+             src="https://snoooz.ai/hubfs/placeholder-hero-product.png"
+             alt="Snoooz dashboard showing AI drafts queued, a thread routed to a team, and an email escalated for review"
+             loading="eager"
+             onerror="this.style.display='none'">
+
+        <!-- Shown if the media above is missing (remove once real media is in place) -->
+        <div class="snoooz-hero__video-fallback" aria-hidden="true">
+          <strong>Product preview</strong>
+          <span>Drop your hero GIF / screenshot here</span>
+        </div>
+
+        <!-- Play button — JS reads data-video-src to open the demo player -->
+        <button class="snoooz-hero__play" type="button"
+                aria-label="Play the Snoooz product demo"
+                data-video-src="">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+      </div>
+
+      <!-- Floating product chips -->
+      <div class="snoooz-hero__chip snoooz-hero__chip--reply" aria-hidden="true">
+        <span class="snoooz-hero__chip-ico">✓</span>
+        <span>AI reply drafted<small>from your knowledge base</small></span>
+      </div>
+
+      <div class="snoooz-hero__chip snoooz-hero__chip--escalate" aria-hidden="true">
+        <span class="snoooz-hero__chip-ico">!</span>
+        <span>Escalated to you<small>needs a human</small></span>
+      </div>
+
+      <!-- Rotating "now handling" inbox tag -->
+      <div class="snoooz-hero__inbox" aria-hidden="true">
+        <span class="snoooz-hero__inbox-dot"></span>
+        <span>Now handling <span class="snoooz-hero__inbox-label" id="snooozHeroInbox">support@</span></span>
+      </div>
+    </div>
+
+  </div>
+</section>
