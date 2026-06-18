@@ -1,0 +1,455 @@
+/* ============================================================
+   SNOOOZ HOMEPAGE — PROBLEM / CATEGORY STYLES
+   Paste into your HubSpot module CSS field (or a <style> block).
+   Brand tokens match the hero, logo wall, and pricing page.
+
+   The right-hand inbox is sticky while the left story scrolls. When
+   the solution step reaches the middle of the viewport, JS adds
+   .is-solved to the inbox and it reorganizes itself in green.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap');
+
+:root {
+  --snoooz-bg: #f7f9f4;
+  --snoooz-text: #102421;
+  --snoooz-muted: #60706d;
+  --snoooz-border: #dfe8e2;
+  --snoooz-primary: #0F5B44;
+  --snoooz-primary-hover: #053533;
+  --snoooz-secondary: #D6D9A0;
+  --snoooz-secondary-hover: #A5AE47;
+  --snoooz-secondary-soft: rgba(214, 217, 160, 0.26);
+  --snoooz-shadow: 0 18px 50px rgba(15, 91, 68, 0.06);
+  --snoooz-danger: #c0563f;
+  --snoooz-max: 1180px;
+}
+
+.snoooz-problem,
+.snoooz-problem *,
+.snoooz-problem *::before,
+.snoooz-problem *::after { box-sizing: border-box; }
+
+.snoooz-problem {
+  width: 100%;
+  margin: 0;
+  color: var(--snoooz-text);
+  font-family: "Open Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background:
+    radial-gradient(circle at 84% 8%, rgba(214, 217, 160, 0.28), transparent 32%),
+    var(--snoooz-bg);
+}
+
+.snoooz-problem__container {
+  width: 100%;
+  max-width: var(--snoooz-max);
+  margin: 0 auto;
+  padding: 80px 24px 88px;
+}
+
+.snoooz-problem h2, .snoooz-problem h3, .snoooz-problem p { margin-top: 0; }
+
+/* ---- Heading ---- */
+.snoooz-problem__head { max-width: 760px; margin: 0 0 8px; }
+.snoooz-problem__eyebrow {
+  margin: 0 0 14px;
+  color: var(--snoooz-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  font-size: 13px;
+  font-weight: 700;
+}
+.snoooz-problem__head h2 {
+  margin: 0;
+  font-size: clamp(28px, 4vw, 43px);
+  line-height: 1.08;
+  letter-spacing: -0.038em;
+  font-weight: 700;
+}
+.snoooz-problem__head h2 .snoooz-problem__hl {
+  background: linear-gradient(100deg, var(--snoooz-primary) 0%, var(--snoooz-secondary-hover) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* ---- Two-column scrollytelling grid ---- */
+.snoooz-problem__grid {
+  display: grid;
+  grid-template-columns: 1fr 1.04fr;
+  gap: 56px;
+  align-items: start;
+  margin-top: 34px;
+}
+
+/* Left: the story steps (this column provides the scroll distance) */
+.snoooz-problem__story { min-width: 0; }
+.snoooz-problem__step {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 72vh;
+  padding: 8px 0;
+}
+.snoooz-problem__step:first-child { min-height: 60vh; padding-top: 0; }
+
+.snoooz-problem__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-start;
+  margin-bottom: 18px;
+  padding: 7px 13px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  border: 1px solid rgba(192, 86, 63, 0.28);
+  background: rgba(192, 86, 63, 0.08);
+  color: var(--snoooz-danger);
+}
+.snoooz-problem__badge::before {
+  content: "";
+  width: 8px; height: 8px;
+  border-radius: 999px;
+  background: currentColor;
+}
+.snoooz-problem__badge--green {
+  border-color: rgba(15, 91, 68, 0.22);
+  background: rgba(15, 91, 68, 0.08);
+  color: var(--snoooz-primary);
+}
+
+.snoooz-problem__step h3 {
+  margin: 0 0 16px;
+  font-size: clamp(23px, 2.7vw, 31px);
+  line-height: 1.16;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+}
+.snoooz-problem__step p {
+  max-width: 460px;
+  margin: 0;
+  color: var(--snoooz-muted);
+  font-size: clamp(16px, 1.6vw, 18px);
+  line-height: 1.62;
+}
+.snoooz-problem__step p strong { color: var(--snoooz-text); font-weight: 700; }
+
+/* Right: the sticky inbox visual */
+.snoooz-problem__visual {
+  position: sticky;
+  top: 92px;
+  min-width: 0;
+}
+
+/* ---- Inbox window ---- */
+.snoooz-inbox {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid rgba(223, 232, 226, 0.95);
+  background: linear-gradient(180deg, rgba(255,255,255,0.94), rgba(255,255,255,0.82));
+  box-shadow: var(--snoooz-shadow);
+  backdrop-filter: blur(10px);
+  transition: box-shadow 0.5s ease, border-color 0.5s ease;
+}
+.snoooz-inbox::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 4px;
+  background: var(--snoooz-danger);
+  opacity: 0.85;
+  transition: background 0.5s ease, opacity 0.5s ease;
+}
+.snoooz-inbox.is-solved {
+  border-color: rgba(15, 91, 68, 0.28);
+  box-shadow: 0 26px 60px rgba(15, 91, 68, 0.16);
+}
+.snoooz-inbox.is-solved::before { background: var(--snoooz-primary); opacity: 1; }
+
+/* Title bar */
+.snoooz-inbox__bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 18px;
+  border-bottom: 1px solid rgba(15, 91, 68, 0.08);
+  background: rgba(255, 255, 255, 0.6);
+}
+.snoooz-inbox__dots { display: flex; gap: 6px; flex: 0 0 auto; }
+.snoooz-inbox__dots span { width: 10px; height: 10px; border-radius: 999px; background: rgba(15, 91, 68, 0.16); }
+.snoooz-inbox__title {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+  line-height: 1.2;
+}
+.snoooz-inbox__title strong { font-size: 14px; font-weight: 700; }
+.snoooz-inbox__title span { font-size: 11.5px; color: var(--snoooz-muted); }
+
+.snoooz-inbox__count {
+  margin-left: auto;
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 5px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 700;
+  border: 1px solid rgba(192, 86, 63, 0.28);
+  background: rgba(192, 86, 63, 0.09);
+  color: var(--snoooz-danger);
+  white-space: nowrap;
+  transition: background 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+}
+.snoooz-inbox__count strong { font-size: 15px; font-weight: 800; }
+.snoooz-inbox.is-solved .snoooz-inbox__count {
+  border-color: rgba(15, 91, 68, 0.26);
+  background: rgba(15, 91, 68, 0.1);
+  color: var(--snoooz-primary);
+}
+.snoooz-inbox__count .lbl--solved { display: none; }
+.snoooz-inbox.is-solved .snoooz-inbox__count .lbl--problem { display: none; }
+.snoooz-inbox.is-solved .snoooz-inbox__count .lbl--solved { display: inline; }
+.snoooz-inbox__count.is-pulsing { animation: snoooz-count-pulse 1.6s ease-in-out infinite; }
+
+@keyframes snoooz-count-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(192, 86, 63, 0); }
+  50%      { box-shadow: 0 0 0 5px rgba(192, 86, 63, 0.12); }
+}
+
+/* Email list */
+.snoooz-inbox__list {
+  position: relative;
+  height: 384px;
+  overflow: hidden;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* A single email row */
+.snoooz-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 0 0 auto;
+  padding: 12px 13px;
+  border-radius: 14px;
+  border: 1px solid rgba(223, 232, 226, 0.9);
+  border-left: 3px solid var(--row-color, rgba(15, 91, 68, 0.2));
+  background: rgba(255, 255, 255, 0.82);
+  transition: border-color 0.45s ease, background 0.45s ease, transform 0.45s ease;
+}
+.snoooz-row--new { animation: snoooz-row-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+@keyframes snoooz-row-in {
+  from { opacity: 0; transform: translateY(-14px) scale(0.985); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* category colours (problem state) */
+.snoooz-row[data-cat="marketing"] { --row-color: #b07cd6; }
+.snoooz-row[data-cat="sales"]     { --row-color: #4f8ff0; }
+.snoooz-row[data-cat="support"]   { --row-color: #e0a23c; }
+.snoooz-row[data-cat="billing"]   { --row-color: #3fae9a; }
+.snoooz-row[data-cat="internal"]  { --row-color: #8a94a6; }
+
+.snoooz-row__ava {
+  flex: 0 0 auto;
+  width: 34px; height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--row-color, var(--snoooz-primary));
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  transition: background 0.45s ease;
+}
+.snoooz-inbox.is-solved .snoooz-row__ava { background: var(--snoooz-primary); }
+
+.snoooz-row__body { min-width: 0; flex: 1 1 auto; }
+.snoooz-row__top { display: flex; align-items: baseline; gap: 8px; }
+.snoooz-row__from {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--snoooz-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.snoooz-row__time { margin-left: auto; flex: 0 0 auto; font-size: 11px; color: var(--snoooz-muted); }
+.snoooz-row__subj {
+  font-size: 12.5px;
+  color: var(--snoooz-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.snoooz-row__side { flex: 0 0 auto; display: flex; align-items: center; gap: 8px; }
+.snoooz-row__dot {
+  width: 8px; height: 8px;
+  border-radius: 999px;
+  background: var(--snoooz-danger);
+  box-shadow: 0 0 0 3px rgba(192, 86, 63, 0.14);
+}
+.snoooz-row__tag {
+  padding: 4px 9px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--snoooz-muted);
+  background: rgba(96, 112, 109, 0.1);
+  border: 1px solid rgba(96, 112, 109, 0.16);
+  white-space: nowrap;
+}
+
+/* Solved action pill — hidden until the inbox is solved */
+.snoooz-row__action {
+  display: none;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.snoooz-row__action::before { content: "✓"; font-weight: 800; }
+.snoooz-row__action--routed::before { content: "→"; }
+.snoooz-row__action--escalate::before { content: "!"; }
+.snoooz-row__action--archived::before { content: "▾"; }
+.snoooz-row__action--replied  { color: #fff; background: var(--snoooz-primary); border: 1px solid var(--snoooz-primary); }
+.snoooz-row__action--routed   { color: var(--snoooz-primary); background: rgba(15, 91, 68, 0.1); border: 1px solid rgba(15, 91, 68, 0.24); }
+.snoooz-row__action--escalate { color: var(--snoooz-primary-hover); background: var(--snoooz-secondary-soft); border: 1px solid rgba(165, 174, 71, 0.5); }
+.snoooz-row__action--archived { color: var(--snoooz-muted); background: rgba(96, 112, 109, 0.1); border: 1px solid rgba(96, 112, 109, 0.18); }
+
+.snoooz-inbox.is-solved .snoooz-row {
+  border-left-color: rgba(15, 91, 68, 0.5);
+  background: linear-gradient(90deg, rgba(15, 91, 68, 0.045), rgba(255,255,255,0.82) 60%);
+}
+.snoooz-inbox.is-solved .snoooz-row__dot,
+.snoooz-inbox.is-solved .snoooz-row__tag { display: none; }
+.snoooz-inbox.is-solved .snoooz-row__action { display: inline-flex; }
+
+/* staggered settle when solved */
+.snoooz-inbox.is-solved .snoooz-row { animation: snoooz-row-settle 0.55s ease both; }
+.snoooz-inbox.is-solved .snoooz-row:nth-child(2) { animation-delay: 0.06s; }
+.snoooz-inbox.is-solved .snoooz-row:nth-child(3) { animation-delay: 0.12s; }
+.snoooz-inbox.is-solved .snoooz-row:nth-child(4) { animation-delay: 0.18s; }
+.snoooz-inbox.is-solved .snoooz-row:nth-child(5) { animation-delay: 0.24s; }
+.snoooz-inbox.is-solved .snoooz-row:nth-child(6) { animation-delay: 0.30s; }
+.snoooz-inbox.is-solved .snoooz-row:nth-child(7) { animation-delay: 0.36s; }
+
+@keyframes snoooz-row-settle {
+  from { opacity: 0.45; transform: translateY(9px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Footer status strip */
+.snoooz-inbox__foot {
+  position: relative;
+  display: grid;
+  border-top: 1px solid rgba(15, 91, 68, 0.08);
+  background: rgba(255, 255, 255, 0.6);
+}
+.snoooz-inbox__foot > div {
+  grid-area: 1 / 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  font-size: 13px;
+  font-weight: 700;
+  transition: opacity 0.45s ease;
+}
+.snoooz-inbox__foot-ico {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px; height: 24px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 800;
+}
+.snoooz-inbox__foot--problem { color: var(--snoooz-danger); }
+.snoooz-inbox__foot--problem .snoooz-inbox__foot-ico { background: rgba(192, 86, 63, 0.12); color: var(--snoooz-danger); }
+.snoooz-inbox__foot--solved { color: var(--snoooz-primary); opacity: 0; }
+.snoooz-inbox__foot--solved .snoooz-inbox__foot-ico { background: rgba(15, 91, 68, 0.12); color: var(--snoooz-primary); }
+.snoooz-inbox__foot--solved small { color: var(--snoooz-muted); font-weight: 600; }
+.snoooz-inbox.is-solved .snoooz-inbox__foot--problem { opacity: 0; }
+.snoooz-inbox.is-solved .snoooz-inbox__foot--solved { opacity: 1; }
+
+/* "Handled by Snoooz" badge that appears when solved */
+.snoooz-inbox__badge {
+  position: absolute;
+  top: 58px;
+  right: 16px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 13px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--snoooz-primary), var(--snoooz-primary-hover));
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  box-shadow: 0 14px 30px rgba(15, 91, 68, 0.3);
+  opacity: 0;
+  transform: translateY(-6px) scale(0.96);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  pointer-events: none;
+}
+.snoooz-inbox__badge::before {
+  content: "";
+  width: 7px; height: 7px;
+  border-radius: 999px;
+  background: var(--snoooz-secondary);
+  box-shadow: 0 0 0 3px rgba(214, 217, 160, 0.35);
+}
+.snoooz-inbox.is-solved .snoooz-inbox__badge { opacity: 1; transform: none; }
+
+/* ---- Responsive ---- */
+@media (max-width: 860px) {
+  .snoooz-problem__container { padding: 60px 20px 64px; }
+  .snoooz-problem__grid {
+    display: block;
+    margin-top: 26px;
+  }
+  .snoooz-problem__visual {
+    position: sticky;
+    top: 70px;
+    margin-bottom: 26px;
+  }
+  .snoooz-inbox__list { height: 320px; }
+  .snoooz-problem__step { min-height: 56vh; }
+  .snoooz-problem__step:first-child { min-height: 40vh; }
+}
+
+@media (max-width: 480px) {
+  .snoooz-inbox__list { height: 300px; }
+  .snoooz-row__time { display: none; }
+  .snoooz-inbox__badge { top: 56px; right: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .snoooz-row,
+  .snoooz-row--new,
+  .snoooz-inbox.is-solved .snoooz-row,
+  .snoooz-inbox__count.is-pulsing,
+  .snoooz-inbox__badge { animation: none; transition: none; }
+  .snoooz-inbox__badge { transform: none; }
+}

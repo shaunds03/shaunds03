@@ -1,0 +1,167 @@
+<!-- ============================================================
+     SNOOOZ HOMEPAGE — PROBLEM / CATEGORY HTML
+     Paste into your HubSpot module HTML field (or a rich-text/HTML block).
+     Requires the matching CSS and JS.
+
+     How it behaves: the inbox on the right is sticky. As you scroll past
+     the "problem" step, emails stream in and pile up (red, unhandled).
+     When the "solution" step reaches the middle of the screen, JS adds
+     .is-solved and the inbox reorganizes itself with green status pills.
+     The seeded rows below keep the section looking right even without JS.
+     ============================================================ -->
+
+<section class="snoooz-problem" aria-label="Why teams choose Snoooz">
+  <div class="snoooz-problem__container">
+
+    <div class="snoooz-problem__head">
+      <p class="snoooz-problem__eyebrow">The problem</p>
+      <h2>Your team doesn't need another email tool. It needs the email <span class="snoooz-problem__hl">handled</span>.</h2>
+    </div>
+
+    <div class="snoooz-problem__grid">
+
+      <!-- LEFT: story steps -->
+      <div class="snoooz-problem__story">
+
+        <article class="snoooz-problem__step snoooz-problem__step--problem">
+          <span class="snoooz-problem__badge">The problem</span>
+          <h3>Inbound never stops.</h3>
+          <p>
+            Support questions, sales leads, order updates, and policy questions pile up in your
+            shared inboxes. Every hour a reply waits is a deal going cold or a customer losing
+            patience. Personal AI assistants only make one person type a little faster.
+            <strong>They cannot run the inbox.</strong>
+          </p>
+        </article>
+
+        <article class="snoooz-problem__step snoooz-problem__step--solution" id="snooozSolutionStep">
+          <span class="snoooz-problem__badge snoooz-problem__badge--green">With Snoooz</span>
+          <h3>Snoooz handles the inbox itself.</h3>
+          <p>
+            Snoooz reads every incoming email, answers the repetitive majority from your own
+            knowledge, takes action in your systems, and brings a person in only when something
+            genuinely needs one. <strong>Your team stops triaging and starts handling the
+            exceptions.</strong>
+          </p>
+        </article>
+
+      </div>
+
+      <!-- RIGHT: sticky inbox visual -->
+      <div class="snoooz-problem__visual">
+        <div class="snoooz-inbox" id="snooozInbox">
+
+          <div class="snoooz-inbox__bar">
+            <div class="snoooz-inbox__dots" aria-hidden="true"><span></span><span></span><span></span></div>
+            <div class="snoooz-inbox__title">
+              <strong>support@yourcompany.com</strong>
+              <span>Shared inbox</span>
+            </div>
+            <span class="snoooz-inbox__count is-pulsing" id="snooozInboxCount">
+              <strong id="snooozInboxNum">248</strong>
+              <span class="lbl--problem">unread</span>
+              <span class="lbl--solved">to handle</span>
+            </span>
+          </div>
+
+          <div class="snoooz-inbox__badge" aria-hidden="true">Handled by Snoooz</div>
+
+          <div class="snoooz-inbox__list" id="snooozInboxList">
+
+            <div class="snoooz-row" data-cat="support">
+              <span class="snoooz-row__ava">OR</span>
+              <div class="snoooz-row__body">
+                <div class="snoooz-row__top"><span class="snoooz-row__from">Olivia Reed</span><span class="snoooz-row__time">now</span></div>
+                <div class="snoooz-row__subj">Where is my order #1043?</div>
+              </div>
+              <div class="snoooz-row__side">
+                <span class="snoooz-row__dot" aria-hidden="true"></span>
+                <span class="snoooz-row__tag">Support</span>
+                <span class="snoooz-row__action snoooz-row__action--replied">Auto-replied</span>
+              </div>
+            </div>
+
+            <div class="snoooz-row" data-cat="sales">
+              <span class="snoooz-row__ava">DC</span>
+              <div class="snoooz-row__body">
+                <div class="snoooz-row__top"><span class="snoooz-row__from">Daniel Cho</span><span class="snoooz-row__time">1m</span></div>
+                <div class="snoooz-row__subj">Can I get a demo this week?</div>
+              </div>
+              <div class="snoooz-row__side">
+                <span class="snoooz-row__dot" aria-hidden="true"></span>
+                <span class="snoooz-row__tag">Sales</span>
+                <span class="snoooz-row__action snoooz-row__action--routed">Routed to Sales</span>
+              </div>
+            </div>
+
+            <div class="snoooz-row" data-cat="support">
+              <span class="snoooz-row__ava">PN</span>
+              <div class="snoooz-row__body">
+                <div class="snoooz-row__top"><span class="snoooz-row__from">Priya Nair</span><span class="snoooz-row__time">2m</span></div>
+                <div class="snoooz-row__subj">How do I reset my password?</div>
+              </div>
+              <div class="snoooz-row__side">
+                <span class="snoooz-row__dot" aria-hidden="true"></span>
+                <span class="snoooz-row__tag">Support</span>
+                <span class="snoooz-row__action snoooz-row__action--replied">Auto-replied</span>
+              </div>
+            </div>
+
+            <div class="snoooz-row" data-cat="billing">
+              <span class="snoooz-row__ava">ME</span>
+              <div class="snoooz-row__body">
+                <div class="snoooz-row__top"><span class="snoooz-row__from">Mark Evans</span><span class="snoooz-row__time">4m</span></div>
+                <div class="snoooz-row__subj">Question about invoice #4821</div>
+              </div>
+              <div class="snoooz-row__side">
+                <span class="snoooz-row__dot" aria-hidden="true"></span>
+                <span class="snoooz-row__tag">Billing</span>
+                <span class="snoooz-row__action snoooz-row__action--routed">Routed to Finance</span>
+              </div>
+            </div>
+
+            <div class="snoooz-row" data-cat="internal">
+              <span class="snoooz-row__ava">SL</span>
+              <div class="snoooz-row__body">
+                <div class="snoooz-row__top"><span class="snoooz-row__from">Sara Lin</span><span class="snoooz-row__time">6m</span></div>
+                <div class="snoooz-row__subj">What is our PTO carryover policy?</div>
+              </div>
+              <div class="snoooz-row__side">
+                <span class="snoooz-row__dot" aria-hidden="true"></span>
+                <span class="snoooz-row__tag">Internal</span>
+                <span class="snoooz-row__action snoooz-row__action--replied">Auto-replied</span>
+              </div>
+            </div>
+
+            <div class="snoooz-row" data-cat="support">
+              <span class="snoooz-row__ava">JP</span>
+              <div class="snoooz-row__body">
+                <div class="snoooz-row__top"><span class="snoooz-row__from">James Park</span><span class="snoooz-row__time">7m</span></div>
+                <div class="snoooz-row__subj">I want a refund for a damaged item</div>
+              </div>
+              <div class="snoooz-row__side">
+                <span class="snoooz-row__dot" aria-hidden="true"></span>
+                <span class="snoooz-row__tag">Support</span>
+                <span class="snoooz-row__action snoooz-row__action--escalate">Escalated to you</span>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="snoooz-inbox__foot">
+            <div class="snoooz-inbox__foot--problem">
+              <span class="snoooz-inbox__foot-ico">!</span>
+              <span><span id="snooozFootNum">248</span> emails waiting. Response time slipping.</span>
+            </div>
+            <div class="snoooz-inbox__foot--solved">
+              <span class="snoooz-inbox__foot-ico">✓</span>
+              <span>Inbox at zero. <small>192 auto-replied &middot; 41 routed &middot; 15 escalated to your team.</small></span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
