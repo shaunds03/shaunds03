@@ -159,9 +159,9 @@
 /* ---- Trust strip ---- */
 .snoooz-hero__trust {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px 14px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
 }
 .snoooz-hero__trust-lead {
   font-size: 14px;
@@ -170,15 +170,22 @@
 }
 .snoooz-hero__trust-badges {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 6px;
   list-style: none;
   margin: 0;
   padding: 0;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
 }
+.snoooz-hero__trust-badges::-webkit-scrollbar { display: none; }
 .snoooz-hero__trust-badges li {
+  flex: 0 0 auto;
   display: inline-flex;
   align-items: center;
+  white-space: nowrap;
   border: 1px solid var(--snoooz-border);
   background: rgba(255, 255, 255, 0.72);
   border-radius: 999px;
@@ -361,7 +368,9 @@
     text-align: center;
   }
   .snoooz-hero__sub { margin-left: auto; margin-right: auto; }
-  .snoooz-hero__actions, .snoooz-hero__trust { justify-content: center; }
+  .snoooz-hero__actions { justify-content: center; }
+  .snoooz-hero__trust { align-items: center; }
+  .snoooz-hero__trust-badges { justify-content: center; }
   .snoooz-hero__stage { max-width: 560px; margin: 0 auto; width: 100%; }
   .snoooz-hero__chip--reply { left: 4px; }
   .snoooz-hero__chip--escalate { right: 4px; }
