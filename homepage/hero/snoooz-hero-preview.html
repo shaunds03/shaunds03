@@ -94,27 +94,19 @@ html, body { margin: 0; }
 }
 
 .snoooz-hero h1 {
+  max-width: 640px;
   margin: 0 0 20px;
-  font-size: clamp(38px, 5.4vw, 60px);
-  line-height: 1.04;
-  letter-spacing: -0.046em;
+  font-size: clamp(29px, 3.9vw, 45px);
+  line-height: 1.12;
+  letter-spacing: -0.034em;
   font-weight: 700;
 }
-.snoooz-hero h1 .snoooz-hero__accent {
-  position: relative;
-  white-space: nowrap;
-  color: var(--snoooz-primary);
-}
-.snoooz-hero h1 .snoooz-hero__accent::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0.04em;
-  height: 0.30em;
-  z-index: -1;
-  background: var(--snoooz-secondary-soft);
-  border-radius: 999px;
+.snoooz-hero h1 .snoooz-hero__grad {
+  background: linear-gradient(100deg, var(--snoooz-primary) 0%, var(--snoooz-secondary-hover) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
 .snoooz-hero__sub {
@@ -202,7 +194,7 @@ html, body { margin: 0; }
 }
 .snoooz-hero__trust-badges li::before { content: "✓"; margin-right: 6px; font-weight: 800; }
 
-.snoooz-hero__stage { position: relative; min-width: 0; }
+.snoooz-hero__stage { position: relative; min-width: 0; perspective: 1200px; }
 
 .snoooz-hero__video {
   position: relative;
@@ -216,6 +208,12 @@ html, body { margin: 0; }
     rgba(255, 255, 255, 0.8);
   box-shadow: 0 30px 70px rgba(15, 91, 68, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(10px);
+  transform-style: preserve-3d;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  will-change: transform;
+}
+.snoooz-hero__stage:hover .snoooz-hero__video {
+  box-shadow: 0 40px 90px rgba(15, 91, 68, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 .snoooz-hero__video-media {
   position: absolute;
@@ -225,20 +223,6 @@ html, body { margin: 0; }
   object-fit: cover;
   display: block;
 }
-.snoooz-hero__video-fallback {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  color: var(--snoooz-muted);
-  text-align: center;
-  padding: 24px;
-}
-.snoooz-hero__video-fallback strong { color: var(--snoooz-text); font-size: 15px; font-weight: 700; }
-.snoooz-hero__video-fallback span { font-size: 13px; }
 
 .snoooz-hero__play {
   position: absolute;
@@ -255,7 +239,7 @@ html, body { margin: 0; }
   background: rgba(255, 255, 255, 0.94);
   color: var(--snoooz-primary);
   box-shadow: 0 18px 40px rgba(15, 91, 68, 0.28);
-  transition: transform 0.2s ease, background 0.2s ease;
+  transition: transform 0.2s ease, background 0.2s ease, opacity 0.25s ease, visibility 0.25s ease;
 }
 .snoooz-hero__play::before {
   content: "";
@@ -267,6 +251,12 @@ html, body { margin: 0; }
 }
 .snoooz-hero__play:hover { transform: scale(1.06); background: #fff; }
 .snoooz-hero__play svg { margin-left: 4px; }
+.snoooz-hero__play.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.8);
+  pointer-events: none;
+}
 
 @keyframes snoooz-hero-pulse {
   0%   { transform: scale(1);   opacity: 0.8; }
@@ -290,7 +280,9 @@ html, body { margin: 0; }
   color: var(--snoooz-text);
   white-space: nowrap;
   animation: snoooz-hero-float 6s ease-in-out infinite;
+  transition: box-shadow 0.25s ease;
 }
+.snoooz-hero__stage:hover .snoooz-hero__chip { box-shadow: 0 24px 50px rgba(15, 91, 68, 0.18); }
 .snoooz-hero__chip small { display: block; color: var(--snoooz-muted); font-size: 11.5px; font-weight: 400; }
 .snoooz-hero__chip-ico {
   display: inline-flex;
@@ -376,7 +368,8 @@ html, body { margin: 0; }
   .snoooz-hero__play::before,
   .snoooz-hero__inbox-label { animation: none; transition: none; }
   .snoooz-hero__cta,
-  .snoooz-hero__play { transition: none; }
+  .snoooz-hero__play,
+  .snoooz-hero__video { transition: none; }
 }
 </style>
 </head>
@@ -388,12 +381,11 @@ html, body { margin: 0; }
     <div class="snoooz-hero__copy">
       <p class="snoooz-hero__eyebrow">AI Email Assistant for Teams</p>
 
-      <h1>Put your busiest inboxes on <span class="snoooz-hero__accent">autopilot</span>.</h1>
+      <h1>Snoooz <span class="snoooz-hero__grad">replies to</span>, <span class="snoooz-hero__grad">routes</span>, and <span class="snoooz-hero__grad">follows up</span> on your repetitive inbound emails using your own knowledge base, and escalates to a human only when it should.</h1>
 
       <p class="snoooz-hero__sub">
-        Snoooz answers, routes, and follows up on customer email — trained on your own
-        knowledge, and escalating to your team only when it matters.
-        <strong>Review every reply until you trust Snoooz to send on its own.</strong>
+        Trained on your knowledge, inside Gmail and Outlook. Start in review mode and graduate to
+        full autopilot — <strong>you decide what Snoooz sends, and when.</strong>
       </p>
 
       <div class="snoooz-hero__actions">
@@ -419,28 +411,22 @@ html, body { margin: 0; }
     <div class="snoooz-hero__stage">
       <div class="snoooz-hero__video">
 
-        <!-- PLACEHOLDER MEDIA — replace with your product GIF/screenshot/video -->
-        <img class="snoooz-hero__video-media"
-             src="https://snoooz.ai/hubfs/placeholder-hero-product.png"
-             alt="Snoooz dashboard showing AI drafts queued, a thread routed to a team, and an email escalated for review"
-             loading="eager"
-             onerror="this.style.display='none'">
+        <!-- Live product video. Autoplays muted + looped; play button restarts with sound. -->
+        <video class="snoooz-hero__video-media" id="snooozHeroVideo"
+               muted autoplay loop playsinline preload="metadata">
+          <source src="https://snoooz.ai/hubfs/Take%20Back%20Control%20of%20Your%20Inbox%20with%20Snoooz.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
 
-        <div class="snoooz-hero__video-fallback" aria-hidden="true">
-          <strong>Product preview</strong>
-          <span>Drop your hero GIF / screenshot here</span>
-        </div>
-
-        <button class="snoooz-hero__play" type="button"
-                aria-label="Play the Snoooz product demo"
-                data-video-src="">
+        <button class="snoooz-hero__play" id="snooozHeroPlay" type="button"
+                aria-label="Play the Snoooz video with sound">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
         </button>
       </div>
 
       <div class="snoooz-hero__chip snoooz-hero__chip--reply" aria-hidden="true">
         <span class="snoooz-hero__chip-ico">✓</span>
-        <span>AI reply drafted<small>from your knowledge base</small></span>
+        <span>AI reply sent<small>from your knowledge base</small></span>
       </div>
 
       <div class="snoooz-hero__chip snoooz-hero__chip--escalate" aria-hidden="true">
@@ -462,6 +448,7 @@ html, body { margin: 0; }
 (function () {
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* Rotating "now handling" inbox label */
   (function () {
     var label = document.getElementById('snooozHeroInbox');
     if (!label || reduce) return;
@@ -477,22 +464,55 @@ html, body { margin: 0; }
     }, 2600);
   })();
 
+  /* Play button → unmute + restart with sound; click video to pause/play */
   (function () {
-    var play = document.querySelector('.snoooz-hero__play');
-    if (!play) return;
+    var video = document.getElementById('snooozHeroVideo');
+    var play = document.getElementById('snooozHeroPlay');
+    if (!video || !play) return;
+
     play.addEventListener('click', function () {
-      var src = play.getAttribute('data-video-src');
-      if (!src) { console.info('[snoooz-hero] No data-video-src set on the play button yet.'); return; }
-      var stage = play.closest('.snoooz-hero__video');
-      if (!stage) return;
-      var frame = document.createElement('iframe');
-      frame.src = src;
-      frame.title = 'Snoooz product demo';
-      frame.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
-      frame.allowFullscreen = true;
-      frame.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:0;';
-      stage.innerHTML = '';
-      stage.appendChild(frame);
+      video.muted = false;
+      video.currentTime = 0;
+      var p = video.play();
+      if (p && p.catch) p.catch(function () {});
+      play.classList.add('is-hidden');
+    });
+
+    video.addEventListener('click', function () {
+      if (video.paused) {
+        video.play();
+        if (!video.muted) play.classList.add('is-hidden');
+      } else {
+        video.pause();
+        play.classList.remove('is-hidden');
+      }
+    });
+  })();
+
+  /* Pointer parallax — tilt the video, drift the chips */
+  (function () {
+    var stage = document.querySelector('.snoooz-hero__stage');
+    if (!stage || reduce) return;
+    var video = stage.querySelector('.snoooz-hero__video');
+    var chips = stage.querySelectorAll('.snoooz-hero__chip');
+
+    stage.addEventListener('pointermove', function (e) {
+      var r = stage.getBoundingClientRect();
+      var dx = (e.clientX - r.left) / r.width - 0.5;
+      var dy = (e.clientY - r.top) / r.height - 0.5;
+      if (video) {
+        video.style.transform =
+          'translateY(-6px) rotateX(' + (-dy * 4).toFixed(2) + 'deg) rotateY(' + (dx * 5).toFixed(2) + 'deg)';
+      }
+      chips.forEach(function (chip, i) {
+        var depth = (i + 1) * 9;
+        chip.style.transform = 'translate(' + (dx * depth).toFixed(1) + 'px,' + (dy * depth).toFixed(1) + 'px)';
+      });
+    });
+
+    stage.addEventListener('pointerleave', function () {
+      if (video) video.style.transform = '';
+      chips.forEach(function (chip) { chip.style.transform = ''; });
     });
   })();
 })();

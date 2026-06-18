@@ -25,34 +25,59 @@
     }, 2600);
   })();
 
-  /* ---- 2. Play button → open the demo video ----
-     Set data-video-src on the .snoooz-hero__play button to an embed URL
-     (YouTube/Wistia/MP4). With no src set, this is a no-op placeholder so
-     you can wire it to whatever player/modal you already use in HubSpot. */
+  /* ---- 2. Play button → unmute + restart the video with sound ----
+     The video autoplays muted and looped as a background. Clicking play
+     unmutes it from the top; clicking the video toggles pause/play. */
   (function () {
-    var play = document.querySelector('.snoooz-hero__play');
-    if (!play) return;
+    var video = document.getElementById('snooozHeroVideo');
+    var play = document.getElementById('snooozHeroPlay');
+    if (!video || !play) return;
 
     play.addEventListener('click', function () {
-      var src = play.getAttribute('data-video-src');
-      if (!src) {
-        // Placeholder: replace with your modal/lightbox trigger.
-        console.info('[snoooz-hero] No data-video-src set on the play button yet.');
-        return;
+      video.muted = false;
+      video.currentTime = 0;
+      var p = video.play();
+      if (p && p.catch) p.catch(function () {});
+      play.classList.add('is-hidden');
+    });
+
+    video.addEventListener('click', function () {
+      if (video.paused) {
+        video.play();
+        if (!video.muted) play.classList.add('is-hidden');
+      } else {
+        video.pause();
+        play.classList.remove('is-hidden');
       }
+    });
+  })();
 
-      var stage = play.closest('.snoooz-hero__video');
-      if (!stage) return;
+  /* ---- 3. Pointer parallax — tilt the video and drift the chips ---- */
+  (function () {
+    var stage = document.querySelector('.snoooz-hero__stage');
+    if (!stage || reduce) return;
 
-      var frame = document.createElement('iframe');
-      frame.src = src;
-      frame.title = 'Snoooz product demo';
-      frame.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
-      frame.allowFullscreen = true;
-      frame.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:0;';
+    var video = stage.querySelector('.snoooz-hero__video');
+    var chips = stage.querySelectorAll('.snoooz-hero__chip');
 
-      stage.innerHTML = '';
-      stage.appendChild(frame);
+    stage.addEventListener('pointermove', function (e) {
+      var r = stage.getBoundingClientRect();
+      var dx = (e.clientX - r.left) / r.width - 0.5;   /* -0.5 .. 0.5 */
+      var dy = (e.clientY - r.top) / r.height - 0.5;
+
+      if (video) {
+        video.style.transform =
+          'translateY(-6px) rotateX(' + (-dy * 4).toFixed(2) + 'deg) rotateY(' + (dx * 5).toFixed(2) + 'deg)';
+      }
+      chips.forEach(function (chip, i) {
+        var depth = (i + 1) * 9;
+        chip.style.transform = 'translate(' + (dx * depth).toFixed(1) + 'px,' + (dy * depth).toFixed(1) + 'px)';
+      });
+    });
+
+    stage.addEventListener('pointerleave', function () {
+      if (video) video.style.transform = '';
+      chips.forEach(function (chip) { chip.style.transform = ''; });
     });
   })();
 })();
