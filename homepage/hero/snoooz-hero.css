@@ -64,7 +64,6 @@
 .snoooz-hero__eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
   margin-bottom: 20px;
   padding: 7px 14px;
   border-radius: 999px;
@@ -77,14 +76,6 @@
   font-size: 12.5px;
   font-weight: 700;
   line-height: 1;
-}
-.snoooz-hero__eyebrow::before {
-  content: "";
-  width: 7px;
-  height: 7px;
-  border-radius: 999px;
-  background: var(--snoooz-secondary-hover);
-  box-shadow: 0 0 0 4px var(--snoooz-secondary-soft);
 }
 
 .snoooz-hero h1 {
@@ -162,11 +153,6 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 12px;
-}
-.snoooz-hero__trust-lead {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--snoooz-text);
 }
 .snoooz-hero__trust-badges {
   display: flex;

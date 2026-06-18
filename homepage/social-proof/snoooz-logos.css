@@ -34,12 +34,13 @@
 
 .snoooz-logos__heading {
   max-width: var(--snoooz-max);
-  margin: 0 auto 30px;
+  margin: 0 auto 34px;
   padding: 0 24px;
   text-align: center;
-  font-size: 14px;
+  font-size: clamp(20px, 2.4vw, 26px);
   font-weight: 700;
-  letter-spacing: 0.02em;
+  letter-spacing: -0.015em;
+  line-height: 1.3;
   color: var(--snoooz-muted);
 }
 .snoooz-logos__heading strong { color: var(--snoooz-text); font-weight: 800; }
