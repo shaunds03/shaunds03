@@ -1,0 +1,106 @@
+/* ============================================================
+   SNOOOZ HOMEPAGE — SOCIAL PROOF / LOGO WALL STYLES
+   Paste into your HubSpot module CSS field (or a <style> block).
+   Brand tokens match the hero and pricing page. CSS-only marquee:
+   two identical logo sets scroll left and loop seamlessly.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap');
+
+:root {
+  --snoooz-bg: #f7f9f4;
+  --snoooz-text: #102421;
+  --snoooz-muted: #60706d;
+  --snoooz-border: #dfe8e2;
+  --snoooz-primary: #0F5B44;
+  --snoooz-secondary-hover: #A5AE47;
+  --snoooz-max: 1180px;
+}
+
+.snoooz-logos,
+.snoooz-logos *,
+.snoooz-logos *::before,
+.snoooz-logos *::after { box-sizing: border-box; }
+
+.snoooz-logos {
+  width: 100%;
+  margin: 0;
+  padding: 40px 0 52px;
+  color: var(--snoooz-text);
+  font-family: "Open Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--snoooz-bg);
+  border-top: 1px solid var(--snoooz-border);
+}
+
+.snoooz-logos__heading {
+  max-width: var(--snoooz-max);
+  margin: 0 auto 30px;
+  padding: 0 24px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--snoooz-muted);
+}
+.snoooz-logos__heading strong { color: var(--snoooz-text); font-weight: 800; }
+
+/* Edge-fade mask so logos dissolve in/out at the sides */
+.snoooz-logos__mask {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 12%, #000 88%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, #000 12%, #000 88%, transparent 100%);
+}
+
+.snoooz-logos__track {
+  display: flex;
+  width: max-content;
+  animation: snoooz-logos-scroll 70s linear infinite;
+}
+.snoooz-logos__track:hover { animation-play-state: paused; }
+
+/* Wrappers are transparent to the flex row; both sets' items sit in one line */
+.snoooz-logos__set { display: contents; }
+
+.snoooz-logos__item {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 30px;
+}
+.snoooz-logos__item img {
+  height: 32px;
+  width: auto;
+  max-width: 150px;
+  object-fit: contain;
+  filter: grayscale(1);
+  opacity: 0.6;
+  transition: filter 0.25s ease, opacity 0.25s ease;
+}
+.snoooz-logos__item img:hover {
+  filter: grayscale(0);
+  opacity: 1;
+}
+
+@keyframes snoooz-logos-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@media (max-width: 640px) {
+  .snoooz-logos { padding: 32px 0 40px; }
+  .snoooz-logos__item { padding: 0 22px; }
+  .snoooz-logos__item img { height: 26px; }
+}
+
+/* Reduced motion: stop the scroll and show logos as a centered wrap */
+@media (prefers-reduced-motion: reduce) {
+  .snoooz-logos__track {
+    animation: none;
+    width: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px 8px;
+  }
+  .snoooz-logos__set--dup { display: none; }
+}

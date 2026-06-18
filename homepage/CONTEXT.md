@@ -104,5 +104,7 @@ assembled standalone HTML preview file. Prefix all classes/IDs to avoid collisio
 secondary = **Start free**.
 
 ## Files
-- `homepage/hero/` — hero section (CSS / HTML / JS + assembled preview). Built first.
+- `homepage/hero/` — hero section (CSS / HTML / JS + assembled preview).
+- `homepage/social-proof/` — logo wall / social proof (CSS + HTML, CSS-only marquee; + preview).
+- `homepage/homepage-preview.html` — assembled full-page preview (stacks all sections built so far).
 - (Pricing page design is the styling reference; see the uploaded pricing preview HTML.)

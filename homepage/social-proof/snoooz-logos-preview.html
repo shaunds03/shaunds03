@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Snoooz — Logo wall preview</title>
+<style>
+html, body { margin: 0; }
+/* ============================================================
+   SNOOOZ HOMEPAGE — SOCIAL PROOF / LOGO WALL STYLES
+   Paste into your HubSpot module CSS field (or a <style> block).
+   Brand tokens match the hero and pricing page. CSS-only marquee:
+   two identical logo sets scroll left and loop seamlessly.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap');
+
+:root {
+  --snoooz-bg: #f7f9f4;
+  --snoooz-text: #102421;
+  --snoooz-muted: #60706d;
+  --snoooz-border: #dfe8e2;
+  --snoooz-primary: #0F5B44;
+  --snoooz-secondary-hover: #A5AE47;
+  --snoooz-max: 1180px;
+}
+
+.snoooz-logos,
+.snoooz-logos *,
+.snoooz-logos *::before,
+.snoooz-logos *::after { box-sizing: border-box; }
+
+.snoooz-logos {
+  width: 100%;
+  margin: 0;
+  padding: 40px 0 52px;
+  color: var(--snoooz-text);
+  font-family: "Open Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--snoooz-bg);
+  border-top: 1px solid var(--snoooz-border);
+}
+
+.snoooz-logos__heading {
+  max-width: var(--snoooz-max);
+  margin: 0 auto 30px;
+  padding: 0 24px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--snoooz-muted);
+}
+.snoooz-logos__heading strong { color: var(--snoooz-text); font-weight: 800; }
+
+/* Edge-fade mask so logos dissolve in/out at the sides */
+.snoooz-logos__mask {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 12%, #000 88%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, #000 12%, #000 88%, transparent 100%);
+}
+
+.snoooz-logos__track {
+  display: flex;
+  width: max-content;
+  animation: snoooz-logos-scroll 70s linear infinite;
+}
+.snoooz-logos__track:hover { animation-play-state: paused; }
+
+/* Wrappers are transparent to the flex row; both sets' items sit in one line */
+.snoooz-logos__set { display: contents; }
+
+.snoooz-logos__item {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 30px;
+}
+.snoooz-logos__item img {
+  height: 32px;
+  width: auto;
+  max-width: 150px;
+  object-fit: contain;
+  filter: grayscale(1);
+  opacity: 0.6;
+  transition: filter 0.25s ease, opacity 0.25s ease;
+}
+.snoooz-logos__item img:hover {
+  filter: grayscale(0);
+  opacity: 1;
+}
+
+@keyframes snoooz-logos-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@media (max-width: 640px) {
+  .snoooz-logos { padding: 32px 0 40px; }
+  .snoooz-logos__item { padding: 0 22px; }
+  .snoooz-logos__item img { height: 26px; }
+}
+
+/* Reduced motion: stop the scroll and show logos as a centered wrap */
+@media (prefers-reduced-motion: reduce) {
+  .snoooz-logos__track {
+    animation: none;
+    width: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px 8px;
+  }
+  .snoooz-logos__set--dup { display: none; }
+}
+
+</style>
+</head>
+<body>
+<section class="snoooz-logos" aria-label="Companies whose teams use Snoooz">
+  <p class="snoooz-logos__heading">Trusted by <strong>3,000+ businesses</strong> in <strong>60+ countries</strong></p>
+
+  <div class="snoooz-logos__mask">
+    <div class="snoooz-logos__track">
+
+      <!-- SET 1 -->
+      <div class="snoooz-logos__set">
+        <div class="snoooz-logos__item"><img src="https://snoooz.ai/hubfs/1-Feb-20-2026-12-16-51-7323-PM.png" alt="Cloudera" loading="lazy"></div>
+        <div class="snoooz-logos__item"><img src="https://snoooz.ai/hubfs/2-2.png" alt="Berklee College of Music" loading="lazy"></div>
+        <div class="snoooz-logos__item"><img src="https://snoooz.ai/hubfs/3-1.png" alt="Serhant" loading="lazy"></div>
+        <div class="snoooz-logos__item"><img src="https://snoooz.ai/hubfs/4-3.png" alt="SugarCRM" loading="lazy"></div>
+        <div class="snoooz-logos__item"><img src="https://snoooz.ai/hubfs/5-1.png" alt="Krieg Germany" loading="lazy"></div>
+        <div class="snoooz-logos__item"><img src="https://snoooz.ai/hubfs/6-1.png" alt="AppSumo" loading="lazy"></div>
+        <div class="snoooz-logos__item"><img src="https://snoooz.ai/hubfs/7-1.png" alt="University of Alaska" loading="lazy"></div>
+        <div class="snoooz-logos__item"><img src="https://snoooz.ai/hubfs/8-1.png" alt="Ocrolus" loading="lazy"></div>
+        <div class="snoooz-logos__item"><img src="https://snoooz.ai/hubfs/9-1.png" alt="PhillipCapital Singapore" loading="lazy"></div>
+        <div class="snoooz-logos__item"><img src="https://snoooz.ai/hubfs/10-1.png" alt="LambdaTest" loading="lazy"></div>
+        <div class="snoooz-logos__item"><img src="https://snoooz.ai/hubfs/11-1.png" alt="Almana Group of Hospitals" loading="lazy"></div>
+        <div class="snoooz-logos__item"><img src="https://snoooz.ai/hubfs/12.png" alt="Princeton University Alumni" loading="lazy"></div>
+        <div class="snoooz-logos__item"><img src="https://snoooz.ai/hubfs/13.png" alt="Runwal Group" loading="lazy"></div>
+        <div class="snoooz-logos__item"><img src="https://snoooz.ai/hubfs/14.png" alt="AiTmed" loading="lazy"></div>
+        <div class="snoooz-logos__item"><img src="https://snoooz.ai/hubfs/15.png" alt="Charles Darwin University" loading="lazy"></div>
+        <div class="snoooz-logos__item"><img src="https://snoooz.ai/hubfs/16.png" alt="Daubert" loading="lazy"></div>
+        <div class="snoooz-logos__item"><img src="https://snoooz.ai/hubfs/17.png" alt="ManyChat" loading="lazy"></div>
+        <div class="snoooz-logos__item"><img src="https://snoooz.ai/hubfs/18.png" alt="AXA Engineers" loading="lazy"></div>
+        <div class="snoooz-logos__item"><img src="https://snoooz.ai/hubfs/19.png" alt="Big Idea Ventures" loading="lazy"></div>
+        <div class="snoooz-logos__item"><img src="https://snoooz.ai/hubfs/20.png" alt="iOttie" loading="lazy"></div>
+      </div>
+
+      <!-- SET 2 (duplicate for seamless loop) -->
+      <div class="snoooz-logos__set snoooz-logos__set--dup" aria-hidden="true">
+        <div class="snoooz-logos__item"><img src="https://snoooz.ai/hubfs/1-Feb-20-2026-12-16-51-7323-PM.png" alt="" loading="lazy"></div>
+        <div class="snoooz-logos__item"><img src="https://snoooz.ai/hubfs/2-2.png" alt="" loading="lazy"></div>
+        <div class="snoooz-logos__item"><img src="https://snoooz.ai/hubfs/3-1.png" alt="" loading="lazy"></div>
+        <div class="snoooz-logos__item"><img src="https://snoooz.ai/hubfs/4-3.png" alt="" loading="lazy"></div>
+        <div class="snoooz-logos__item"><img src="https://snoooz.ai/hubfs/5-1.png" alt="" loading="lazy"></div>
+        <div class="snoooz-logos__item"><img src="https://snoooz.ai/hubfs/6-1.png" alt="" loading="lazy"></div>
+        <div class="snoooz-logos__item"><img src="https://snoooz.ai/hubfs/7-1.png" alt="" loading="lazy"></div>
+        <div class="snoooz-logos__item"><img src="https://snoooz.ai/hubfs/8-1.png" alt="" loading="lazy"></div>
+        <div class="snoooz-logos__item"><img src="https://snoooz.ai/hubfs/9-1.png" alt="" loading="lazy"></div>
+        <div class="snoooz-logos__item"><img src="https://snoooz.ai/hubfs/10-1.png" alt="" loading="lazy"></div>
+        <div class="snoooz-logos__item"><img src="https://snoooz.ai/hubfs/11-1.png" alt="" loading="lazy"></div>
+        <div class="snoooz-logos__item"><img src="https://snoooz.ai/hubfs/12.png" alt="" loading="lazy"></div>
+        <div class="snoooz-logos__item"><img src="https://snoooz.ai/hubfs/13.png" alt="" loading="lazy"></div>
+        <div class="snoooz-logos__item"><img src="https://snoooz.ai/hubfs/14.png" alt="" loading="lazy"></div>
+        <div class="snoooz-logos__item"><img src="https://snoooz.ai/hubfs/15.png" alt="" loading="lazy"></div>
+        <div class="snoooz-logos__item"><img src="https://snoooz.ai/hubfs/16.png" alt="" loading="lazy"></div>
+        <div class="snoooz-logos__item"><img src="https://snoooz.ai/hubfs/17.png" alt="" loading="lazy"></div>
+        <div class="snoooz-logos__item"><img src="https://snoooz.ai/hubfs/18.png" alt="" loading="lazy"></div>
+        <div class="snoooz-logos__item"><img src="https://snoooz.ai/hubfs/19.png" alt="" loading="lazy"></div>
+        <div class="snoooz-logos__item"><img src="https://snoooz.ai/hubfs/20.png" alt="" loading="lazy"></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+</body>
+</html>
