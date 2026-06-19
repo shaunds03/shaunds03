@@ -113,6 +113,8 @@ secondary = **Start free**.
 - `homepage/how-it-works/` — four steps, each an animated "Snoooz app" that plays on scroll into
   view and loops: connect inboxes, train on knowledge (file drop), review mode (draft/edit/send),
   autopilot toggle. CSS / HTML / JS + preview.
+- `homepage/use-cases/` — six-card grid by team & industry with themed SVG icons, hover lift, and
+  a staggered scroll-reveal. CSS / HTML / JS + preview.
 - `homepage/build_previews.py` — regenerates every section preview + homepage-preview.html from
   source. Run after editing any section.
 - `homepage/homepage-preview.html` — assembled full-page preview (stacks all sections built so far).
