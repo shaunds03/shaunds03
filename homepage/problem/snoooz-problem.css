@@ -3,9 +3,15 @@
    Paste into your HubSpot module CSS field (or a <style> block).
    Brand tokens match the hero, logo wall, and pricing page.
 
-   The right-hand inbox is sticky while the left story scrolls. When
-   the solution step reaches the middle of the viewport, JS adds
-   .is-solved to the inbox and it reorganizes itself in green.
+   Scroll choreography (driven by snoooz-problem.js):
+   - The stage is pinned while you scroll through it.
+   - At the start, the busy inbox sits on the RIGHT with the problem
+     text on the LEFT. As you scroll, the inbox slides to the LEFT and
+     the solution text enters from the RIGHT.
+   - The inbox reorganizes itself (turns green) right as the "With
+     Snoooz" text settles beside it.
+   - On mobile, nothing slides sideways: the inbox stays put and the
+     text crossfades in place.
    ============================================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap');
@@ -40,17 +46,16 @@
     var(--snoooz-bg);
 }
 
-.snoooz-problem__container {
-  width: 100%;
-  max-width: var(--snoooz-max);
-  margin: 0 auto;
-  padding: 80px 24px 88px;
-}
-
 .snoooz-problem h2, .snoooz-problem h3, .snoooz-problem p { margin-top: 0; }
 
 /* ---- Heading ---- */
-.snoooz-problem__head { max-width: 760px; margin: 0 0 8px; }
+.snoooz-problem__head {
+  width: 100%;
+  max-width: var(--snoooz-max);
+  margin: 0 auto;
+  padding: 80px 24px 0;
+}
+.snoooz-problem__head-inner { max-width: 760px; }
 .snoooz-problem__eyebrow {
   margin: 0 0 14px;
   color: var(--snoooz-primary);
@@ -74,30 +79,47 @@
   color: transparent;
 }
 
-/* ---- Two-column scrollytelling grid ---- */
-.snoooz-problem__grid {
-  display: grid;
-  grid-template-columns: 1fr 1.04fr;
-  gap: 56px;
-  align-items: start;
-  margin-top: 34px;
+/* ---- Pinned scroll stage ---- */
+.snoooz-problem__scroll { position: relative; height: 250vh; }
+.snoooz-problem__pin {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+}
+.snoooz-problem__stage {
+  position: relative;
+  width: 100%;
+  max-width: var(--snoooz-max);
+  margin: 0 auto;
+  height: min(560px, 78vh);
 }
 
-/* Left: the story steps (this column provides the scroll distance) */
-.snoooz-problem__story { min-width: 0; }
-.snoooz-problem__step {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-height: 72vh;
-  padding: 8px 0;
+/* The inbox visual — JS animates its `left` from 54% (right) to 0% (left) */
+.snoooz-problem__visual {
+  position: absolute;
+  top: 50%;
+  left: 54%;
+  width: 46%;
+  transform: translateY(-50%);
 }
-.snoooz-problem__step:first-child { min-height: 60vh; padding-top: 0; }
+
+/* Wrapper is transparent so both panels position against the stage */
+.snoooz-problem__panels { display: contents; }
+
+.snoooz-problem__panel {
+  position: absolute;
+  top: 50%;
+  width: 46%;
+}
+.snoooz-problem__panel--problem { left: 0; transform: translate(0, -50%); }
+.snoooz-problem__panel--solution { left: 54%; transform: translate(40px, -50%); opacity: 0; }
 
 .snoooz-problem__badge {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
   align-self: flex-start;
   margin-bottom: 18px;
   padding: 7px 13px;
@@ -110,40 +132,26 @@
   background: rgba(192, 86, 63, 0.08);
   color: var(--snoooz-danger);
 }
-.snoooz-problem__badge::before {
-  content: "";
-  width: 8px; height: 8px;
-  border-radius: 999px;
-  background: currentColor;
-}
 .snoooz-problem__badge--green {
   border-color: rgba(15, 91, 68, 0.22);
   background: rgba(15, 91, 68, 0.08);
   color: var(--snoooz-primary);
 }
 
-.snoooz-problem__step h3 {
+.snoooz-problem__panel h3 {
   margin: 0 0 16px;
   font-size: clamp(23px, 2.7vw, 31px);
   line-height: 1.16;
   letter-spacing: -0.03em;
   font-weight: 700;
 }
-.snoooz-problem__step p {
-  max-width: 460px;
+.snoooz-problem__panel p {
   margin: 0;
   color: var(--snoooz-muted);
   font-size: clamp(16px, 1.6vw, 18px);
   line-height: 1.62;
 }
-.snoooz-problem__step p strong { color: var(--snoooz-text); font-weight: 700; }
-
-/* Right: the sticky inbox visual */
-.snoooz-problem__visual {
-  position: sticky;
-  top: 92px;
-  min-width: 0;
-}
+.snoooz-problem__panel p strong { color: var(--snoooz-text); font-weight: 700; }
 
 /* ---- Inbox window ---- */
 .snoooz-inbox {
@@ -326,10 +334,10 @@
   font-weight: 700;
   white-space: nowrap;
 }
-.snoooz-row__action::before { content: "✓"; font-weight: 800; }
-.snoooz-row__action--routed::before { content: "→"; }
+.snoooz-row__action::before { content: "\2713"; font-weight: 800; }
+.snoooz-row__action--routed::before { content: "\2192"; }
 .snoooz-row__action--escalate::before { content: "!"; }
-.snoooz-row__action--archived::before { content: "▾"; }
+.snoooz-row__action--archived::before { content: "\25BE"; }
 .snoooz-row__action--replied  { color: #fff; background: var(--snoooz-primary); border: 1px solid var(--snoooz-primary); }
 .snoooz-row__action--routed   { color: var(--snoooz-primary); background: rgba(15, 91, 68, 0.1); border: 1px solid rgba(15, 91, 68, 0.24); }
 .snoooz-row__action--escalate { color: var(--snoooz-primary-hover); background: var(--snoooz-secondary-soft); border: 1px solid rgba(165, 174, 71, 0.5); }
@@ -422,25 +430,35 @@
 }
 .snoooz-inbox.is-solved .snoooz-inbox__badge { opacity: 1; transform: none; }
 
-/* ---- Responsive ---- */
+/* ---- Mobile: nothing slides sideways; the inbox stays put and the
+   text crossfades in place below it. ---- */
 @media (max-width: 860px) {
-  .snoooz-problem__container { padding: 60px 20px 64px; }
-  .snoooz-problem__grid {
-    display: block;
-    margin-top: 26px;
+  .snoooz-problem__head { padding: 60px 20px 0; }
+  .snoooz-problem__scroll { height: 200vh; }
+  .snoooz-problem__pin { height: 100vh; padding: 0 18px; }
+  .snoooz-problem__stage {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 22px;
   }
   .snoooz-problem__visual {
-    position: sticky;
-    top: 70px;
-    margin-bottom: 26px;
+    position: static;
+    width: 100%;
+    left: auto;
+    transform: none;
+    order: -1;
   }
-  .snoooz-inbox__list { height: 320px; }
-  .snoooz-problem__step { min-height: 56vh; }
-  .snoooz-problem__step:first-child { min-height: 40vh; }
+  .snoooz-problem__panels { display: grid; position: relative; width: 100%; }
+  .snoooz-problem__panel { position: relative; grid-area: 1 / 1; top: auto; left: auto; width: 100%; }
+  .snoooz-problem__panel--problem { transform: none; }
+  .snoooz-problem__panel--solution { transform: translateY(16px); }
+  .snoooz-inbox__list { height: 258px; }
 }
 
 @media (max-width: 480px) {
-  .snoooz-inbox__list { height: 300px; }
+  .snoooz-inbox__list { height: 240px; }
   .snoooz-row__time { display: none; }
   .snoooz-inbox__badge { top: 56px; right: 12px; }
 }

@@ -3,23 +3,36 @@
    Paste into your HubSpot module JS field (or a <script> block
    placed after the HTML). Self-contained, no dependencies.
 
-   - Streams new emails into the inbox while the "problem" step is in view.
-   - When the "solution" step hits the middle of the viewport, marks the
-     inbox solved: streaming stops, the unread count counts down to zero,
-     and every row swaps its category tag for a green Snoooz action.
+   - Streams new emails into the inbox while the "problem" text is showing.
+   - Binds a scroll-progress value to the pinned stage: on desktop the inbox
+     slides from right to left while the problem text exits left and the
+     solution text enters from the right; on mobile the inbox stays put and
+     the text crossfades in place.
+   - Marks the inbox solved (counts down to zero, swaps tags for green
+     Snoooz actions) right as the "With Snoooz" text settles beside it.
    ============================================================ */
 
 (function () {
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var mqDesktop = window.matchMedia('(min-width: 861px)');
 
+  var scroll = document.getElementById('snooozProblemScroll');
+  var visual = document.getElementById('snooozVisual');
+  var panelP = document.getElementById('snooozPanelProblem');
+  var panelS = document.getElementById('snooozPanelSolution');
   var inbox = document.getElementById('snooozInbox');
   var list = document.getElementById('snooozInboxList');
   var numEl = document.getElementById('snooozInboxNum');
   var footNumEl = document.getElementById('snooozFootNum');
   var countPill = document.getElementById('snooozInboxCount');
-  var solutionStep = document.getElementById('snooozSolutionStep');
-  if (!inbox || !list) return;
+  if (!scroll || !visual || !panelP || !panelS || !inbox || !list) return;
 
+  /* ---------- helpers ---------- */
+  function clamp01(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
+  function range(p, a, b) { return clamp01((p - a) / (b - a)); }
+  function smooth(t) { return t * t * (3 - 2 * t); }
+
+  /* ---------- email streaming ---------- */
   var MAX_ROWS = 7;
   var BASE_COUNT = 248;
   var count = BASE_COUNT;
@@ -27,22 +40,20 @@
   var visible = false;
   var streamTimer = null;
 
-  /* Pool of incoming emails (sender, initials, subject, category, tag, solved action) */
   var pool = [
-    { from: 'Hannah Cole',   ini: 'HC', subj: 'Weekly product newsletter',      cat: 'marketing', tag: 'Marketing', act: 'Archived',          type: 'archived' },
-    { from: 'Leon Garcia',   ini: 'LG', subj: 'Pricing for 25 seats?',          cat: 'sales',     tag: 'Sales',     act: 'Routed to Sales',    type: 'routed'   },
-    { from: 'Mia Anderson',  ini: 'MA', subj: 'App will not load on mobile',     cat: 'support',   tag: 'Support',   act: 'Auto-replied',       type: 'replied'  },
-    { from: 'Tom Becker',    ini: 'TB', subj: 'Change my shipping address',      cat: 'support',   tag: 'Support',   act: 'Auto-replied',       type: 'replied'  },
-    { from: 'Aisha Khan',    ini: 'AK', subj: 'Update my card on file',          cat: 'billing',   tag: 'Billing',   act: 'Routed to Finance',  type: 'routed'   },
-    { from: 'Noah Wright',   ini: 'NW', subj: 'How do I submit expenses?',       cat: 'internal',  tag: 'Internal',  act: 'Auto-replied',       type: 'replied'  },
-    { from: 'Elena Rossi',   ini: 'ER', subj: 'Cancel my subscription',          cat: 'support',   tag: 'Support',   act: 'Escalated to you',   type: 'escalate' },
-    { from: 'Kofi Mensah',   ini: 'KM', subj: 'Partnership inquiry',             cat: 'sales',     tag: 'Sales',     act: 'Routed to Sales',    type: 'routed'   },
-    { from: 'Grace Park',    ini: 'GP', subj: 'Promo code is not working',       cat: 'support',   tag: 'Support',   act: 'Auto-replied',       type: 'replied'  },
-    { from: 'David Cohen',   ini: 'DC', subj: 'Schedule an onboarding call',     cat: 'sales',     tag: 'Sales',     act: 'Routed to Sales',    type: 'routed'   },
-    { from: 'Yuki Tanaka',   ini: 'YT', subj: 'Do you offer EU data residency?', cat: 'sales',     tag: 'Sales',     act: 'Routed to Sales',    type: 'routed'   },
-    { from: 'Omar Haddad',   ini: 'OH', subj: 'Damaged on arrival, need help',   cat: 'support',   tag: 'Support',   act: 'Escalated to you',   type: 'escalate' }
+    { from: 'Hannah Cole',  ini: 'HC', subj: 'Weekly product newsletter',      cat: 'marketing', tag: 'Marketing', act: 'Archived',         type: 'archived' },
+    { from: 'Leon Garcia',  ini: 'LG', subj: 'Pricing for 25 seats?',          cat: 'sales',     tag: 'Sales',     act: 'Routed to Sales',   type: 'routed'   },
+    { from: 'Mia Anderson', ini: 'MA', subj: 'App will not load on mobile',     cat: 'support',   tag: 'Support',   act: 'Auto-replied',      type: 'replied'  },
+    { from: 'Tom Becker',   ini: 'TB', subj: 'Change my shipping address',      cat: 'support',   tag: 'Support',   act: 'Auto-replied',      type: 'replied'  },
+    { from: 'Aisha Khan',   ini: 'AK', subj: 'Update my card on file',          cat: 'billing',   tag: 'Billing',   act: 'Routed to Finance', type: 'routed'   },
+    { from: 'Noah Wright',  ini: 'NW', subj: 'How do I submit expenses?',       cat: 'internal',  tag: 'Internal',  act: 'Auto-replied',      type: 'replied'  },
+    { from: 'Elena Rossi',  ini: 'ER', subj: 'Cancel my subscription',          cat: 'support',   tag: 'Support',   act: 'Escalated to you',  type: 'escalate' },
+    { from: 'Kofi Mensah',  ini: 'KM', subj: 'Partnership inquiry',             cat: 'sales',     tag: 'Sales',     act: 'Routed to Sales',   type: 'routed'   },
+    { from: 'Grace Park',   ini: 'GP', subj: 'Promo code is not working',       cat: 'support',   tag: 'Support',   act: 'Auto-replied',      type: 'replied'  },
+    { from: 'David Cohen',  ini: 'DC', subj: 'Schedule an onboarding call',     cat: 'sales',     tag: 'Sales',     act: 'Routed to Sales',   type: 'routed'   },
+    { from: 'Yuki Tanaka',  ini: 'YT', subj: 'Do you offer EU data residency?', cat: 'sales',     tag: 'Sales',     act: 'Routed to Sales',   type: 'routed'   },
+    { from: 'Omar Haddad',  ini: 'OH', subj: 'Damaged on arrival, need help',   cat: 'support',   tag: 'Support',   act: 'Escalated to you',  type: 'escalate' }
   ];
-
   var times = ['now', '1m', '2m', '3m'];
 
   function esc(s) {
@@ -96,9 +107,7 @@
   function countDownToZero() {
     if (countPill) countPill.classList.remove('is-pulsing');
     if (reduce) { setCount(0); return; }
-    var start = count;
-    var t0 = null;
-    var dur = 900;
+    var start = count, t0 = null, dur = 900;
     function step(ts) {
       if (!t0) t0 = ts;
       var p = Math.min(1, (ts - t0) / dur);
@@ -116,7 +125,6 @@
     inbox.classList.add('is-solved');
     countDownToZero();
   }
-
   function unsolve() {
     if (!solved) return;
     solved = false;
@@ -126,7 +134,70 @@
     if (visible) startStream();
   }
 
-  /* Start/stop the stream only while the inbox is on screen (saves work) */
+  /* ---------- scroll choreography ---------- */
+  var isDesktop = mqDesktop.matches;
+  var ticking = false;
+
+  function apply() {
+    ticking = false;
+
+    var vh = window.innerHeight || document.documentElement.clientHeight;
+    var rect = scroll.getBoundingClientRect();
+    var total = rect.height - vh;
+    var p = total > 0 ? clamp01(-rect.top / total) : 0;
+
+    if (isDesktop) {
+      var moveP = smooth(range(p, 0.12, 0.62));
+      visual.style.left = (54 * (1 - moveP)) + '%';
+      visual.style.transform = 'translateY(-50%)';
+
+      var pExit = smooth(range(p, 0.16, 0.42));
+      panelP.style.opacity = 1 - pExit;
+      panelP.style.transform = 'translate(' + (-40 * pExit) + 'px, -50%)';
+
+      var sEnter = smooth(range(p, 0.46, 0.66));
+      panelS.style.opacity = sEnter;
+      panelS.style.transform = 'translate(' + (40 * (1 - sEnter)) + 'px, -50%)';
+    } else {
+      visual.style.left = '';
+      visual.style.transform = '';
+
+      var pExitM = smooth(range(p, 0.18, 0.45));
+      panelP.style.opacity = 1 - pExitM;
+      panelP.style.transform = '';
+
+      var sEnterM = smooth(range(p, 0.45, 0.70));
+      panelS.style.opacity = sEnterM;
+      panelS.style.transform = 'translateY(' + (16 * (1 - sEnterM)) + 'px)';
+    }
+
+    /* Solve right as the solution text settles beside the inbox */
+    if (!solved && p >= 0.6) solve();
+    else if (solved && p < 0.55) unsolve();
+  }
+
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(apply);
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+
+  function onBreakpoint() {
+    isDesktop = mqDesktop.matches;
+    /* clear styles that do not apply in the new layout, then recompute */
+    visual.style.left = '';
+    visual.style.transform = '';
+    panelP.style.transform = '';
+    panelS.style.transform = '';
+    apply();
+  }
+  if (mqDesktop.addEventListener) mqDesktop.addEventListener('change', onBreakpoint);
+  else if (mqDesktop.addListener) mqDesktop.addListener(onBreakpoint);
+
+  /* Stream only while the section is on screen */
   var sectionObs = new IntersectionObserver(function (entries) {
     entries.forEach(function (e) {
       visible = e.isIntersecting;
@@ -134,16 +205,7 @@
       else stopStream();
     });
   }, { threshold: 0 });
-  sectionObs.observe(inbox);
+  sectionObs.observe(scroll);
 
-  /* Solve when the solution step crosses the centre band of the viewport */
-  if (solutionStep) {
-    var solveObs = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) solve();
-        else unsolve();
-      });
-    }, { rootMargin: '-42% 0px -42% 0px', threshold: 0 });
-    solveObs.observe(solutionStep);
-  }
+  apply();
 })();

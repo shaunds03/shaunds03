@@ -25,15 +25,25 @@
     }, 2600);
   })();
 
-  /* ---- 2. Play button → unmute + restart the video with sound ----
-     The video autoplays muted and looped as a background. Clicking play
-     unmutes it from the top; clicking the video toggles pause/play. */
+  /* ---- 2. Play button + clearing the floating tags ----
+     The video autoplays muted and looped, and stays fixed in place.
+     Hovering the video, or clicking play, smoothly hides the floating
+     tags. Play also unmutes the video from the top. */
   (function () {
+    var stage = document.querySelector('.snoooz-hero__stage');
     var video = document.getElementById('snooozHeroVideo');
     var play = document.getElementById('snooozHeroPlay');
-    if (!video || !play) return;
+    if (!stage || !video || !play) return;
+
+    var playing = false;
+    function clearTags(on) { stage.classList.toggle('is-clear', on); }
+
+    video.addEventListener('pointerenter', function () { clearTags(true); });
+    video.addEventListener('pointerleave', function () { if (!playing) clearTags(false); });
 
     play.addEventListener('click', function () {
+      playing = true;
+      clearTags(true);
       video.muted = false;
       video.currentTime = 0;
       var p = video.play();
@@ -49,35 +59,6 @@
         video.pause();
         play.classList.remove('is-hidden');
       }
-    });
-  })();
-
-  /* ---- 3. Pointer parallax — tilt the video and drift the chips ---- */
-  (function () {
-    var stage = document.querySelector('.snoooz-hero__stage');
-    if (!stage || reduce) return;
-
-    var video = stage.querySelector('.snoooz-hero__video');
-    var chips = stage.querySelectorAll('.snoooz-hero__chip');
-
-    stage.addEventListener('pointermove', function (e) {
-      var r = stage.getBoundingClientRect();
-      var dx = (e.clientX - r.left) / r.width - 0.5;   /* -0.5 .. 0.5 */
-      var dy = (e.clientY - r.top) / r.height - 0.5;
-
-      if (video) {
-        video.style.transform =
-          'translateY(-6px) rotateX(' + (-dy * 4).toFixed(2) + 'deg) rotateY(' + (dx * 5).toFixed(2) + 'deg)';
-      }
-      chips.forEach(function (chip, i) {
-        var depth = (i + 1) * 9;
-        chip.style.transform = 'translate(' + (dx * depth).toFixed(1) + 'px,' + (dy * depth).toFixed(1) + 'px)';
-      });
-    });
-
-    stage.addEventListener('pointerleave', function () {
-      if (video) video.style.transform = '';
-      chips.forEach(function (chip) { chip.style.transform = ''; });
     });
   })();
 })();

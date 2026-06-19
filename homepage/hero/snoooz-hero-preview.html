@@ -5,9 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Snoooz — Hero preview</title>
 <style>
+html, body { margin: 0; }
 /* ============================================================
-   SNOOOZ HOMEPAGE — HERO STYLES (assembled preview copy)
-   Source of truth is snoooz-hero.css — keep them in sync.
+   SNOOOZ HOMEPAGE — HERO STYLES
+   Paste into your HubSpot module CSS field (or a <style> block).
+   Brand tokens match the pricing page exactly. Layout: two
+   columns — copy on the left, a product/video stage on the right.
    ============================================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap');
@@ -25,8 +28,6 @@
   --snoooz-shadow: 0 18px 50px rgba(15, 91, 68, 0.06);
   --snoooz-max: 1180px;
 }
-
-html, body { margin: 0; }
 
 .snoooz-hero,
 .snoooz-hero *,
@@ -65,6 +66,7 @@ html, body { margin: 0; }
   border-radius: 14px;
 }
 
+/* ---- Left column: copy ---- */
 .snoooz-hero__copy { min-width: 0; }
 
 .snoooz-hero__eyebrow {
@@ -92,6 +94,7 @@ html, body { margin: 0; }
   letter-spacing: -0.034em;
   font-weight: 700;
 }
+/* Green-gradient verb phrases in the headline */
 .snoooz-hero h1 .snoooz-hero__grad {
   background: linear-gradient(100deg, var(--snoooz-primary) 0%, var(--snoooz-secondary-hover) 100%);
   -webkit-background-clip: text;
@@ -109,6 +112,7 @@ html, body { margin: 0; }
 }
 .snoooz-hero__sub strong { color: var(--snoooz-text); font-weight: 700; }
 
+/* ---- CTAs ---- */
 .snoooz-hero__actions {
   display: flex;
   flex-wrap: wrap;
@@ -151,6 +155,7 @@ html, body { margin: 0; }
   border-color: var(--snoooz-secondary-hover);
 }
 
+/* ---- Trust strip ---- */
 .snoooz-hero__trust {
   display: flex;
   flex-direction: column;
@@ -187,8 +192,10 @@ html, body { margin: 0; }
 }
 .snoooz-hero__trust-badges li::before { content: "✓"; margin-right: 6px; font-weight: 800; }
 
-.snoooz-hero__stage { position: relative; min-width: 0; perspective: 1200px; }
+/* ---- Right column: product / video stage ---- */
+.snoooz-hero__stage { position: relative; min-width: 0; }
 
+/* Live product video (16:10). Stays fixed in place. */
 .snoooz-hero__video {
   position: relative;
   aspect-ratio: 16 / 10;
@@ -201,12 +208,6 @@ html, body { margin: 0; }
     rgba(255, 255, 255, 0.8);
   box-shadow: 0 30px 70px rgba(15, 91, 68, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(10px);
-  transform-style: preserve-3d;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-  will-change: transform;
-}
-.snoooz-hero__stage:hover .snoooz-hero__video {
-  box-shadow: 0 40px 90px rgba(15, 91, 68, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 .snoooz-hero__video-media {
   position: absolute;
@@ -257,6 +258,7 @@ html, body { margin: 0; }
   100% { transform: scale(1.5); opacity: 0; }
 }
 
+/* Floating product chips — convey "the product running an inbox" */
 .snoooz-hero__chip {
   position: absolute;
   display: flex;
@@ -273,9 +275,8 @@ html, body { margin: 0; }
   color: var(--snoooz-text);
   white-space: nowrap;
   animation: snoooz-hero-float 6s ease-in-out infinite;
-  transition: box-shadow 0.25s ease;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
 }
-.snoooz-hero__stage:hover .snoooz-hero__chip { box-shadow: 0 24px 50px rgba(15, 91, 68, 0.18); }
 .snoooz-hero__chip small { display: block; color: var(--snoooz-muted); font-size: 11.5px; font-weight: 400; }
 .snoooz-hero__chip-ico {
   display: inline-flex;
@@ -290,17 +291,26 @@ html, body { margin: 0; }
   font-weight: 800;
 }
 
-.snoooz-hero__chip--reply { top: 16px; left: -22px; animation-delay: 0s; }
+.snoooz-hero__chip--reply {
+  top: 16px;
+  left: -22px;
+  animation-delay: 0s;
+}
 .snoooz-hero__chip--reply .snoooz-hero__chip-ico {
   background: rgba(165, 174, 71, 0.22);
   color: var(--snoooz-secondary-hover);
 }
-.snoooz-hero__chip--escalate { bottom: 22px; right: -20px; animation-delay: 1.6s; }
+.snoooz-hero__chip--escalate {
+  bottom: 22px;
+  right: -20px;
+  animation-delay: 1.6s;
+}
 .snoooz-hero__chip--escalate .snoooz-hero__chip-ico {
   background: rgba(15, 91, 68, 0.12);
   color: var(--snoooz-primary);
 }
 
+/* Rotating "now handling" inbox tag */
 .snoooz-hero__inbox {
   position: absolute;
   bottom: -18px;
@@ -330,11 +340,21 @@ html, body { margin: 0; }
 }
 .snoooz-hero__inbox-label.is-changing { opacity: 0; transform: translateY(4px); }
 
+/* Hovering the video or clicking play smoothly clears the floating tags */
+.snoooz-hero__inbox { transition: opacity 0.35s ease, visibility 0.35s ease; }
+.snoooz-hero__stage.is-clear .snoooz-hero__chip,
+.snoooz-hero__stage.is-clear .snoooz-hero__inbox {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
 @keyframes snoooz-hero-float {
   0%, 100% { transform: translateY(0); }
   50%      { transform: translateY(-9px); }
 }
 
+/* ---- Responsive ---- */
 @media (max-width: 980px) {
   .snoooz-hero__container {
     grid-template-columns: 1fr;
@@ -366,13 +386,14 @@ html, body { margin: 0; }
   .snoooz-hero__play,
   .snoooz-hero__video { transition: none; }
 }
+
 </style>
 </head>
 <body>
-
 <section class="snoooz-hero" aria-label="Snoooz — put your busiest inboxes on autopilot">
   <div class="snoooz-hero__container">
 
+    <!-- LEFT: copy -->
     <div class="snoooz-hero__copy">
       <p class="snoooz-hero__eyebrow">AI Email Assistant for Teams</p>
 
@@ -403,22 +424,26 @@ html, body { margin: 0; }
       </div>
     </div>
 
+    <!-- RIGHT: product / video stage -->
     <div class="snoooz-hero__stage">
       <div class="snoooz-hero__video">
 
-        <!-- Live product video. Autoplays muted + looped; play button restarts with sound. -->
+        <!-- Live product video. Autoplays muted + looped; the play button
+             restarts it with sound. Swap the <source> to change the clip. -->
         <video class="snoooz-hero__video-media" id="snooozHeroVideo"
                muted autoplay loop playsinline preload="metadata">
           <source src="https://snoooz.ai/hubfs/Take%20Back%20Control%20of%20Your%20Inbox%20with%20Snoooz.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
 
+        <!-- Play button — JS unmutes + restarts the video with sound -->
         <button class="snoooz-hero__play" id="snooozHeroPlay" type="button"
                 aria-label="Play the Snoooz video with sound">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
         </button>
       </div>
 
+      <!-- Floating product chips -->
       <div class="snoooz-hero__chip snoooz-hero__chip--reply" aria-hidden="true">
         <span class="snoooz-hero__chip-ico">✓</span>
         <span>AI reply sent<small>from your knowledge base</small></span>
@@ -429,6 +454,7 @@ html, body { margin: 0; }
         <span>Escalated to you<small>needs a human</small></span>
       </div>
 
+      <!-- Rotating "now handling" inbox tag -->
       <div class="snoooz-hero__inbox" aria-hidden="true">
         <span class="snoooz-hero__inbox-dot"></span>
         <span>Now handling <span class="snoooz-hero__inbox-label" id="snooozHeroInbox">support@</span></span>
@@ -437,18 +463,24 @@ html, body { margin: 0; }
 
   </div>
 </section>
-
 <script>
-/* Assembled preview copy of snoooz-hero.js — keep them in sync. */
+/* ============================================================
+   SNOOOZ HOMEPAGE — HERO SCRIPTS
+   Paste into your HubSpot module JS field (or a <script> block
+   placed after the HTML). Self-contained, no dependencies.
+   ============================================================ */
+
 (function () {
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* Rotating "now handling" inbox label */
+  /* ---- 1. Rotating "now handling" inbox label ---- */
   (function () {
     var label = document.getElementById('snooozHeroInbox');
     if (!label || reduce) return;
+
     var inboxes = ['support@', 'sales@', 'info@', 'billing@', 'orders@'];
     var i = 0;
+
     setInterval(function () {
       i = (i + 1) % inboxes.length;
       label.classList.add('is-changing');
@@ -459,13 +491,25 @@ html, body { margin: 0; }
     }, 2600);
   })();
 
-  /* Play button → unmute + restart with sound; click video to pause/play */
+  /* ---- 2. Play button + clearing the floating tags ----
+     The video autoplays muted and looped, and stays fixed in place.
+     Hovering the video, or clicking play, smoothly hides the floating
+     tags. Play also unmutes the video from the top. */
   (function () {
+    var stage = document.querySelector('.snoooz-hero__stage');
     var video = document.getElementById('snooozHeroVideo');
     var play = document.getElementById('snooozHeroPlay');
-    if (!video || !play) return;
+    if (!stage || !video || !play) return;
+
+    var playing = false;
+    function clearTags(on) { stage.classList.toggle('is-clear', on); }
+
+    video.addEventListener('pointerenter', function () { clearTags(true); });
+    video.addEventListener('pointerleave', function () { if (!playing) clearTags(false); });
 
     play.addEventListener('click', function () {
+      playing = true;
+      clearTags(true);
       video.muted = false;
       video.currentTime = 0;
       var p = video.play();
@@ -483,35 +527,8 @@ html, body { margin: 0; }
       }
     });
   })();
-
-  /* Pointer parallax — tilt the video, drift the chips */
-  (function () {
-    var stage = document.querySelector('.snoooz-hero__stage');
-    if (!stage || reduce) return;
-    var video = stage.querySelector('.snoooz-hero__video');
-    var chips = stage.querySelectorAll('.snoooz-hero__chip');
-
-    stage.addEventListener('pointermove', function (e) {
-      var r = stage.getBoundingClientRect();
-      var dx = (e.clientX - r.left) / r.width - 0.5;
-      var dy = (e.clientY - r.top) / r.height - 0.5;
-      if (video) {
-        video.style.transform =
-          'translateY(-6px) rotateX(' + (-dy * 4).toFixed(2) + 'deg) rotateY(' + (dx * 5).toFixed(2) + 'deg)';
-      }
-      chips.forEach(function (chip, i) {
-        var depth = (i + 1) * 9;
-        chip.style.transform = 'translate(' + (dx * depth).toFixed(1) + 'px,' + (dy * depth).toFixed(1) + 'px)';
-      });
-    });
-
-    stage.addEventListener('pointerleave', function () {
-      if (video) video.style.transform = '';
-      chips.forEach(function (chip) { chip.style.transform = ''; });
-    });
-  })();
 })();
-</script>
 
+</script>
 </body>
 </html>

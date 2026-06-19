@@ -5,9 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Snoooz — Homepage preview</title>
 <style>
+html, body { margin: 0; }
 /* ============================================================
-   SNOOOZ HOMEPAGE — HERO STYLES (assembled preview copy)
-   Source of truth is snoooz-hero.css — keep them in sync.
+   SNOOOZ HOMEPAGE — HERO STYLES
+   Paste into your HubSpot module CSS field (or a <style> block).
+   Brand tokens match the pricing page exactly. Layout: two
+   columns — copy on the left, a product/video stage on the right.
    ============================================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap');
@@ -25,8 +28,6 @@
   --snoooz-shadow: 0 18px 50px rgba(15, 91, 68, 0.06);
   --snoooz-max: 1180px;
 }
-
-html, body { margin: 0; }
 
 .snoooz-hero,
 .snoooz-hero *,
@@ -65,6 +66,7 @@ html, body { margin: 0; }
   border-radius: 14px;
 }
 
+/* ---- Left column: copy ---- */
 .snoooz-hero__copy { min-width: 0; }
 
 .snoooz-hero__eyebrow {
@@ -92,6 +94,7 @@ html, body { margin: 0; }
   letter-spacing: -0.034em;
   font-weight: 700;
 }
+/* Green-gradient verb phrases in the headline */
 .snoooz-hero h1 .snoooz-hero__grad {
   background: linear-gradient(100deg, var(--snoooz-primary) 0%, var(--snoooz-secondary-hover) 100%);
   -webkit-background-clip: text;
@@ -109,6 +112,7 @@ html, body { margin: 0; }
 }
 .snoooz-hero__sub strong { color: var(--snoooz-text); font-weight: 700; }
 
+/* ---- CTAs ---- */
 .snoooz-hero__actions {
   display: flex;
   flex-wrap: wrap;
@@ -151,6 +155,7 @@ html, body { margin: 0; }
   border-color: var(--snoooz-secondary-hover);
 }
 
+/* ---- Trust strip ---- */
 .snoooz-hero__trust {
   display: flex;
   flex-direction: column;
@@ -187,8 +192,10 @@ html, body { margin: 0; }
 }
 .snoooz-hero__trust-badges li::before { content: "✓"; margin-right: 6px; font-weight: 800; }
 
-.snoooz-hero__stage { position: relative; min-width: 0; perspective: 1200px; }
+/* ---- Right column: product / video stage ---- */
+.snoooz-hero__stage { position: relative; min-width: 0; }
 
+/* Live product video (16:10). Stays fixed in place. */
 .snoooz-hero__video {
   position: relative;
   aspect-ratio: 16 / 10;
@@ -201,12 +208,6 @@ html, body { margin: 0; }
     rgba(255, 255, 255, 0.8);
   box-shadow: 0 30px 70px rgba(15, 91, 68, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(10px);
-  transform-style: preserve-3d;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-  will-change: transform;
-}
-.snoooz-hero__stage:hover .snoooz-hero__video {
-  box-shadow: 0 40px 90px rgba(15, 91, 68, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 .snoooz-hero__video-media {
   position: absolute;
@@ -257,6 +258,7 @@ html, body { margin: 0; }
   100% { transform: scale(1.5); opacity: 0; }
 }
 
+/* Floating product chips — convey "the product running an inbox" */
 .snoooz-hero__chip {
   position: absolute;
   display: flex;
@@ -273,9 +275,8 @@ html, body { margin: 0; }
   color: var(--snoooz-text);
   white-space: nowrap;
   animation: snoooz-hero-float 6s ease-in-out infinite;
-  transition: box-shadow 0.25s ease;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
 }
-.snoooz-hero__stage:hover .snoooz-hero__chip { box-shadow: 0 24px 50px rgba(15, 91, 68, 0.18); }
 .snoooz-hero__chip small { display: block; color: var(--snoooz-muted); font-size: 11.5px; font-weight: 400; }
 .snoooz-hero__chip-ico {
   display: inline-flex;
@@ -290,17 +291,26 @@ html, body { margin: 0; }
   font-weight: 800;
 }
 
-.snoooz-hero__chip--reply { top: 16px; left: -22px; animation-delay: 0s; }
+.snoooz-hero__chip--reply {
+  top: 16px;
+  left: -22px;
+  animation-delay: 0s;
+}
 .snoooz-hero__chip--reply .snoooz-hero__chip-ico {
   background: rgba(165, 174, 71, 0.22);
   color: var(--snoooz-secondary-hover);
 }
-.snoooz-hero__chip--escalate { bottom: 22px; right: -20px; animation-delay: 1.6s; }
+.snoooz-hero__chip--escalate {
+  bottom: 22px;
+  right: -20px;
+  animation-delay: 1.6s;
+}
 .snoooz-hero__chip--escalate .snoooz-hero__chip-ico {
   background: rgba(15, 91, 68, 0.12);
   color: var(--snoooz-primary);
 }
 
+/* Rotating "now handling" inbox tag */
 .snoooz-hero__inbox {
   position: absolute;
   bottom: -18px;
@@ -330,11 +340,21 @@ html, body { margin: 0; }
 }
 .snoooz-hero__inbox-label.is-changing { opacity: 0; transform: translateY(4px); }
 
+/* Hovering the video or clicking play smoothly clears the floating tags */
+.snoooz-hero__inbox { transition: opacity 0.35s ease, visibility 0.35s ease; }
+.snoooz-hero__stage.is-clear .snoooz-hero__chip,
+.snoooz-hero__stage.is-clear .snoooz-hero__inbox {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
 @keyframes snoooz-hero-float {
   0%, 100% { transform: translateY(0); }
   50%      { transform: translateY(-9px); }
 }
 
+/* ---- Responsive ---- */
 @media (max-width: 980px) {
   .snoooz-hero__container {
     grid-template-columns: 1fr;
@@ -367,7 +387,27 @@ html, body { margin: 0; }
   .snoooz-hero__video { transition: none; }
 }
 
+
 /* ===== SOCIAL PROOF / LOGO WALL ===== */
+/* ============================================================
+   SNOOOZ HOMEPAGE — SOCIAL PROOF / LOGO WALL STYLES
+   Paste into your HubSpot module CSS field (or a <style> block).
+   Brand tokens match the hero and pricing page. CSS-only marquee:
+   two identical logo sets scroll left and loop seamlessly.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap');
+
+:root {
+  --snoooz-bg: #f7f9f4;
+  --snoooz-text: #102421;
+  --snoooz-muted: #60706d;
+  --snoooz-border: #dfe8e2;
+  --snoooz-primary: #0F5B44;
+  --snoooz-secondary-hover: #A5AE47;
+  --snoooz-max: 1180px;
+}
+
 .snoooz-logos,
 .snoooz-logos *,
 .snoooz-logos *::before,
@@ -457,7 +497,41 @@ html, body { margin: 0; }
   .snoooz-logos__set--dup { display: none; }
 }
 
+
 /* ===== PROBLEM / CATEGORY ===== */
+/* ============================================================
+   SNOOOZ HOMEPAGE — PROBLEM / CATEGORY STYLES
+   Paste into your HubSpot module CSS field (or a <style> block).
+   Brand tokens match the hero, logo wall, and pricing page.
+
+   Scroll choreography (driven by snoooz-problem.js):
+   - The stage is pinned while you scroll through it.
+   - At the start, the busy inbox sits on the RIGHT with the problem
+     text on the LEFT. As you scroll, the inbox slides to the LEFT and
+     the solution text enters from the RIGHT.
+   - The inbox reorganizes itself (turns green) right as the "With
+     Snoooz" text settles beside it.
+   - On mobile, nothing slides sideways: the inbox stays put and the
+     text crossfades in place.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap');
+
+:root {
+  --snoooz-bg: #f7f9f4;
+  --snoooz-text: #102421;
+  --snoooz-muted: #60706d;
+  --snoooz-border: #dfe8e2;
+  --snoooz-primary: #0F5B44;
+  --snoooz-primary-hover: #053533;
+  --snoooz-secondary: #D6D9A0;
+  --snoooz-secondary-hover: #A5AE47;
+  --snoooz-secondary-soft: rgba(214, 217, 160, 0.26);
+  --snoooz-shadow: 0 18px 50px rgba(15, 91, 68, 0.06);
+  --snoooz-danger: #c0563f;
+  --snoooz-max: 1180px;
+}
+
 .snoooz-problem,
 .snoooz-problem *,
 .snoooz-problem *::before,
@@ -473,17 +547,16 @@ html, body { margin: 0; }
     var(--snoooz-bg);
 }
 
-.snoooz-problem__container {
-  width: 100%;
-  max-width: var(--snoooz-max);
-  margin: 0 auto;
-  padding: 80px 24px 88px;
-}
-
 .snoooz-problem h2, .snoooz-problem h3, .snoooz-problem p { margin-top: 0; }
 
 /* ---- Heading ---- */
-.snoooz-problem__head { max-width: 760px; margin: 0 0 8px; }
+.snoooz-problem__head {
+  width: 100%;
+  max-width: var(--snoooz-max);
+  margin: 0 auto;
+  padding: 80px 24px 0;
+}
+.snoooz-problem__head-inner { max-width: 760px; }
 .snoooz-problem__eyebrow {
   margin: 0 0 14px;
   color: var(--snoooz-primary);
@@ -507,30 +580,47 @@ html, body { margin: 0; }
   color: transparent;
 }
 
-/* ---- Two-column scrollytelling grid ---- */
-.snoooz-problem__grid {
-  display: grid;
-  grid-template-columns: 1fr 1.04fr;
-  gap: 56px;
-  align-items: start;
-  margin-top: 34px;
+/* ---- Pinned scroll stage ---- */
+.snoooz-problem__scroll { position: relative; height: 250vh; }
+.snoooz-problem__pin {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+}
+.snoooz-problem__stage {
+  position: relative;
+  width: 100%;
+  max-width: var(--snoooz-max);
+  margin: 0 auto;
+  height: min(560px, 78vh);
 }
 
-/* Left: the story steps (this column provides the scroll distance) */
-.snoooz-problem__story { min-width: 0; }
-.snoooz-problem__step {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-height: 72vh;
-  padding: 8px 0;
+/* The inbox visual — JS animates its `left` from 54% (right) to 0% (left) */
+.snoooz-problem__visual {
+  position: absolute;
+  top: 50%;
+  left: 54%;
+  width: 46%;
+  transform: translateY(-50%);
 }
-.snoooz-problem__step:first-child { min-height: 60vh; padding-top: 0; }
+
+/* Wrapper is transparent so both panels position against the stage */
+.snoooz-problem__panels { display: contents; }
+
+.snoooz-problem__panel {
+  position: absolute;
+  top: 50%;
+  width: 46%;
+}
+.snoooz-problem__panel--problem { left: 0; transform: translate(0, -50%); }
+.snoooz-problem__panel--solution { left: 54%; transform: translate(40px, -50%); opacity: 0; }
 
 .snoooz-problem__badge {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
   align-self: flex-start;
   margin-bottom: 18px;
   padding: 7px 13px;
@@ -543,40 +633,26 @@ html, body { margin: 0; }
   background: rgba(192, 86, 63, 0.08);
   color: var(--snoooz-danger);
 }
-.snoooz-problem__badge::before {
-  content: "";
-  width: 8px; height: 8px;
-  border-radius: 999px;
-  background: currentColor;
-}
 .snoooz-problem__badge--green {
   border-color: rgba(15, 91, 68, 0.22);
   background: rgba(15, 91, 68, 0.08);
   color: var(--snoooz-primary);
 }
 
-.snoooz-problem__step h3 {
+.snoooz-problem__panel h3 {
   margin: 0 0 16px;
   font-size: clamp(23px, 2.7vw, 31px);
   line-height: 1.16;
   letter-spacing: -0.03em;
   font-weight: 700;
 }
-.snoooz-problem__step p {
-  max-width: 460px;
+.snoooz-problem__panel p {
   margin: 0;
   color: var(--snoooz-muted);
   font-size: clamp(16px, 1.6vw, 18px);
   line-height: 1.62;
 }
-.snoooz-problem__step p strong { color: var(--snoooz-text); font-weight: 700; }
-
-/* Right: the sticky inbox visual */
-.snoooz-problem__visual {
-  position: sticky;
-  top: 92px;
-  min-width: 0;
-}
+.snoooz-problem__panel p strong { color: var(--snoooz-text); font-weight: 700; }
 
 /* ---- Inbox window ---- */
 .snoooz-inbox {
@@ -759,10 +835,10 @@ html, body { margin: 0; }
   font-weight: 700;
   white-space: nowrap;
 }
-.snoooz-row__action::before { content: "✓"; font-weight: 800; }
-.snoooz-row__action--routed::before { content: "→"; }
+.snoooz-row__action::before { content: "\2713"; font-weight: 800; }
+.snoooz-row__action--routed::before { content: "\2192"; }
 .snoooz-row__action--escalate::before { content: "!"; }
-.snoooz-row__action--archived::before { content: "▾"; }
+.snoooz-row__action--archived::before { content: "\25BE"; }
 .snoooz-row__action--replied  { color: #fff; background: var(--snoooz-primary); border: 1px solid var(--snoooz-primary); }
 .snoooz-row__action--routed   { color: var(--snoooz-primary); background: rgba(15, 91, 68, 0.1); border: 1px solid rgba(15, 91, 68, 0.24); }
 .snoooz-row__action--escalate { color: var(--snoooz-primary-hover); background: var(--snoooz-secondary-soft); border: 1px solid rgba(165, 174, 71, 0.5); }
@@ -855,25 +931,35 @@ html, body { margin: 0; }
 }
 .snoooz-inbox.is-solved .snoooz-inbox__badge { opacity: 1; transform: none; }
 
-/* ---- Responsive ---- */
+/* ---- Mobile: nothing slides sideways; the inbox stays put and the
+   text crossfades in place below it. ---- */
 @media (max-width: 860px) {
-  .snoooz-problem__container { padding: 60px 20px 64px; }
-  .snoooz-problem__grid {
-    display: block;
-    margin-top: 26px;
+  .snoooz-problem__head { padding: 60px 20px 0; }
+  .snoooz-problem__scroll { height: 200vh; }
+  .snoooz-problem__pin { height: 100vh; padding: 0 18px; }
+  .snoooz-problem__stage {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 22px;
   }
   .snoooz-problem__visual {
-    position: sticky;
-    top: 70px;
-    margin-bottom: 26px;
+    position: static;
+    width: 100%;
+    left: auto;
+    transform: none;
+    order: -1;
   }
-  .snoooz-inbox__list { height: 320px; }
-  .snoooz-problem__step { min-height: 56vh; }
-  .snoooz-problem__step:first-child { min-height: 40vh; }
+  .snoooz-problem__panels { display: grid; position: relative; width: 100%; }
+  .snoooz-problem__panel { position: relative; grid-area: 1 / 1; top: auto; left: auto; width: 100%; }
+  .snoooz-problem__panel--problem { transform: none; }
+  .snoooz-problem__panel--solution { transform: translateY(16px); }
+  .snoooz-inbox__list { height: 258px; }
 }
 
 @media (max-width: 480px) {
-  .snoooz-inbox__list { height: 300px; }
+  .snoooz-inbox__list { height: 240px; }
   .snoooz-row__time { display: none; }
   .snoooz-inbox__badge { top: 56px; right: 12px; }
 }
@@ -886,13 +972,14 @@ html, body { margin: 0; }
   .snoooz-inbox__badge { animation: none; transition: none; }
   .snoooz-inbox__badge { transform: none; }
 }
+
 </style>
 </head>
 <body>
-
 <section class="snoooz-hero" aria-label="Snoooz — put your busiest inboxes on autopilot">
   <div class="snoooz-hero__container">
 
+    <!-- LEFT: copy -->
     <div class="snoooz-hero__copy">
       <p class="snoooz-hero__eyebrow">AI Email Assistant for Teams</p>
 
@@ -923,22 +1010,26 @@ html, body { margin: 0; }
       </div>
     </div>
 
+    <!-- RIGHT: product / video stage -->
     <div class="snoooz-hero__stage">
       <div class="snoooz-hero__video">
 
-        <!-- Live product video. Autoplays muted + looped; play button restarts with sound. -->
+        <!-- Live product video. Autoplays muted + looped; the play button
+             restarts it with sound. Swap the <source> to change the clip. -->
         <video class="snoooz-hero__video-media" id="snooozHeroVideo"
                muted autoplay loop playsinline preload="metadata">
           <source src="https://snoooz.ai/hubfs/Take%20Back%20Control%20of%20Your%20Inbox%20with%20Snoooz.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
 
+        <!-- Play button — JS unmutes + restarts the video with sound -->
         <button class="snoooz-hero__play" id="snooozHeroPlay" type="button"
                 aria-label="Play the Snoooz video with sound">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
         </button>
       </div>
 
+      <!-- Floating product chips -->
       <div class="snoooz-hero__chip snoooz-hero__chip--reply" aria-hidden="true">
         <span class="snoooz-hero__chip-ico">✓</span>
         <span>AI reply sent<small>from your knowledge base</small></span>
@@ -949,6 +1040,7 @@ html, body { margin: 0; }
         <span>Escalated to you<small>needs a human</small></span>
       </div>
 
+      <!-- Rotating "now handling" inbox tag -->
       <div class="snoooz-hero__inbox" aria-hidden="true">
         <span class="snoooz-hero__inbox-dot"></span>
         <span>Now handling <span class="snoooz-hero__inbox-label" id="snooozHeroInbox">support@</span></span>
@@ -957,82 +1049,6 @@ html, body { margin: 0; }
 
   </div>
 </section>
-
-<script>
-/* Assembled preview copy of snoooz-hero.js — keep them in sync. */
-(function () {
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  /* Rotating "now handling" inbox label */
-  (function () {
-    var label = document.getElementById('snooozHeroInbox');
-    if (!label || reduce) return;
-    var inboxes = ['support@', 'sales@', 'info@', 'billing@', 'orders@'];
-    var i = 0;
-    setInterval(function () {
-      i = (i + 1) % inboxes.length;
-      label.classList.add('is-changing');
-      setTimeout(function () {
-        label.textContent = inboxes[i];
-        label.classList.remove('is-changing');
-      }, 300);
-    }, 2600);
-  })();
-
-  /* Play button → unmute + restart with sound; click video to pause/play */
-  (function () {
-    var video = document.getElementById('snooozHeroVideo');
-    var play = document.getElementById('snooozHeroPlay');
-    if (!video || !play) return;
-
-    play.addEventListener('click', function () {
-      video.muted = false;
-      video.currentTime = 0;
-      var p = video.play();
-      if (p && p.catch) p.catch(function () {});
-      play.classList.add('is-hidden');
-    });
-
-    video.addEventListener('click', function () {
-      if (video.paused) {
-        video.play();
-        if (!video.muted) play.classList.add('is-hidden');
-      } else {
-        video.pause();
-        play.classList.remove('is-hidden');
-      }
-    });
-  })();
-
-  /* Pointer parallax — tilt the video, drift the chips */
-  (function () {
-    var stage = document.querySelector('.snoooz-hero__stage');
-    if (!stage || reduce) return;
-    var video = stage.querySelector('.snoooz-hero__video');
-    var chips = stage.querySelectorAll('.snoooz-hero__chip');
-
-    stage.addEventListener('pointermove', function (e) {
-      var r = stage.getBoundingClientRect();
-      var dx = (e.clientX - r.left) / r.width - 0.5;
-      var dy = (e.clientY - r.top) / r.height - 0.5;
-      if (video) {
-        video.style.transform =
-          'translateY(-6px) rotateX(' + (-dy * 4).toFixed(2) + 'deg) rotateY(' + (dx * 5).toFixed(2) + 'deg)';
-      }
-      chips.forEach(function (chip, i) {
-        var depth = (i + 1) * 9;
-        chip.style.transform = 'translate(' + (dx * depth).toFixed(1) + 'px,' + (dy * depth).toFixed(1) + 'px)';
-      });
-    });
-
-    stage.addEventListener('pointerleave', function () {
-      if (video) video.style.transform = '';
-      chips.forEach(function (chip) { chip.style.transform = ''; });
-    });
-  })();
-})();
-</script>
-
 
 <section class="snoooz-logos" aria-label="Companies whose teams use Snoooz">
   <p class="snoooz-logos__heading">Trusted by <strong>3,000+ businesses</strong> in <strong>60+ countries</strong></p>
@@ -1093,183 +1109,264 @@ html, body { margin: 0; }
 </section>
 
 <section class="snoooz-problem" aria-label="Why teams choose Snoooz">
-  <div class="snoooz-problem__container">
 
-    <div class="snoooz-problem__head">
+  <div class="snoooz-problem__head">
+    <div class="snoooz-problem__head-inner">
       <p class="snoooz-problem__eyebrow">The problem</p>
       <h2>Your team doesn't need another email tool. It needs the email <span class="snoooz-problem__hl">handled</span>.</h2>
     </div>
+  </div>
 
-    <div class="snoooz-problem__grid">
+  <div class="snoooz-problem__scroll" id="snooozProblemScroll">
+    <div class="snoooz-problem__pin">
+      <div class="snoooz-problem__stage">
 
-      <!-- LEFT: story steps -->
-      <div class="snoooz-problem__story">
+        <!-- The two text panels (problem on the left, solution on the right) -->
+        <div class="snoooz-problem__panels">
+          <article class="snoooz-problem__panel snoooz-problem__panel--problem" id="snooozPanelProblem">
+            <span class="snoooz-problem__badge">The problem</span>
+            <h3>Inbound never stops.</h3>
+            <p>
+              Support questions, sales leads, order updates, and policy questions pile up in your
+              shared inboxes. Every hour a reply waits is a deal going cold or a customer losing
+              patience. Personal AI assistants only make one person type a little faster.
+              <strong>They cannot run the inbox.</strong>
+            </p>
+          </article>
 
-        <article class="snoooz-problem__step snoooz-problem__step--problem">
-          <span class="snoooz-problem__badge">The problem</span>
-          <h3>Inbound never stops.</h3>
-          <p>
-            Support questions, sales leads, order updates, and policy questions pile up in your
-            shared inboxes. Every hour a reply waits is a deal going cold or a customer losing
-            patience. Personal AI assistants only make one person type a little faster.
-            <strong>They cannot run the inbox.</strong>
-          </p>
-        </article>
-
-        <article class="snoooz-problem__step snoooz-problem__step--solution" id="snooozSolutionStep">
-          <span class="snoooz-problem__badge snoooz-problem__badge--green">With Snoooz</span>
-          <h3>Snoooz handles the inbox itself.</h3>
-          <p>
-            Snoooz reads every incoming email, answers the repetitive majority from your own
-            knowledge, takes action in your systems, and brings a person in only when something
-            genuinely needs one. <strong>Your team stops triaging and starts handling the
-            exceptions.</strong>
-          </p>
-        </article>
-
-      </div>
-
-      <!-- RIGHT: sticky inbox visual -->
-      <div class="snoooz-problem__visual">
-        <div class="snoooz-inbox" id="snooozInbox">
-
-          <div class="snoooz-inbox__bar">
-            <div class="snoooz-inbox__dots" aria-hidden="true"><span></span><span></span><span></span></div>
-            <div class="snoooz-inbox__title">
-              <strong>support@yourcompany.com</strong>
-              <span>Shared inbox</span>
-            </div>
-            <span class="snoooz-inbox__count is-pulsing" id="snooozInboxCount">
-              <strong id="snooozInboxNum">248</strong>
-              <span class="lbl--problem">unread</span>
-              <span class="lbl--solved">to handle</span>
-            </span>
-          </div>
-
-          <div class="snoooz-inbox__badge" aria-hidden="true">Handled by Snoooz</div>
-
-          <div class="snoooz-inbox__list" id="snooozInboxList">
-
-            <div class="snoooz-row" data-cat="support">
-              <span class="snoooz-row__ava">OR</span>
-              <div class="snoooz-row__body">
-                <div class="snoooz-row__top"><span class="snoooz-row__from">Olivia Reed</span><span class="snoooz-row__time">now</span></div>
-                <div class="snoooz-row__subj">Where is my order #1043?</div>
-              </div>
-              <div class="snoooz-row__side">
-                <span class="snoooz-row__dot" aria-hidden="true"></span>
-                <span class="snoooz-row__tag">Support</span>
-                <span class="snoooz-row__action snoooz-row__action--replied">Auto-replied</span>
-              </div>
-            </div>
-
-            <div class="snoooz-row" data-cat="sales">
-              <span class="snoooz-row__ava">DC</span>
-              <div class="snoooz-row__body">
-                <div class="snoooz-row__top"><span class="snoooz-row__from">Daniel Cho</span><span class="snoooz-row__time">1m</span></div>
-                <div class="snoooz-row__subj">Can I get a demo this week?</div>
-              </div>
-              <div class="snoooz-row__side">
-                <span class="snoooz-row__dot" aria-hidden="true"></span>
-                <span class="snoooz-row__tag">Sales</span>
-                <span class="snoooz-row__action snoooz-row__action--routed">Routed to Sales</span>
-              </div>
-            </div>
-
-            <div class="snoooz-row" data-cat="support">
-              <span class="snoooz-row__ava">PN</span>
-              <div class="snoooz-row__body">
-                <div class="snoooz-row__top"><span class="snoooz-row__from">Priya Nair</span><span class="snoooz-row__time">2m</span></div>
-                <div class="snoooz-row__subj">How do I reset my password?</div>
-              </div>
-              <div class="snoooz-row__side">
-                <span class="snoooz-row__dot" aria-hidden="true"></span>
-                <span class="snoooz-row__tag">Support</span>
-                <span class="snoooz-row__action snoooz-row__action--replied">Auto-replied</span>
-              </div>
-            </div>
-
-            <div class="snoooz-row" data-cat="billing">
-              <span class="snoooz-row__ava">ME</span>
-              <div class="snoooz-row__body">
-                <div class="snoooz-row__top"><span class="snoooz-row__from">Mark Evans</span><span class="snoooz-row__time">4m</span></div>
-                <div class="snoooz-row__subj">Question about invoice #4821</div>
-              </div>
-              <div class="snoooz-row__side">
-                <span class="snoooz-row__dot" aria-hidden="true"></span>
-                <span class="snoooz-row__tag">Billing</span>
-                <span class="snoooz-row__action snoooz-row__action--routed">Routed to Finance</span>
-              </div>
-            </div>
-
-            <div class="snoooz-row" data-cat="internal">
-              <span class="snoooz-row__ava">SL</span>
-              <div class="snoooz-row__body">
-                <div class="snoooz-row__top"><span class="snoooz-row__from">Sara Lin</span><span class="snoooz-row__time">6m</span></div>
-                <div class="snoooz-row__subj">What is our PTO carryover policy?</div>
-              </div>
-              <div class="snoooz-row__side">
-                <span class="snoooz-row__dot" aria-hidden="true"></span>
-                <span class="snoooz-row__tag">Internal</span>
-                <span class="snoooz-row__action snoooz-row__action--replied">Auto-replied</span>
-              </div>
-            </div>
-
-            <div class="snoooz-row" data-cat="support">
-              <span class="snoooz-row__ava">JP</span>
-              <div class="snoooz-row__body">
-                <div class="snoooz-row__top"><span class="snoooz-row__from">James Park</span><span class="snoooz-row__time">7m</span></div>
-                <div class="snoooz-row__subj">I want a refund for a damaged item</div>
-              </div>
-              <div class="snoooz-row__side">
-                <span class="snoooz-row__dot" aria-hidden="true"></span>
-                <span class="snoooz-row__tag">Support</span>
-                <span class="snoooz-row__action snoooz-row__action--escalate">Escalated to you</span>
-              </div>
-            </div>
-
-          </div>
-
-          <div class="snoooz-inbox__foot">
-            <div class="snoooz-inbox__foot--problem">
-              <span class="snoooz-inbox__foot-ico">!</span>
-              <span><span id="snooozFootNum">248</span> emails waiting. Response time slipping.</span>
-            </div>
-            <div class="snoooz-inbox__foot--solved">
-              <span class="snoooz-inbox__foot-ico">✓</span>
-              <span>Inbox at zero. <small>192 auto-replied &middot; 41 routed &middot; 15 escalated to your team.</small></span>
-            </div>
-          </div>
-
+          <article class="snoooz-problem__panel snoooz-problem__panel--solution" id="snooozPanelSolution">
+            <span class="snoooz-problem__badge snoooz-problem__badge--green">With Snoooz</span>
+            <h3>Snoooz handles the inbox itself.</h3>
+            <p>
+              Snoooz reads every incoming email, answers the repetitive majority from your own
+              knowledge, takes action in your systems, and brings a person in only when something
+              genuinely needs one. <strong>Your team stops triaging and starts handling the
+              exceptions.</strong>
+            </p>
+          </article>
         </div>
-      </div>
 
+        <!-- The inbox visual -->
+        <div class="snoooz-problem__visual" id="snooozVisual">
+          <div class="snoooz-inbox" id="snooozInbox">
+
+            <div class="snoooz-inbox__bar">
+              <div class="snoooz-inbox__dots" aria-hidden="true"><span></span><span></span><span></span></div>
+              <div class="snoooz-inbox__title">
+                <strong>support@yourcompany.com</strong>
+                <span>Shared inbox</span>
+              </div>
+              <span class="snoooz-inbox__count is-pulsing" id="snooozInboxCount">
+                <strong id="snooozInboxNum">248</strong>
+                <span class="lbl--problem">unread</span>
+                <span class="lbl--solved">to handle</span>
+              </span>
+            </div>
+
+            <div class="snoooz-inbox__badge" aria-hidden="true">Handled by Snoooz</div>
+
+            <div class="snoooz-inbox__list" id="snooozInboxList">
+
+              <div class="snoooz-row" data-cat="support">
+                <span class="snoooz-row__ava">OR</span>
+                <div class="snoooz-row__body">
+                  <div class="snoooz-row__top"><span class="snoooz-row__from">Olivia Reed</span><span class="snoooz-row__time">now</span></div>
+                  <div class="snoooz-row__subj">Where is my order #1043?</div>
+                </div>
+                <div class="snoooz-row__side">
+                  <span class="snoooz-row__dot" aria-hidden="true"></span>
+                  <span class="snoooz-row__tag">Support</span>
+                  <span class="snoooz-row__action snoooz-row__action--replied">Auto-replied</span>
+                </div>
+              </div>
+
+              <div class="snoooz-row" data-cat="sales">
+                <span class="snoooz-row__ava">DC</span>
+                <div class="snoooz-row__body">
+                  <div class="snoooz-row__top"><span class="snoooz-row__from">Daniel Cho</span><span class="snoooz-row__time">1m</span></div>
+                  <div class="snoooz-row__subj">Can I get a demo this week?</div>
+                </div>
+                <div class="snoooz-row__side">
+                  <span class="snoooz-row__dot" aria-hidden="true"></span>
+                  <span class="snoooz-row__tag">Sales</span>
+                  <span class="snoooz-row__action snoooz-row__action--routed">Routed to Sales</span>
+                </div>
+              </div>
+
+              <div class="snoooz-row" data-cat="support">
+                <span class="snoooz-row__ava">PN</span>
+                <div class="snoooz-row__body">
+                  <div class="snoooz-row__top"><span class="snoooz-row__from">Priya Nair</span><span class="snoooz-row__time">2m</span></div>
+                  <div class="snoooz-row__subj">How do I reset my password?</div>
+                </div>
+                <div class="snoooz-row__side">
+                  <span class="snoooz-row__dot" aria-hidden="true"></span>
+                  <span class="snoooz-row__tag">Support</span>
+                  <span class="snoooz-row__action snoooz-row__action--replied">Auto-replied</span>
+                </div>
+              </div>
+
+              <div class="snoooz-row" data-cat="billing">
+                <span class="snoooz-row__ava">ME</span>
+                <div class="snoooz-row__body">
+                  <div class="snoooz-row__top"><span class="snoooz-row__from">Mark Evans</span><span class="snoooz-row__time">4m</span></div>
+                  <div class="snoooz-row__subj">Question about invoice #4821</div>
+                </div>
+                <div class="snoooz-row__side">
+                  <span class="snoooz-row__dot" aria-hidden="true"></span>
+                  <span class="snoooz-row__tag">Billing</span>
+                  <span class="snoooz-row__action snoooz-row__action--routed">Routed to Finance</span>
+                </div>
+              </div>
+
+              <div class="snoooz-row" data-cat="internal">
+                <span class="snoooz-row__ava">SL</span>
+                <div class="snoooz-row__body">
+                  <div class="snoooz-row__top"><span class="snoooz-row__from">Sara Lin</span><span class="snoooz-row__time">6m</span></div>
+                  <div class="snoooz-row__subj">What is our PTO carryover policy?</div>
+                </div>
+                <div class="snoooz-row__side">
+                  <span class="snoooz-row__dot" aria-hidden="true"></span>
+                  <span class="snoooz-row__tag">Internal</span>
+                  <span class="snoooz-row__action snoooz-row__action--replied">Auto-replied</span>
+                </div>
+              </div>
+
+              <div class="snoooz-row" data-cat="support">
+                <span class="snoooz-row__ava">JP</span>
+                <div class="snoooz-row__body">
+                  <div class="snoooz-row__top"><span class="snoooz-row__from">James Park</span><span class="snoooz-row__time">7m</span></div>
+                  <div class="snoooz-row__subj">I want a refund for a damaged item</div>
+                </div>
+                <div class="snoooz-row__side">
+                  <span class="snoooz-row__dot" aria-hidden="true"></span>
+                  <span class="snoooz-row__tag">Support</span>
+                  <span class="snoooz-row__action snoooz-row__action--escalate">Escalated to you</span>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="snoooz-inbox__foot">
+              <div class="snoooz-inbox__foot--problem">
+                <span class="snoooz-inbox__foot-ico">!</span>
+                <span><span id="snooozFootNum">248</span> emails waiting. Response time slipping.</span>
+              </div>
+              <div class="snoooz-inbox__foot--solved">
+                <span class="snoooz-inbox__foot-ico">&#10003;</span>
+                <span>Inbox at zero. <small>192 auto-replied &middot; 41 routed &middot; 15 escalated to your team.</small></span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
 </section>
 <script>
 /* ============================================================
-   SNOOOZ HOMEPAGE — PROBLEM / CATEGORY SCRIPTS
+   SNOOOZ HOMEPAGE — HERO SCRIPTS
    Paste into your HubSpot module JS field (or a <script> block
    placed after the HTML). Self-contained, no dependencies.
-
-   - Streams new emails into the inbox while the "problem" step is in view.
-   - When the "solution" step hits the middle of the viewport, marks the
-     inbox solved: streaming stops, the unread count counts down to zero,
-     and every row swaps its category tag for a green Snoooz action.
    ============================================================ */
 
 (function () {
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* ---- 1. Rotating "now handling" inbox label ---- */
+  (function () {
+    var label = document.getElementById('snooozHeroInbox');
+    if (!label || reduce) return;
+
+    var inboxes = ['support@', 'sales@', 'info@', 'billing@', 'orders@'];
+    var i = 0;
+
+    setInterval(function () {
+      i = (i + 1) % inboxes.length;
+      label.classList.add('is-changing');
+      setTimeout(function () {
+        label.textContent = inboxes[i];
+        label.classList.remove('is-changing');
+      }, 300);
+    }, 2600);
+  })();
+
+  /* ---- 2. Play button + clearing the floating tags ----
+     The video autoplays muted and looped, and stays fixed in place.
+     Hovering the video, or clicking play, smoothly hides the floating
+     tags. Play also unmutes the video from the top. */
+  (function () {
+    var stage = document.querySelector('.snoooz-hero__stage');
+    var video = document.getElementById('snooozHeroVideo');
+    var play = document.getElementById('snooozHeroPlay');
+    if (!stage || !video || !play) return;
+
+    var playing = false;
+    function clearTags(on) { stage.classList.toggle('is-clear', on); }
+
+    video.addEventListener('pointerenter', function () { clearTags(true); });
+    video.addEventListener('pointerleave', function () { if (!playing) clearTags(false); });
+
+    play.addEventListener('click', function () {
+      playing = true;
+      clearTags(true);
+      video.muted = false;
+      video.currentTime = 0;
+      var p = video.play();
+      if (p && p.catch) p.catch(function () {});
+      play.classList.add('is-hidden');
+    });
+
+    video.addEventListener('click', function () {
+      if (video.paused) {
+        video.play();
+        if (!video.muted) play.classList.add('is-hidden');
+      } else {
+        video.pause();
+        play.classList.remove('is-hidden');
+      }
+    });
+  })();
+})();
+
+
+/* ============================================================
+   SNOOOZ HOMEPAGE — PROBLEM / CATEGORY SCRIPTS
+   Paste into your HubSpot module JS field (or a <script> block
+   placed after the HTML). Self-contained, no dependencies.
+
+   - Streams new emails into the inbox while the "problem" text is showing.
+   - Binds a scroll-progress value to the pinned stage: on desktop the inbox
+     slides from right to left while the problem text exits left and the
+     solution text enters from the right; on mobile the inbox stays put and
+     the text crossfades in place.
+   - Marks the inbox solved (counts down to zero, swaps tags for green
+     Snoooz actions) right as the "With Snoooz" text settles beside it.
+   ============================================================ */
+
+(function () {
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var mqDesktop = window.matchMedia('(min-width: 861px)');
+
+  var scroll = document.getElementById('snooozProblemScroll');
+  var visual = document.getElementById('snooozVisual');
+  var panelP = document.getElementById('snooozPanelProblem');
+  var panelS = document.getElementById('snooozPanelSolution');
   var inbox = document.getElementById('snooozInbox');
   var list = document.getElementById('snooozInboxList');
   var numEl = document.getElementById('snooozInboxNum');
   var footNumEl = document.getElementById('snooozFootNum');
   var countPill = document.getElementById('snooozInboxCount');
-  var solutionStep = document.getElementById('snooozSolutionStep');
-  if (!inbox || !list) return;
+  if (!scroll || !visual || !panelP || !panelS || !inbox || !list) return;
 
+  /* ---------- helpers ---------- */
+  function clamp01(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
+  function range(p, a, b) { return clamp01((p - a) / (b - a)); }
+  function smooth(t) { return t * t * (3 - 2 * t); }
+
+  /* ---------- email streaming ---------- */
   var MAX_ROWS = 7;
   var BASE_COUNT = 248;
   var count = BASE_COUNT;
@@ -1277,22 +1374,20 @@ html, body { margin: 0; }
   var visible = false;
   var streamTimer = null;
 
-  /* Pool of incoming emails (sender, initials, subject, category, tag, solved action) */
   var pool = [
-    { from: 'Hannah Cole',   ini: 'HC', subj: 'Weekly product newsletter',      cat: 'marketing', tag: 'Marketing', act: 'Archived',          type: 'archived' },
-    { from: 'Leon Garcia',   ini: 'LG', subj: 'Pricing for 25 seats?',          cat: 'sales',     tag: 'Sales',     act: 'Routed to Sales',    type: 'routed'   },
-    { from: 'Mia Anderson',  ini: 'MA', subj: 'App will not load on mobile',     cat: 'support',   tag: 'Support',   act: 'Auto-replied',       type: 'replied'  },
-    { from: 'Tom Becker',    ini: 'TB', subj: 'Change my shipping address',      cat: 'support',   tag: 'Support',   act: 'Auto-replied',       type: 'replied'  },
-    { from: 'Aisha Khan',    ini: 'AK', subj: 'Update my card on file',          cat: 'billing',   tag: 'Billing',   act: 'Routed to Finance',  type: 'routed'   },
-    { from: 'Noah Wright',   ini: 'NW', subj: 'How do I submit expenses?',       cat: 'internal',  tag: 'Internal',  act: 'Auto-replied',       type: 'replied'  },
-    { from: 'Elena Rossi',   ini: 'ER', subj: 'Cancel my subscription',          cat: 'support',   tag: 'Support',   act: 'Escalated to you',   type: 'escalate' },
-    { from: 'Kofi Mensah',   ini: 'KM', subj: 'Partnership inquiry',             cat: 'sales',     tag: 'Sales',     act: 'Routed to Sales',    type: 'routed'   },
-    { from: 'Grace Park',    ini: 'GP', subj: 'Promo code is not working',       cat: 'support',   tag: 'Support',   act: 'Auto-replied',       type: 'replied'  },
-    { from: 'David Cohen',   ini: 'DC', subj: 'Schedule an onboarding call',     cat: 'sales',     tag: 'Sales',     act: 'Routed to Sales',    type: 'routed'   },
-    { from: 'Yuki Tanaka',   ini: 'YT', subj: 'Do you offer EU data residency?', cat: 'sales',     tag: 'Sales',     act: 'Routed to Sales',    type: 'routed'   },
-    { from: 'Omar Haddad',   ini: 'OH', subj: 'Damaged on arrival, need help',   cat: 'support',   tag: 'Support',   act: 'Escalated to you',   type: 'escalate' }
+    { from: 'Hannah Cole',  ini: 'HC', subj: 'Weekly product newsletter',      cat: 'marketing', tag: 'Marketing', act: 'Archived',         type: 'archived' },
+    { from: 'Leon Garcia',  ini: 'LG', subj: 'Pricing for 25 seats?',          cat: 'sales',     tag: 'Sales',     act: 'Routed to Sales',   type: 'routed'   },
+    { from: 'Mia Anderson', ini: 'MA', subj: 'App will not load on mobile',     cat: 'support',   tag: 'Support',   act: 'Auto-replied',      type: 'replied'  },
+    { from: 'Tom Becker',   ini: 'TB', subj: 'Change my shipping address',      cat: 'support',   tag: 'Support',   act: 'Auto-replied',      type: 'replied'  },
+    { from: 'Aisha Khan',   ini: 'AK', subj: 'Update my card on file',          cat: 'billing',   tag: 'Billing',   act: 'Routed to Finance', type: 'routed'   },
+    { from: 'Noah Wright',  ini: 'NW', subj: 'How do I submit expenses?',       cat: 'internal',  tag: 'Internal',  act: 'Auto-replied',      type: 'replied'  },
+    { from: 'Elena Rossi',  ini: 'ER', subj: 'Cancel my subscription',          cat: 'support',   tag: 'Support',   act: 'Escalated to you',  type: 'escalate' },
+    { from: 'Kofi Mensah',  ini: 'KM', subj: 'Partnership inquiry',             cat: 'sales',     tag: 'Sales',     act: 'Routed to Sales',   type: 'routed'   },
+    { from: 'Grace Park',   ini: 'GP', subj: 'Promo code is not working',       cat: 'support',   tag: 'Support',   act: 'Auto-replied',      type: 'replied'  },
+    { from: 'David Cohen',  ini: 'DC', subj: 'Schedule an onboarding call',     cat: 'sales',     tag: 'Sales',     act: 'Routed to Sales',   type: 'routed'   },
+    { from: 'Yuki Tanaka',  ini: 'YT', subj: 'Do you offer EU data residency?', cat: 'sales',     tag: 'Sales',     act: 'Routed to Sales',   type: 'routed'   },
+    { from: 'Omar Haddad',  ini: 'OH', subj: 'Damaged on arrival, need help',   cat: 'support',   tag: 'Support',   act: 'Escalated to you',  type: 'escalate' }
   ];
-
   var times = ['now', '1m', '2m', '3m'];
 
   function esc(s) {
@@ -1346,9 +1441,7 @@ html, body { margin: 0; }
   function countDownToZero() {
     if (countPill) countPill.classList.remove('is-pulsing');
     if (reduce) { setCount(0); return; }
-    var start = count;
-    var t0 = null;
-    var dur = 900;
+    var start = count, t0 = null, dur = 900;
     function step(ts) {
       if (!t0) t0 = ts;
       var p = Math.min(1, (ts - t0) / dur);
@@ -1366,7 +1459,6 @@ html, body { margin: 0; }
     inbox.classList.add('is-solved');
     countDownToZero();
   }
-
   function unsolve() {
     if (!solved) return;
     solved = false;
@@ -1376,7 +1468,70 @@ html, body { margin: 0; }
     if (visible) startStream();
   }
 
-  /* Start/stop the stream only while the inbox is on screen (saves work) */
+  /* ---------- scroll choreography ---------- */
+  var isDesktop = mqDesktop.matches;
+  var ticking = false;
+
+  function apply() {
+    ticking = false;
+
+    var vh = window.innerHeight || document.documentElement.clientHeight;
+    var rect = scroll.getBoundingClientRect();
+    var total = rect.height - vh;
+    var p = total > 0 ? clamp01(-rect.top / total) : 0;
+
+    if (isDesktop) {
+      var moveP = smooth(range(p, 0.12, 0.62));
+      visual.style.left = (54 * (1 - moveP)) + '%';
+      visual.style.transform = 'translateY(-50%)';
+
+      var pExit = smooth(range(p, 0.16, 0.42));
+      panelP.style.opacity = 1 - pExit;
+      panelP.style.transform = 'translate(' + (-40 * pExit) + 'px, -50%)';
+
+      var sEnter = smooth(range(p, 0.46, 0.66));
+      panelS.style.opacity = sEnter;
+      panelS.style.transform = 'translate(' + (40 * (1 - sEnter)) + 'px, -50%)';
+    } else {
+      visual.style.left = '';
+      visual.style.transform = '';
+
+      var pExitM = smooth(range(p, 0.18, 0.45));
+      panelP.style.opacity = 1 - pExitM;
+      panelP.style.transform = '';
+
+      var sEnterM = smooth(range(p, 0.45, 0.70));
+      panelS.style.opacity = sEnterM;
+      panelS.style.transform = 'translateY(' + (16 * (1 - sEnterM)) + 'px)';
+    }
+
+    /* Solve right as the solution text settles beside the inbox */
+    if (!solved && p >= 0.6) solve();
+    else if (solved && p < 0.55) unsolve();
+  }
+
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(apply);
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+
+  function onBreakpoint() {
+    isDesktop = mqDesktop.matches;
+    /* clear styles that do not apply in the new layout, then recompute */
+    visual.style.left = '';
+    visual.style.transform = '';
+    panelP.style.transform = '';
+    panelS.style.transform = '';
+    apply();
+  }
+  if (mqDesktop.addEventListener) mqDesktop.addEventListener('change', onBreakpoint);
+  else if (mqDesktop.addListener) mqDesktop.addListener(onBreakpoint);
+
+  /* Stream only while the section is on screen */
   var sectionObs = new IntersectionObserver(function (entries) {
     entries.forEach(function (e) {
       visible = e.isIntersecting;
@@ -1384,21 +1539,11 @@ html, body { margin: 0; }
       else stopStream();
     });
   }, { threshold: 0 });
-  sectionObs.observe(inbox);
+  sectionObs.observe(scroll);
 
-  /* Solve when the solution step crosses the centre band of the viewport */
-  if (solutionStep) {
-    var solveObs = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) solve();
-        else unsolve();
-      });
-    }, { rootMargin: '-42% 0px -42% 0px', threshold: 0 });
-    solveObs.observe(solutionStep);
-  }
+  apply();
 })();
 
 </script>
-
 </body>
 </html>
