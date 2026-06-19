@@ -106,9 +106,15 @@ secondary = **Start free**.
 ## Files
 - `homepage/hero/` — hero section (CSS / HTML / JS + assembled preview).
 - `homepage/social-proof/` — logo wall / social proof (CSS + HTML, CSS-only marquee; + preview).
-- `homepage/problem/` — problem/category section: scroll-driven inbox that streams emails in
-  ("problem"), then reorganizes itself with green Snoooz action pills when the solution step
-  hits mid-viewport ("solution"). CSS / HTML / JS + preview.
+- `homepage/problem/` — problem/category section: pinned scroll stage where the busy inbox
+  slides right→left while problem text exits and solution text enters from the right; inbox
+  reorganizes itself (green) on solve, with a "Your inbox, handled by Snoooz" caption. Mobile
+  keeps positions and crossfades in place. CSS / HTML / JS + preview.
+- `homepage/how-it-works/` — four steps, each an animated "Snoooz app" that plays on scroll into
+  view and loops: connect inboxes, train on knowledge (file drop), review mode (draft/edit/send),
+  autopilot toggle. CSS / HTML / JS + preview.
+- `homepage/build_previews.py` — regenerates every section preview + homepage-preview.html from
+  source. Run after editing any section.
 - `homepage/homepage-preview.html` — assembled full-page preview (stacks all sections built so far).
 
 Content rule: no em dashes in user-facing copy.

@@ -1,0 +1,199 @@
+<!-- ============================================================
+     SNOOOZ HOMEPAGE — HOW IT WORKS HTML
+     Paste into your HubSpot module HTML field (or a rich-text/HTML block).
+     Requires the matching CSS and JS.
+
+     Each step has an animated "Snoooz app" mock that plays when it scrolls
+     into view. The markup below is seeded in each animation's finished
+     state, so it still looks right without JS and for reduced-motion users.
+     ============================================================ -->
+
+<section class="snoooz-how" aria-label="How Snoooz works">
+  <div class="snoooz-how__container">
+
+    <div class="snoooz-how__head">
+      <p class="snoooz-how__eyebrow">How it works</p>
+      <h2>Onboard Snoooz like <span class="snoooz-how__hl">a new hire</span>. Trust it like a great one.</h2>
+      <p>It starts by drafting under your review, and earns its way to autopilot.</p>
+    </div>
+
+    <div class="snoooz-how__steps">
+
+      <!-- ============ STEP 1: CONNECT ============ -->
+      <article class="snoooz-how__step">
+        <div class="snoooz-how__copy">
+          <span class="snoooz-how__badge"><b>1</b> Connect</span>
+          <h3>Connect your inboxes.</h3>
+          <p>
+            Gmail, Outlook, or any IMAP/SMTP mailbox, including shared addresses like support@ and
+            sales@. <strong>Nothing to migrate, nothing to rip out.</strong>
+          </p>
+        </div>
+        <div class="snoooz-how__app">
+          <div class="snoooz-how__appbar">
+            <img class="snoooz-how__logo" src="https://snoooz.ai/hubfs/Snoooz%20Logo-1%20(2).png" alt="Snoooz">
+            <span class="snoooz-how__apptitle">Connect a mailbox</span>
+            <span class="snoooz-how__appdots" aria-hidden="true"><i></i><i></i><i></i></span>
+          </div>
+          <div class="snoooz-how__appbody">
+            <div class="snoooz-connect" id="snooozConnect">
+              <div class="snoooz-connect__row is-connected">
+                <img class="snoooz-connect__logo" src="https://snoooz.ai/hubfs/gmail_logo.png" alt="" loading="lazy">
+                <div class="snoooz-connect__meta"><strong>Alex Morgan</strong><span>alex@marketing</span></div>
+                <span class="snoooz-connect__status">Connected</span>
+              </div>
+              <div class="snoooz-connect__row is-connected">
+                <img class="snoooz-connect__logo" src="https://snoooz.ai/hubfs/outlook_logo.png" alt="" loading="lazy">
+                <div class="snoooz-connect__meta"><strong>Priya Nair</strong><span>priya@sales</span></div>
+                <span class="snoooz-connect__status">Connected</span>
+              </div>
+              <div class="snoooz-connect__row is-connected">
+                <img class="snoooz-connect__logo" src="https://snoooz.ai/hubfs/mini-hero-mail.png" alt="" loading="lazy">
+                <div class="snoooz-connect__meta"><strong>Sam Lee</strong><span>support@</span></div>
+                <span class="snoooz-connect__status">Connected</span>
+              </div>
+              <div class="snoooz-connect__row is-connected">
+                <img class="snoooz-connect__logo" src="https://snoooz.ai/hubfs/yahoo-logo-illustration-in-square-background-free-png.png.webp" alt="" loading="lazy">
+                <div class="snoooz-connect__meta"><strong>Jordan Diaz</strong><span>info@</span></div>
+                <span class="snoooz-connect__status">Connected</span>
+              </div>
+              <div class="snoooz-connect__row is-connected">
+                <img class="snoooz-connect__logo" src="https://snoooz.ai/hubfs/smtp.webp" alt="" loading="lazy">
+                <div class="snoooz-connect__meta"><strong>Mia Chen</strong><span>mia@billing</span></div>
+                <span class="snoooz-connect__status">Connected</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ============ STEP 2: TRAIN ============ -->
+      <article class="snoooz-how__step">
+        <div class="snoooz-how__copy">
+          <span class="snoooz-how__badge"><b>2</b> Train</span>
+          <h3>Train it on your knowledge.</h3>
+          <p>
+            Point Snoooz at your FAQs, help center, documents, policies, and past replies. It learns
+            to answer the way your team does, <strong>in your voice, with your facts.</strong>
+          </p>
+        </div>
+        <div class="snoooz-how__app">
+          <div class="snoooz-how__appbar">
+            <img class="snoooz-how__logo" src="https://snoooz.ai/hubfs/Snoooz%20Logo-1%20(2).png" alt="Snoooz">
+            <span class="snoooz-how__apptitle">Train Snoooz</span>
+            <span class="snoooz-how__appdots" aria-hidden="true"><i></i><i></i><i></i></span>
+          </div>
+          <div class="snoooz-how__appbody">
+            <div class="snoooz-train" id="snooozTrain">
+              <div class="snoooz-train__drop">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 16V4m0 0L7 9m5-5l5 5M5 20h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <strong>Drag and drop your files</strong>
+                <span>FAQs, help center, policies, past replies</span>
+              </div>
+              <div class="snoooz-train__files">
+                <span class="snoooz-train__file is-in">FAQs.pdf</span>
+                <span class="snoooz-train__file is-in">Refund policy.pdf</span>
+                <span class="snoooz-train__file is-in">Help center.docx</span>
+                <span class="snoooz-train__file is-in">Past replies.csv</span>
+              </div>
+              <span class="snoooz-train__status is-on">Indexed 4 sources</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ============ STEP 3: REVIEW ============ -->
+      <article class="snoooz-how__step">
+        <div class="snoooz-how__copy">
+          <span class="snoooz-how__badge"><b>3</b> Review</span>
+          <h3>Start in review mode.</h3>
+          <p>
+            Snoooz drafts every reply for your team to approve. <strong>You see exactly how good it
+            is before it sends a single email.</strong>
+          </p>
+        </div>
+        <div class="snoooz-how__app">
+          <div class="snoooz-how__appbar">
+            <img class="snoooz-how__logo" src="https://snoooz.ai/hubfs/Snoooz%20Logo-1%20(2).png" alt="Snoooz">
+            <span class="snoooz-how__apptitle">Review &amp; approve</span>
+            <span class="snoooz-how__appdots" aria-hidden="true"><i></i><i></i><i></i></span>
+          </div>
+          <div class="snoooz-how__appbody">
+            <div class="snoooz-review" id="snooozReview">
+              <div class="snoooz-review__msg snoooz-review__incoming">
+                <div class="snoooz-review__head">
+                  <span class="snoooz-review__label">New email</span>
+                  <span class="snoooz-review__from">Maria Lopez</span>
+                </div>
+                <p class="snoooz-review__text" id="snooozReviewIn">Hi, do you ship to Canada, and how long does delivery take?</p>
+              </div>
+              <div class="snoooz-review__msg snoooz-review__reply">
+                <div class="snoooz-review__head">
+                  <span class="snoooz-review__label snoooz-review__label--green">Snoooz draft</span>
+                </div>
+                <p class="snoooz-review__text snoooz-review__draft" id="snooozReviewDraft">Hi Maria! Yes, we ship to Canada. Delivery is 2 to 4 business days, with tracking.</p>
+                <div class="snoooz-review__actions" id="snooozReviewActions">
+                  <button class="snoooz-review__btn snoooz-review__btn--ghost" id="snooozReviewEdit" type="button" tabindex="-1">Edit</button>
+                  <button class="snoooz-review__btn snoooz-review__btn--send" id="snooozReviewSend" type="button" tabindex="-1">Send</button>
+                  <span class="snoooz-review__sent">Sent</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ============ STEP 4: AUTOPILOT ============ -->
+      <article class="snoooz-how__step">
+        <div class="snoooz-how__copy">
+          <span class="snoooz-how__badge"><b>4</b> Autopilot</span>
+          <h3>Switch on autopilot.</h3>
+          <p>
+            When you're ready, Snoooz replies, routes, and follows up on its own, and sends anything
+            unusual, sensitive, or unfamiliar <strong>straight to a person.</strong>
+          </p>
+        </div>
+        <div class="snoooz-how__app">
+          <div class="snoooz-how__appbar">
+            <img class="snoooz-how__logo" src="https://snoooz.ai/hubfs/Snoooz%20Logo-1%20(2).png" alt="Snoooz">
+            <span class="snoooz-how__apptitle">Automation</span>
+            <span class="snoooz-how__appdots" aria-hidden="true"><i></i><i></i><i></i></span>
+          </div>
+          <div class="snoooz-how__appbody">
+            <div class="snoooz-auto" id="snooozAuto">
+              <div class="snoooz-auto__toggle is-on" id="snooozAutoToggle">
+                <div class="snoooz-auto__toggle-meta">
+                  <strong>Auto-reply</strong>
+                  <span>Replies sent automatically</span>
+                </div>
+                <span class="snoooz-auto__switch" aria-hidden="true"><i></i></span>
+              </div>
+              <div class="snoooz-auto__rows">
+                <div class="snoooz-auto__row is-shown">
+                  <div class="snoooz-auto__row-body"><div class="snoooz-auto__row-from">Olivia Reed</div><div class="snoooz-auto__row-subj">Where is my order #1043?</div></div>
+                  <span class="snoooz-auto__pill snoooz-auto__pill--replied">Auto-replied</span>
+                </div>
+                <div class="snoooz-auto__row is-shown">
+                  <div class="snoooz-auto__row-body"><div class="snoooz-auto__row-from">Daniel Cho</div><div class="snoooz-auto__row-subj">Can I get a demo this week?</div></div>
+                  <span class="snoooz-auto__pill snoooz-auto__pill--routed">Routed to Sales</span>
+                </div>
+                <div class="snoooz-auto__row is-shown">
+                  <div class="snoooz-auto__row-body"><div class="snoooz-auto__row-from">Mark Evans</div><div class="snoooz-auto__row-subj">Question about invoice #4821</div></div>
+                  <span class="snoooz-auto__pill snoooz-auto__pill--routed">Routed to Finance</span>
+                </div>
+                <div class="snoooz-auto__row is-shown">
+                  <div class="snoooz-auto__row-body"><div class="snoooz-auto__row-from">James Park</div><div class="snoooz-auto__row-subj">I want a refund for a damaged item</div></div>
+                  <span class="snoooz-auto__pill snoooz-auto__pill--escalate">Escalated to you</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <p class="snoooz-how__reassure">You stay in control the whole way. Snoooz sends only what you allow, on the inboxes you choose.</p>
+
+  </div>
+</section>

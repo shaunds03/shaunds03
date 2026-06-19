@@ -408,35 +408,26 @@ html, body { margin: 0; }
 .snoooz-inbox.is-solved .snoooz-inbox__foot--problem { opacity: 0; }
 .snoooz-inbox.is-solved .snoooz-inbox__foot--solved { opacity: 1; }
 
-/* "Handled by Snoooz" badge that appears when solved */
-.snoooz-inbox__badge {
-  position: absolute;
-  top: 58px;
-  right: 16px;
-  z-index: 2;
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 8px 13px;
-  border-radius: 999px;
-  background: linear-gradient(135deg, var(--snoooz-primary), var(--snoooz-primary-hover));
-  color: #fff;
-  font-size: 12px;
+/* Caption below the inbox — appears once the inbox is solved */
+.snoooz-problem__caption {
+  margin: 20px 0 0;
+  text-align: center;
+  font-size: clamp(16px, 1.8vw, 20px);
   font-weight: 700;
-  box-shadow: 0 14px 30px rgba(15, 91, 68, 0.3);
+  letter-spacing: -0.01em;
+  color: var(--snoooz-text);
   opacity: 0;
-  transform: translateY(-6px) scale(0.96);
-  transition: opacity 0.4s ease, transform 0.4s ease;
-  pointer-events: none;
+  transform: translateY(8px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
-.snoooz-inbox__badge::before {
-  content: "";
-  width: 7px; height: 7px;
-  border-radius: 999px;
-  background: var(--snoooz-secondary);
-  box-shadow: 0 0 0 3px rgba(214, 217, 160, 0.35);
+.snoooz-problem__caption-hl {
+  background: linear-gradient(100deg, var(--snoooz-primary) 0%, var(--snoooz-secondary-hover) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
-.snoooz-inbox.is-solved .snoooz-inbox__badge { opacity: 1; transform: none; }
+.snoooz-inbox.is-solved + .snoooz-problem__caption { opacity: 1; transform: none; }
 
 /* ---- Mobile: nothing slides sideways; the inbox stays put and the
    text crossfades in place below it. ---- */
@@ -476,8 +467,8 @@ html, body { margin: 0; }
   .snoooz-row--new,
   .snoooz-inbox.is-solved .snoooz-row,
   .snoooz-inbox__count.is-pulsing,
-  .snoooz-inbox__badge { animation: none; transition: none; }
-  .snoooz-inbox__badge { transform: none; }
+  .snoooz-problem__caption { animation: none; transition: none; }
+  .snoooz-problem__caption { transform: none; }
 }
 
 </style>
@@ -537,8 +528,6 @@ html, body { margin: 0; }
                 <span class="lbl--solved">to handle</span>
               </span>
             </div>
-
-            <div class="snoooz-inbox__badge" aria-hidden="true">Handled by Snoooz</div>
 
             <div class="snoooz-inbox__list" id="snooozInboxList">
 
@@ -634,6 +623,8 @@ html, body { margin: 0; }
             </div>
 
           </div>
+
+          <p class="snoooz-problem__caption" aria-hidden="true">Your inbox, <span class="snoooz-problem__caption-hl">handled by Snoooz</span></p>
         </div>
 
       </div>

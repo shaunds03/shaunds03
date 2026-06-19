@@ -36,25 +36,29 @@ def standalone(title, css, html, js=None):
 hero_css, hero_html, hero_js = read("hero", "snoooz-hero.css"), read("hero", "snoooz-hero.html"), read("hero", "snoooz-hero.js")
 logo_css, logo_html = read("social-proof", "snoooz-logos.css"), read("social-proof", "snoooz-logos.html")
 prob_css, prob_html, prob_js = read("problem", "snoooz-problem.css"), read("problem", "snoooz-problem.html"), read("problem", "snoooz-problem.js")
+how_css, how_html, how_js = read("how-it-works", "snoooz-how.css"), read("how-it-works", "snoooz-how.html"), read("how-it-works", "snoooz-how.js")
 
 # --- standalone section previews ---
 write("hero/snoooz-hero-preview.html", standalone("Snoooz — Hero preview", hero_css, hero_html, hero_js))
 write("social-proof/snoooz-logos-preview.html", standalone("Snoooz — Logo wall preview", logo_css, logo_html))
 write("problem/snoooz-problem-preview.html", standalone("Snoooz — Problem / Category preview", prob_css, prob_html, prob_js))
+write("how-it-works/snoooz-how-preview.html", standalone("Snoooz — How it works preview", how_css, how_html, how_js))
 
 # --- combined homepage preview ---
 combined_css = (
     hero_css
     + "\n\n/* ===== SOCIAL PROOF / LOGO WALL ===== */\n" + logo_css
     + "\n\n/* ===== PROBLEM / CATEGORY ===== */\n" + prob_css
+    + "\n\n/* ===== HOW IT WORKS ===== */\n" + how_css
 )
 combined_body = (
     strip_leading_html_comment(hero_html)
     + "\n\n" + strip_leading_html_comment(logo_html)
     + "\n\n" + strip_leading_html_comment(prob_html)
+    + "\n\n" + strip_leading_html_comment(how_html)
 )
-combined_js = hero_js + "\n\n" + prob_js
+combined_js = hero_js + "\n\n" + prob_js + "\n\n" + how_js
 combined = standalone("Snoooz — Homepage preview", combined_css, combined_body, combined_js)
 write("homepage-preview.html", combined)
 
-print("Rebuilt: hero, logos, problem standalone previews + homepage-preview.html")
+print("Rebuilt: hero, logos, problem, how-it-works standalone previews + homepage-preview.html")

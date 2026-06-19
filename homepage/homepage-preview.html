@@ -901,35 +901,26 @@ html, body { margin: 0; }
 .snoooz-inbox.is-solved .snoooz-inbox__foot--problem { opacity: 0; }
 .snoooz-inbox.is-solved .snoooz-inbox__foot--solved { opacity: 1; }
 
-/* "Handled by Snoooz" badge that appears when solved */
-.snoooz-inbox__badge {
-  position: absolute;
-  top: 58px;
-  right: 16px;
-  z-index: 2;
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 8px 13px;
-  border-radius: 999px;
-  background: linear-gradient(135deg, var(--snoooz-primary), var(--snoooz-primary-hover));
-  color: #fff;
-  font-size: 12px;
+/* Caption below the inbox — appears once the inbox is solved */
+.snoooz-problem__caption {
+  margin: 20px 0 0;
+  text-align: center;
+  font-size: clamp(16px, 1.8vw, 20px);
   font-weight: 700;
-  box-shadow: 0 14px 30px rgba(15, 91, 68, 0.3);
+  letter-spacing: -0.01em;
+  color: var(--snoooz-text);
   opacity: 0;
-  transform: translateY(-6px) scale(0.96);
-  transition: opacity 0.4s ease, transform 0.4s ease;
-  pointer-events: none;
+  transform: translateY(8px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
-.snoooz-inbox__badge::before {
-  content: "";
-  width: 7px; height: 7px;
-  border-radius: 999px;
-  background: var(--snoooz-secondary);
-  box-shadow: 0 0 0 3px rgba(214, 217, 160, 0.35);
+.snoooz-problem__caption-hl {
+  background: linear-gradient(100deg, var(--snoooz-primary) 0%, var(--snoooz-secondary-hover) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
-.snoooz-inbox.is-solved .snoooz-inbox__badge { opacity: 1; transform: none; }
+.snoooz-inbox.is-solved + .snoooz-problem__caption { opacity: 1; transform: none; }
 
 /* ---- Mobile: nothing slides sideways; the inbox stays put and the
    text crossfades in place below it. ---- */
@@ -969,8 +960,463 @@ html, body { margin: 0; }
   .snoooz-row--new,
   .snoooz-inbox.is-solved .snoooz-row,
   .snoooz-inbox__count.is-pulsing,
-  .snoooz-inbox__badge { animation: none; transition: none; }
-  .snoooz-inbox__badge { transform: none; }
+  .snoooz-problem__caption { animation: none; transition: none; }
+  .snoooz-problem__caption { transform: none; }
+}
+
+
+/* ===== HOW IT WORKS ===== */
+/* ============================================================
+   SNOOOZ HOMEPAGE — HOW IT WORKS STYLES
+   Paste into your HubSpot module CSS field (or a <style> block).
+   Brand tokens match the rest of the homepage.
+
+   Four steps, each with its own animated "Snoooz app" mock that plays
+   when it scrolls into view (driven by snoooz-how.js):
+     1. Connect your inboxes   — mailboxes connect one by one
+     2. Train on your knowledge — files drop into an upload zone
+     3. Start in review mode    — a reply is drafted, edited, and sent
+     4. Switch on autopilot      — a toggle flips and the inbox organizes
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap');
+
+:root {
+  --snoooz-bg: #f7f9f4;
+  --snoooz-text: #102421;
+  --snoooz-muted: #60706d;
+  --snoooz-border: #dfe8e2;
+  --snoooz-primary: #0F5B44;
+  --snoooz-primary-hover: #053533;
+  --snoooz-secondary: #D6D9A0;
+  --snoooz-secondary-hover: #A5AE47;
+  --snoooz-secondary-soft: rgba(214, 217, 160, 0.26);
+  --snoooz-shadow: 0 18px 50px rgba(15, 91, 68, 0.06);
+  --snoooz-max: 1180px;
+}
+
+.snoooz-how,
+.snoooz-how *,
+.snoooz-how *::before,
+.snoooz-how *::after { box-sizing: border-box; }
+
+.snoooz-how {
+  width: 100%;
+  margin: 0;
+  color: var(--snoooz-text);
+  font-family: "Open Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background:
+    radial-gradient(circle at 12% 6%, rgba(214, 217, 160, 0.26), transparent 32%),
+    var(--snoooz-bg);
+}
+.snoooz-how__container {
+  width: 100%;
+  max-width: var(--snoooz-max);
+  margin: 0 auto;
+  padding: 84px 24px 88px;
+}
+.snoooz-how h2, .snoooz-how h3, .snoooz-how p { margin-top: 0; }
+
+/* Heading */
+.snoooz-how__head { max-width: 720px; margin: 0 0 56px; }
+.snoooz-how__eyebrow {
+  margin: 0 0 14px;
+  color: var(--snoooz-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  font-size: 13px;
+  font-weight: 700;
+}
+.snoooz-how__head h2 {
+  margin: 0 0 14px;
+  font-size: clamp(28px, 4vw, 43px);
+  line-height: 1.08;
+  letter-spacing: -0.038em;
+  font-weight: 700;
+}
+.snoooz-how__head h2 .snoooz-how__hl {
+  background: linear-gradient(100deg, var(--snoooz-primary) 0%, var(--snoooz-secondary-hover) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.snoooz-how__head p {
+  max-width: 560px;
+  margin: 0;
+  color: var(--snoooz-muted);
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+/* Steps layout */
+.snoooz-how__steps { display: flex; flex-direction: column; gap: 60px; }
+.snoooz-how__step {
+  display: grid;
+  grid-template-columns: 1fr 1.05fr;
+  gap: 52px;
+  align-items: center;
+}
+.snoooz-how__step:nth-child(even) .snoooz-how__copy { order: 2; }
+.snoooz-how__step:nth-child(even) .snoooz-how__app { order: 1; }
+
+.snoooz-how__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  padding: 7px 13px 7px 8px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  border: 1px solid rgba(15, 91, 68, 0.2);
+  background: rgba(15, 91, 68, 0.07);
+  color: var(--snoooz-primary);
+}
+.snoooz-how__badge b {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px; height: 22px;
+  border-radius: 999px;
+  background: var(--snoooz-primary);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+}
+.snoooz-how__copy h3 {
+  margin: 0 0 14px;
+  font-size: clamp(22px, 2.7vw, 30px);
+  line-height: 1.16;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+}
+.snoooz-how__copy p {
+  max-width: 440px;
+  margin: 0;
+  color: var(--snoooz-muted);
+  font-size: clamp(15.5px, 1.6vw, 17.5px);
+  line-height: 1.62;
+}
+.snoooz-how__copy p strong { color: var(--snoooz-text); font-weight: 700; }
+
+/* The app frame */
+.snoooz-how__app {
+  border-radius: 22px;
+  overflow: hidden;
+  border: 1px solid rgba(223, 232, 226, 0.95);
+  background: linear-gradient(180deg, rgba(255,255,255,0.94), rgba(255,255,255,0.82));
+  box-shadow: var(--snoooz-shadow);
+  backdrop-filter: blur(10px);
+}
+.snoooz-how__appbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(15, 91, 68, 0.08);
+  background: rgba(255, 255, 255, 0.62);
+}
+.snoooz-how__logo { height: 22px; width: auto; display: block; }
+.snoooz-how__apptitle { font-size: 13px; font-weight: 700; color: var(--snoooz-text); }
+.snoooz-how__appdots { margin-left: auto; display: flex; gap: 6px; }
+.snoooz-how__appdots i { width: 9px; height: 9px; border-radius: 999px; background: rgba(15, 91, 68, 0.16); }
+.snoooz-how__appbody { position: relative; padding: 18px; min-height: 340px; }
+
+/* ---------- Step 1: connect ---------- */
+.snoooz-connect { display: flex; flex-direction: column; gap: 10px; }
+.snoooz-connect__row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 13px;
+  border-radius: 14px;
+  border: 1px solid rgba(223, 232, 226, 0.9);
+  background: rgba(255, 255, 255, 0.7);
+  opacity: 0.5;
+  transition: opacity 0.4s ease, border-color 0.4s ease, background 0.4s ease;
+}
+.snoooz-connect__row.is-connected {
+  opacity: 1;
+  border-color: rgba(15, 91, 68, 0.3);
+  background: linear-gradient(90deg, rgba(15, 91, 68, 0.05), rgba(255,255,255,0.7) 60%);
+}
+.snoooz-connect__logo {
+  width: 28px; height: 28px;
+  flex: 0 0 auto;
+  object-fit: contain;
+  border-radius: 7px;
+  background: #fff;
+  padding: 2px;
+  border: 1px solid rgba(15, 91, 68, 0.08);
+}
+.snoooz-connect__meta { min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.snoooz-connect__meta strong { font-size: 13.5px; font-weight: 700; color: var(--snoooz-text); }
+.snoooz-connect__meta span { font-size: 12px; color: var(--snoooz-muted); }
+.snoooz-connect__status {
+  margin-left: auto;
+  flex: 0 0 auto;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--snoooz-muted);
+  background: rgba(96, 112, 109, 0.1);
+  border: 1px solid rgba(96, 112, 109, 0.16);
+  white-space: nowrap;
+}
+.snoooz-connect__row.is-connected .snoooz-connect__status {
+  color: #fff;
+  background: var(--snoooz-primary);
+  border-color: var(--snoooz-primary);
+}
+.snoooz-connect__row.is-connected .snoooz-connect__status::before { content: "\2713 "; font-weight: 800; }
+
+/* ---------- Step 2: train ---------- */
+.snoooz-train { display: flex; flex-direction: column; gap: 16px; }
+.snoooz-train__drop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  padding: 26px 18px;
+  border-radius: 16px;
+  border: 2px dashed rgba(15, 91, 68, 0.32);
+  background: rgba(15, 91, 68, 0.04);
+  text-align: center;
+  transition: border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
+}
+.snoooz-train__drop.is-active {
+  border-color: var(--snoooz-primary);
+  background: var(--snoooz-secondary-soft);
+  transform: scale(1.015);
+}
+.snoooz-train__drop svg { color: var(--snoooz-primary); }
+.snoooz-train__drop strong { font-size: 14px; font-weight: 700; color: var(--snoooz-text); }
+.snoooz-train__drop span { font-size: 12.5px; color: var(--snoooz-muted); }
+
+.snoooz-train__files { display: flex; flex-wrap: wrap; gap: 8px; min-height: 34px; }
+.snoooz-train__file {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--snoooz-text);
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid rgba(15, 91, 68, 0.16);
+  box-shadow: 0 8px 20px rgba(15, 91, 68, 0.05);
+  opacity: 0;
+  transform: translateY(-16px);
+  transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.snoooz-train__file.is-in { opacity: 1; transform: none; }
+.snoooz-train__file::before {
+  content: "";
+  width: 9px; height: 11px;
+  border-radius: 2px;
+  background: var(--snoooz-secondary-hover);
+}
+.snoooz-train__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  align-self: flex-start;
+  padding: 7px 12px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--snoooz-primary);
+  background: rgba(15, 91, 68, 0.1);
+  border: 1px solid rgba(15, 91, 68, 0.22);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.snoooz-train__status.is-on { opacity: 1; transform: none; }
+.snoooz-train__status::before { content: "\2713"; font-weight: 800; }
+
+/* ---------- Step 3: review ---------- */
+.snoooz-review { display: flex; flex-direction: column; gap: 12px; }
+.snoooz-review__msg { padding: 14px 15px; border-radius: 14px; border: 1px solid rgba(223, 232, 226, 0.9); background: rgba(255, 255, 255, 0.72); }
+.snoooz-review__reply { border-color: rgba(15, 91, 68, 0.24); background: linear-gradient(135deg, rgba(15, 91, 68, 0.05), rgba(214, 217, 160, 0.14)), rgba(255,255,255,0.7); }
+.snoooz-review__head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.snoooz-review__label { font-size: 10.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: var(--snoooz-muted); }
+.snoooz-review__label--green { color: var(--snoooz-primary); }
+.snoooz-review__from { font-size: 12px; color: var(--snoooz-muted); }
+.snoooz-review__text { margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--snoooz-text); min-height: 1.55em; }
+.snoooz-review__draft { color: var(--snoooz-primary); font-weight: 600; min-height: 3em; }
+.snoooz-review__text.is-typing::after { content: "\258F"; margin-left: 1px; animation: snoooz-how-blink 1s steps(1) infinite; }
+.snoooz-review__text.is-flash { animation: snoooz-how-flash 0.5s ease; }
+
+.snoooz-review__actions { display: flex; align-items: center; justify-content: flex-end; gap: 8px; margin-top: 10px; }
+.snoooz-review__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: default;
+  transition: transform 0.15s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+.snoooz-review__btn--ghost { color: var(--snoooz-primary); background: rgba(255, 255, 255, 0.86); border: 1px solid var(--snoooz-border); }
+.snoooz-review__btn--ghost.is-active { background: var(--snoooz-secondary-soft); border-color: var(--snoooz-secondary-hover); transform: scale(0.96); }
+.snoooz-review__btn--send { color: #fff; background: var(--snoooz-primary); border: 1px solid var(--snoooz-primary); box-shadow: 0 10px 22px rgba(15, 91, 68, 0.2); }
+.snoooz-review__btn--send.is-pressed { transform: scale(0.94); }
+.snoooz-review__sent {
+  display: none;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 800;
+  color: var(--snoooz-primary);
+  background: rgba(15, 91, 68, 0.1);
+  border: 1px solid rgba(15, 91, 68, 0.22);
+}
+.snoooz-review__sent::before { content: "\2713"; font-weight: 800; }
+.snoooz-review__actions.is-sent .snoooz-review__btn { display: none; }
+.snoooz-review__actions.is-sent .snoooz-review__sent { display: inline-flex; }
+
+/* ---------- Step 4: autopilot ---------- */
+.snoooz-auto { display: flex; flex-direction: column; gap: 16px; }
+.snoooz-auto__toggle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(223, 232, 226, 0.9);
+  background: rgba(255, 255, 255, 0.72);
+  transition: border-color 0.35s ease, background 0.35s ease;
+}
+.snoooz-auto__toggle.is-on { border-color: rgba(15, 91, 68, 0.28); background: linear-gradient(90deg, rgba(15, 91, 68, 0.05), rgba(255,255,255,0.72) 60%); }
+.snoooz-auto__toggle-meta { display: flex; flex-direction: column; gap: 1px; }
+.snoooz-auto__toggle-meta strong { font-size: 14px; font-weight: 700; color: var(--snoooz-text); }
+.snoooz-auto__toggle-meta span { font-size: 12px; color: var(--snoooz-muted); }
+.snoooz-auto__switch {
+  margin-left: auto;
+  position: relative;
+  flex: 0 0 auto;
+  width: 48px; height: 27px;
+  border-radius: 999px;
+  background: rgba(96, 112, 109, 0.28);
+  transition: background 0.3s ease;
+}
+.snoooz-auto__switch i {
+  position: absolute;
+  top: 3px; left: 3px;
+  width: 21px; height: 21px;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: 0 4px 10px rgba(15, 91, 68, 0.25);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.snoooz-auto__toggle.is-on .snoooz-auto__switch { background: var(--snoooz-primary); }
+.snoooz-auto__toggle.is-on .snoooz-auto__switch i { transform: translateX(21px); }
+
+.snoooz-auto__rows { display: flex; flex-direction: column; gap: 8px; }
+.snoooz-auto__row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 13px;
+  border-radius: 13px;
+  border: 1px solid rgba(223, 232, 226, 0.9);
+  border-left: 3px solid rgba(15, 91, 68, 0.5);
+  background: linear-gradient(90deg, rgba(15, 91, 68, 0.045), rgba(255,255,255,0.8) 60%);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.snoooz-auto__row.is-shown { opacity: 1; transform: none; }
+.snoooz-auto__row-body { min-width: 0; flex: 1 1 auto; }
+.snoooz-auto__row-from { font-size: 13px; font-weight: 700; color: var(--snoooz-text); }
+.snoooz-auto__row-subj { font-size: 12px; color: var(--snoooz-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.snoooz-auto__pill {
+  margin-left: auto;
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.snoooz-auto__pill::before { content: "\2713"; font-weight: 800; }
+.snoooz-auto__pill--routed::before { content: "\2192"; }
+.snoooz-auto__pill--escalate::before { content: "!"; }
+.snoooz-auto__pill--replied  { color: #fff; background: var(--snoooz-primary); border: 1px solid var(--snoooz-primary); }
+.snoooz-auto__pill--routed   { color: var(--snoooz-primary); background: rgba(15, 91, 68, 0.1); border: 1px solid rgba(15, 91, 68, 0.24); }
+.snoooz-auto__pill--escalate { color: var(--snoooz-primary-hover); background: var(--snoooz-secondary-soft); border: 1px solid rgba(165, 174, 71, 0.5); }
+
+/* Reassurance line */
+.snoooz-how__reassure {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: fit-content;
+  margin: 56px auto 0;
+  padding: 14px 20px;
+  border-radius: 999px;
+  border: 1px solid rgba(15, 91, 68, 0.16);
+  background: rgba(15, 91, 68, 0.05);
+  color: var(--snoooz-text);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.4;
+  text-align: center;
+}
+.snoooz-how__reassure::before {
+  content: "\2713";
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px; height: 24px;
+  border-radius: 999px;
+  background: var(--snoooz-primary);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+@keyframes snoooz-how-blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
+@keyframes snoooz-how-flash {
+  0% { background: var(--snoooz-secondary-soft); }
+  100% { background: transparent; }
+}
+
+/* Responsive */
+@media (max-width: 860px) {
+  .snoooz-how__container { padding: 60px 20px 64px; }
+  .snoooz-how__steps { gap: 44px; }
+  .snoooz-how__step { grid-template-columns: 1fr; gap: 22px; }
+  .snoooz-how__step .snoooz-how__copy,
+  .snoooz-how__step .snoooz-how__app { order: 0 !important; }
+  .snoooz-how__appbody { min-height: 300px; }
+  .snoooz-how__reassure { margin-top: 40px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .snoooz-connect__row,
+  .snoooz-train__drop,
+  .snoooz-train__file,
+  .snoooz-train__status,
+  .snoooz-auto__toggle,
+  .snoooz-auto__switch i,
+  .snoooz-auto__row,
+  .snoooz-review__btn { transition: none; }
+  .snoooz-review__text.is-typing::after,
+  .snoooz-review__text.is-flash { animation: none; }
 }
 
 </style>
@@ -1163,8 +1609,6 @@ html, body { margin: 0; }
               </span>
             </div>
 
-            <div class="snoooz-inbox__badge" aria-hidden="true">Handled by Snoooz</div>
-
             <div class="snoooz-inbox__list" id="snooozInboxList">
 
               <div class="snoooz-row" data-cat="support">
@@ -1259,10 +1703,202 @@ html, body { margin: 0; }
             </div>
 
           </div>
+
+          <p class="snoooz-problem__caption" aria-hidden="true">Your inbox, <span class="snoooz-problem__caption-hl">handled by Snoooz</span></p>
         </div>
 
       </div>
     </div>
+  </div>
+</section>
+
+<section class="snoooz-how" aria-label="How Snoooz works">
+  <div class="snoooz-how__container">
+
+    <div class="snoooz-how__head">
+      <p class="snoooz-how__eyebrow">How it works</p>
+      <h2>Onboard Snoooz like <span class="snoooz-how__hl">a new hire</span>. Trust it like a great one.</h2>
+      <p>It starts by drafting under your review, and earns its way to autopilot.</p>
+    </div>
+
+    <div class="snoooz-how__steps">
+
+      <!-- ============ STEP 1: CONNECT ============ -->
+      <article class="snoooz-how__step">
+        <div class="snoooz-how__copy">
+          <span class="snoooz-how__badge"><b>1</b> Connect</span>
+          <h3>Connect your inboxes.</h3>
+          <p>
+            Gmail, Outlook, or any IMAP/SMTP mailbox, including shared addresses like support@ and
+            sales@. <strong>Nothing to migrate, nothing to rip out.</strong>
+          </p>
+        </div>
+        <div class="snoooz-how__app">
+          <div class="snoooz-how__appbar">
+            <img class="snoooz-how__logo" src="https://snoooz.ai/hubfs/Snoooz%20Logo-1%20(2).png" alt="Snoooz">
+            <span class="snoooz-how__apptitle">Connect a mailbox</span>
+            <span class="snoooz-how__appdots" aria-hidden="true"><i></i><i></i><i></i></span>
+          </div>
+          <div class="snoooz-how__appbody">
+            <div class="snoooz-connect" id="snooozConnect">
+              <div class="snoooz-connect__row is-connected">
+                <img class="snoooz-connect__logo" src="https://snoooz.ai/hubfs/gmail_logo.png" alt="" loading="lazy">
+                <div class="snoooz-connect__meta"><strong>Alex Morgan</strong><span>alex@marketing</span></div>
+                <span class="snoooz-connect__status">Connected</span>
+              </div>
+              <div class="snoooz-connect__row is-connected">
+                <img class="snoooz-connect__logo" src="https://snoooz.ai/hubfs/outlook_logo.png" alt="" loading="lazy">
+                <div class="snoooz-connect__meta"><strong>Priya Nair</strong><span>priya@sales</span></div>
+                <span class="snoooz-connect__status">Connected</span>
+              </div>
+              <div class="snoooz-connect__row is-connected">
+                <img class="snoooz-connect__logo" src="https://snoooz.ai/hubfs/mini-hero-mail.png" alt="" loading="lazy">
+                <div class="snoooz-connect__meta"><strong>Sam Lee</strong><span>support@</span></div>
+                <span class="snoooz-connect__status">Connected</span>
+              </div>
+              <div class="snoooz-connect__row is-connected">
+                <img class="snoooz-connect__logo" src="https://snoooz.ai/hubfs/yahoo-logo-illustration-in-square-background-free-png.png.webp" alt="" loading="lazy">
+                <div class="snoooz-connect__meta"><strong>Jordan Diaz</strong><span>info@</span></div>
+                <span class="snoooz-connect__status">Connected</span>
+              </div>
+              <div class="snoooz-connect__row is-connected">
+                <img class="snoooz-connect__logo" src="https://snoooz.ai/hubfs/smtp.webp" alt="" loading="lazy">
+                <div class="snoooz-connect__meta"><strong>Mia Chen</strong><span>mia@billing</span></div>
+                <span class="snoooz-connect__status">Connected</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ============ STEP 2: TRAIN ============ -->
+      <article class="snoooz-how__step">
+        <div class="snoooz-how__copy">
+          <span class="snoooz-how__badge"><b>2</b> Train</span>
+          <h3>Train it on your knowledge.</h3>
+          <p>
+            Point Snoooz at your FAQs, help center, documents, policies, and past replies. It learns
+            to answer the way your team does, <strong>in your voice, with your facts.</strong>
+          </p>
+        </div>
+        <div class="snoooz-how__app">
+          <div class="snoooz-how__appbar">
+            <img class="snoooz-how__logo" src="https://snoooz.ai/hubfs/Snoooz%20Logo-1%20(2).png" alt="Snoooz">
+            <span class="snoooz-how__apptitle">Train Snoooz</span>
+            <span class="snoooz-how__appdots" aria-hidden="true"><i></i><i></i><i></i></span>
+          </div>
+          <div class="snoooz-how__appbody">
+            <div class="snoooz-train" id="snooozTrain">
+              <div class="snoooz-train__drop">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 16V4m0 0L7 9m5-5l5 5M5 20h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <strong>Drag and drop your files</strong>
+                <span>FAQs, help center, policies, past replies</span>
+              </div>
+              <div class="snoooz-train__files">
+                <span class="snoooz-train__file is-in">FAQs.pdf</span>
+                <span class="snoooz-train__file is-in">Refund policy.pdf</span>
+                <span class="snoooz-train__file is-in">Help center.docx</span>
+                <span class="snoooz-train__file is-in">Past replies.csv</span>
+              </div>
+              <span class="snoooz-train__status is-on">Indexed 4 sources</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ============ STEP 3: REVIEW ============ -->
+      <article class="snoooz-how__step">
+        <div class="snoooz-how__copy">
+          <span class="snoooz-how__badge"><b>3</b> Review</span>
+          <h3>Start in review mode.</h3>
+          <p>
+            Snoooz drafts every reply for your team to approve. <strong>You see exactly how good it
+            is before it sends a single email.</strong>
+          </p>
+        </div>
+        <div class="snoooz-how__app">
+          <div class="snoooz-how__appbar">
+            <img class="snoooz-how__logo" src="https://snoooz.ai/hubfs/Snoooz%20Logo-1%20(2).png" alt="Snoooz">
+            <span class="snoooz-how__apptitle">Review &amp; approve</span>
+            <span class="snoooz-how__appdots" aria-hidden="true"><i></i><i></i><i></i></span>
+          </div>
+          <div class="snoooz-how__appbody">
+            <div class="snoooz-review" id="snooozReview">
+              <div class="snoooz-review__msg snoooz-review__incoming">
+                <div class="snoooz-review__head">
+                  <span class="snoooz-review__label">New email</span>
+                  <span class="snoooz-review__from">Maria Lopez</span>
+                </div>
+                <p class="snoooz-review__text" id="snooozReviewIn">Hi, do you ship to Canada, and how long does delivery take?</p>
+              </div>
+              <div class="snoooz-review__msg snoooz-review__reply">
+                <div class="snoooz-review__head">
+                  <span class="snoooz-review__label snoooz-review__label--green">Snoooz draft</span>
+                </div>
+                <p class="snoooz-review__text snoooz-review__draft" id="snooozReviewDraft">Hi Maria! Yes, we ship to Canada. Delivery is 2 to 4 business days, with tracking.</p>
+                <div class="snoooz-review__actions" id="snooozReviewActions">
+                  <button class="snoooz-review__btn snoooz-review__btn--ghost" id="snooozReviewEdit" type="button" tabindex="-1">Edit</button>
+                  <button class="snoooz-review__btn snoooz-review__btn--send" id="snooozReviewSend" type="button" tabindex="-1">Send</button>
+                  <span class="snoooz-review__sent">Sent</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ============ STEP 4: AUTOPILOT ============ -->
+      <article class="snoooz-how__step">
+        <div class="snoooz-how__copy">
+          <span class="snoooz-how__badge"><b>4</b> Autopilot</span>
+          <h3>Switch on autopilot.</h3>
+          <p>
+            When you're ready, Snoooz replies, routes, and follows up on its own, and sends anything
+            unusual, sensitive, or unfamiliar <strong>straight to a person.</strong>
+          </p>
+        </div>
+        <div class="snoooz-how__app">
+          <div class="snoooz-how__appbar">
+            <img class="snoooz-how__logo" src="https://snoooz.ai/hubfs/Snoooz%20Logo-1%20(2).png" alt="Snoooz">
+            <span class="snoooz-how__apptitle">Automation</span>
+            <span class="snoooz-how__appdots" aria-hidden="true"><i></i><i></i><i></i></span>
+          </div>
+          <div class="snoooz-how__appbody">
+            <div class="snoooz-auto" id="snooozAuto">
+              <div class="snoooz-auto__toggle is-on" id="snooozAutoToggle">
+                <div class="snoooz-auto__toggle-meta">
+                  <strong>Auto-reply</strong>
+                  <span>Replies sent automatically</span>
+                </div>
+                <span class="snoooz-auto__switch" aria-hidden="true"><i></i></span>
+              </div>
+              <div class="snoooz-auto__rows">
+                <div class="snoooz-auto__row is-shown">
+                  <div class="snoooz-auto__row-body"><div class="snoooz-auto__row-from">Olivia Reed</div><div class="snoooz-auto__row-subj">Where is my order #1043?</div></div>
+                  <span class="snoooz-auto__pill snoooz-auto__pill--replied">Auto-replied</span>
+                </div>
+                <div class="snoooz-auto__row is-shown">
+                  <div class="snoooz-auto__row-body"><div class="snoooz-auto__row-from">Daniel Cho</div><div class="snoooz-auto__row-subj">Can I get a demo this week?</div></div>
+                  <span class="snoooz-auto__pill snoooz-auto__pill--routed">Routed to Sales</span>
+                </div>
+                <div class="snoooz-auto__row is-shown">
+                  <div class="snoooz-auto__row-body"><div class="snoooz-auto__row-from">Mark Evans</div><div class="snoooz-auto__row-subj">Question about invoice #4821</div></div>
+                  <span class="snoooz-auto__pill snoooz-auto__pill--routed">Routed to Finance</span>
+                </div>
+                <div class="snoooz-auto__row is-shown">
+                  <div class="snoooz-auto__row-body"><div class="snoooz-auto__row-from">James Park</div><div class="snoooz-auto__row-subj">I want a refund for a damaged item</div></div>
+                  <span class="snoooz-auto__pill snoooz-auto__pill--escalate">Escalated to you</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <p class="snoooz-how__reassure">You stay in control the whole way. Snoooz sends only what you allow, on the inboxes you choose.</p>
+
   </div>
 </section>
 <script>
@@ -1542,6 +2178,204 @@ html, body { margin: 0; }
   sectionObs.observe(scroll);
 
   apply();
+})();
+
+
+/* ============================================================
+   SNOOOZ HOMEPAGE — HOW IT WORKS SCRIPTS
+   Paste into your HubSpot module JS field (or a <script> block
+   placed after the HTML). Self-contained, no dependencies.
+
+   Each step's app animates only while it is on screen, then loops.
+   The HTML is seeded in each animation's finished state, so reduced-motion
+   users (and the no-JS case) simply keep that finished state.
+   ============================================================ */
+
+(function () {
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) return; /* keep the seeded finished states, no looping */
+
+  /* Run `loopFn` (async) while the element is in view; stop when it leaves.
+     A generation token kills any stale loop so re-entering never doubles up.
+     `resetFn` puts the markup back to its starting state before each run. */
+  function onView(el, resetFn, loopFn) {
+    if (!el) return;
+    var gen = 0, running = false;
+    function alive(myGen) { return running && myGen === gen; }
+    function wait(ms, myGen) {
+      return new Promise(function (res) { setTimeout(function () { res(alive(myGen)); }, ms); });
+    }
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting && !running) {
+          running = true; gen++;
+          var myGen = gen;
+          if (resetFn) resetFn();
+          loopFn(myGen, function (ms) { return wait(ms, myGen); }, function () { return alive(myGen); });
+        } else if (!e.isIntersecting) {
+          running = false; gen++;
+        }
+      });
+    }, { threshold: 0.35 });
+    obs.observe(el);
+  }
+
+  function typeInto(el, text, speed, alive) {
+    return new Promise(function (resolve) {
+      el.classList.add('is-typing');
+      var i = 0;
+      function tick() {
+        if (!alive()) { el.classList.remove('is-typing'); resolve(false); return; }
+        el.textContent = text.slice(0, i);
+        i++;
+        if (i <= text.length) setTimeout(tick, speed);
+        else { el.classList.remove('is-typing'); resolve(true); }
+      }
+      tick();
+    });
+  }
+
+  /* ---------- Step 1: connect ---------- */
+  (function () {
+    var root = document.getElementById('snooozConnect');
+    if (!root) return;
+    var rows = Array.prototype.slice.call(root.querySelectorAll('.snoooz-connect__row'));
+    function set(row, on) {
+      row.classList.toggle('is-connected', on);
+      var s = row.querySelector('.snoooz-connect__status');
+      if (s) s.textContent = on ? 'Connected' : 'Connect';
+    }
+    function reset() { rows.forEach(function (r) { set(r, false); }); }
+
+    onView(root, reset, async function (g, wait, alive) {
+      while (alive()) {
+        reset();
+        if (!(await wait(600))) return;
+        for (var i = 0; i < rows.length; i++) {
+          if (!alive()) return;
+          set(rows[i], true);
+          if (!(await wait(680))) return;
+        }
+        if (!(await wait(1500))) return;
+      }
+    });
+  })();
+
+  /* ---------- Step 2: train ---------- */
+  (function () {
+    var root = document.getElementById('snooozTrain');
+    if (!root) return;
+    var drop = root.querySelector('.snoooz-train__drop');
+    var files = Array.prototype.slice.call(root.querySelectorAll('.snoooz-train__file'));
+    var status = root.querySelector('.snoooz-train__status');
+    function reset() {
+      files.forEach(function (f) { f.classList.remove('is-in'); });
+      if (status) status.classList.remove('is-on');
+      if (drop) drop.classList.remove('is-active');
+    }
+
+    onView(root, reset, async function (g, wait, alive) {
+      while (alive()) {
+        reset();
+        if (!(await wait(650))) return;
+        for (var i = 0; i < files.length; i++) {
+          if (!alive()) return;
+          if (drop) drop.classList.add('is-active');
+          files[i].classList.add('is-in');
+          if (!(await wait(200))) return;
+          if (drop) drop.classList.remove('is-active');
+          if (!(await wait(540))) return;
+        }
+        if (status) status.classList.add('is-on');
+        if (!(await wait(1700))) return;
+      }
+    });
+  })();
+
+  /* ---------- Step 3: review ---------- */
+  (function () {
+    var root = document.getElementById('snooozReview');
+    if (!root) return;
+    var inEl = document.getElementById('snooozReviewIn');
+    var draftEl = document.getElementById('snooozReviewDraft');
+    var actions = document.getElementById('snooozReviewActions');
+    var editBtn = document.getElementById('snooozReviewEdit');
+    var sendBtn = document.getElementById('snooozReviewSend');
+    if (!inEl || !draftEl || !actions) return;
+
+    var INCOMING = 'Hi, do you ship to Canada, and how long does delivery take?';
+    var REPLY1 = 'Hi! Yes, we ship to Canada. Standard delivery takes 3 to 5 business days.';
+    var REPLY2 = 'Hi Maria! Yes, we ship to Canada. Standard delivery takes 3 to 5 business days.';
+    var REPLY3 = 'Hi Maria! Yes, we ship to Canada. Delivery is 2 to 4 business days, with tracking.';
+
+    function flash(el) {
+      el.classList.remove('is-flash');
+      void el.offsetWidth; /* restart the animation */
+      el.classList.add('is-flash');
+    }
+    function reset() {
+      inEl.textContent = '';
+      draftEl.textContent = '';
+      actions.classList.remove('is-sent');
+      if (editBtn) editBtn.classList.remove('is-active');
+      if (sendBtn) sendBtn.classList.remove('is-pressed');
+    }
+
+    onView(root, reset, async function (g, wait, alive) {
+      while (alive()) {
+        reset();
+        if (!(await wait(500))) return;
+        if (!(await typeInto(inEl, INCOMING, 24, alive))) return;
+        if (!(await wait(450))) return;
+        if (!(await typeInto(draftEl, REPLY1, 20, alive))) return;
+        if (!(await wait(750))) return;
+
+        if (editBtn) editBtn.classList.add('is-active');
+        if (!(await wait(300))) return;
+        draftEl.textContent = REPLY2; flash(draftEl);
+        if (editBtn) editBtn.classList.remove('is-active');
+        if (!(await wait(950))) return;
+
+        if (editBtn) editBtn.classList.add('is-active');
+        if (!(await wait(300))) return;
+        draftEl.textContent = REPLY3; flash(draftEl);
+        if (editBtn) editBtn.classList.remove('is-active');
+        if (!(await wait(1000))) return;
+
+        if (sendBtn) sendBtn.classList.add('is-pressed');
+        if (!(await wait(320))) return;
+        actions.classList.add('is-sent');
+        if (!(await wait(2000))) return;
+      }
+    });
+  })();
+
+  /* ---------- Step 4: autopilot ---------- */
+  (function () {
+    var root = document.getElementById('snooozAuto');
+    if (!root) return;
+    var toggle = document.getElementById('snooozAutoToggle');
+    var rows = Array.prototype.slice.call(root.querySelectorAll('.snoooz-auto__row'));
+    function reset() {
+      if (toggle) toggle.classList.remove('is-on');
+      rows.forEach(function (r) { r.classList.remove('is-shown'); });
+    }
+
+    onView(root, reset, async function (g, wait, alive) {
+      while (alive()) {
+        reset();
+        if (!(await wait(800))) return;
+        if (toggle) toggle.classList.add('is-on');
+        if (!(await wait(560))) return;
+        for (var i = 0; i < rows.length; i++) {
+          if (!alive()) return;
+          rows[i].classList.add('is-shown');
+          if (!(await wait(280))) return;
+        }
+        if (!(await wait(2200))) return;
+      }
+    });
+  })();
 })();
 
 </script>
