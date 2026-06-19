@@ -402,7 +402,11 @@
 
 /* Caption below the inbox — appears once the inbox is solved */
 .snoooz-problem__caption {
-  margin: 40px 0 0;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin: 52px 0 0;
   text-align: center;
   font-size: clamp(18px, 2vw, 23px);
   font-weight: 700;
@@ -445,6 +449,7 @@
   .snoooz-problem__panel { position: relative; grid-area: 1 / 1; top: auto; left: auto; width: 100%; }
   .snoooz-problem__panel--problem { transform: none; }
   .snoooz-problem__panel--solution { transform: translateY(16px); }
+  .snoooz-problem__caption { position: static; margin-top: 30px; }
   .snoooz-inbox__list { height: 258px; }
 }
 

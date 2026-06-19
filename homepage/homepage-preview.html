@@ -164,17 +164,12 @@ html, body { margin: 0; }
 }
 .snoooz-hero__trust-badges {
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   gap: 6px;
   list-style: none;
   margin: 0;
   padding: 0;
-  max-width: 100%;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
 }
-.snoooz-hero__trust-badges::-webkit-scrollbar { display: none; }
 .snoooz-hero__trust-badges li {
   flex: 0 0 auto;
   display: inline-flex;
@@ -903,7 +898,11 @@ html, body { margin: 0; }
 
 /* Caption below the inbox — appears once the inbox is solved */
 .snoooz-problem__caption {
-  margin: 40px 0 0;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin: 52px 0 0;
   text-align: center;
   font-size: clamp(18px, 2vw, 23px);
   font-weight: 700;
@@ -946,6 +945,7 @@ html, body { margin: 0; }
   .snoooz-problem__panel { position: relative; grid-area: 1 / 1; top: auto; left: auto; width: 100%; }
   .snoooz-problem__panel--problem { transform: none; }
   .snoooz-problem__panel--solution { transform: translateY(16px); }
+  .snoooz-problem__caption { position: static; margin-top: 30px; }
   .snoooz-inbox__list { height: 258px; }
 }
 
@@ -1364,7 +1364,7 @@ html, body { margin: 0; }
   align-items: center;
   gap: 10px;
   max-width: fit-content;
-  margin: 76px auto 0;
+  margin: 106px auto 0;
   padding: 14px 20px;
   border-radius: 999px;
   border: 1px solid rgba(15, 91, 68, 0.16);
@@ -1403,7 +1403,7 @@ html, body { margin: 0; }
   .snoooz-how__step .snoooz-how__copy,
   .snoooz-how__step .snoooz-how__app { order: 0 !important; }
   .snoooz-how__appbody { min-height: 300px; }
-  .snoooz-how__reassure { margin-top: 52px; }
+  .snoooz-how__reassure { margin-top: 82px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
