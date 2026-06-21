@@ -34,7 +34,7 @@
     io.observe(section);
   }
 
-  var wires = [], raf = null, visible = false;
+  var wires = [], raf = null, visible = false, hubGlow = 0;
 
   function clamp(x, a, b) { return x < a ? a : x > b ? b : x; }
 
@@ -72,7 +72,7 @@
         dot.setAttribute('class', 'snoooz-stack__dot');
         svg.appendChild(dot);
       }
-      wires.push({ lane: lane, path: path, grad: grad, dot: dot, t: (i * 0.21) % 1 });
+      wires.push({ lane: lane, path: path, grad: grad, dot: dot, t: (i * 0.21) % 1, prevT: (i * 0.21) % 1 });
     });
   }
 
@@ -86,6 +86,9 @@
     var base = grid.getBoundingClientRect();
     if (!base.width) return;
     svg.setAttribute('viewBox', '0 0 ' + base.width + ' ' + base.height);
+
+    hubGlow *= 0.92; /* glow decays each frame, dots re-ignite it on arrival */
+    var now = (window.performance && performance.now ? performance.now() : Date.now()) / 1000;
 
     var hr = hub.getBoundingClientRect();
     var hc = { x: hr.left - base.left + hr.width / 2, y: hr.top - base.top + hr.height / 2 };
@@ -117,17 +120,22 @@
       if (w.dot) {
         if (drawAmount > 0.85) {
           w.t += 0.0058;
-          if (w.t > 1) w.t -= 1;
+          if (w.t > 1) { w.t -= 1; hubGlow = 1; } /* dot reached Snoooz: flash the hub */
           var pt = w.path.getPointAtLength(w.t * len);
           w.dot.setAttribute('cx', pt.x);
           w.dot.setAttribute('cy', pt.y);
-          var f = Math.sin(w.t * Math.PI);
-          w.dot.setAttribute('opacity', (0.12 + 0.88 * f).toFixed(3));
+          var f = Math.sin(w.t * Math.PI);                 /* fade in/out at the ends */
+          var pulse = 0.5 + 0.5 * Math.sin(now * 7 + i);   /* pulsate as it travels */
+          w.dot.setAttribute('r', (3.6 + 2.6 * pulse).toFixed(2));
+          w.dot.setAttribute('opacity', (0.18 + 0.82 * f).toFixed(3));
         } else {
           w.dot.setAttribute('opacity', 0);
         }
       }
     });
+
+    hub.style.setProperty('--glow-blur', (8 + 48 * hubGlow).toFixed(1) + 'px');
+    hub.style.setProperty('--glow-a', (0.62 * hubGlow).toFixed(3));
   }
 
   function frame() { draw(progress()); raf = window.requestAnimationFrame(frame); }

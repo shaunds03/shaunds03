@@ -2046,6 +2046,7 @@ html, body { margin: 0; }
   z-index: 2;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: 14px;
 }
 .snoooz-stack__lane {
@@ -2112,6 +2113,8 @@ html, body { margin: 0; }
 
 /* Snoooz hub node */
 .snoooz-stack__hub {
+  --glow-blur: 0px;
+  --glow-a: 0;
   position: relative;
   z-index: 2;
   display: flex;
@@ -2124,7 +2127,9 @@ html, body { margin: 0; }
   background:
     radial-gradient(circle at 22% 16%, rgba(214, 217, 160, 0.4), transparent 56%),
     linear-gradient(160deg, rgba(15, 91, 68, 0.1), rgba(255, 255, 255, 0.9) 60%);
-  box-shadow: 0 26px 60px rgba(15, 91, 68, 0.16);
+  box-shadow:
+    0 26px 60px rgba(15, 91, 68, 0.16),
+    0 0 var(--glow-blur) 2px rgba(24, 196, 125, var(--glow-a));
 }
 .snoooz-stack__hub-logo {
   display: inline-flex;
@@ -2187,6 +2192,7 @@ html, body { margin: 0; }
 /* Responsive: stack lanes above the hub; lines flow downward */
 @media (max-width: 900px) {
   .snoooz-stack__grid { grid-template-columns: 1fr; gap: 40px; }
+  .snoooz-stack__lanes { align-items: stretch; }
   .snoooz-stack__hub { align-items: center; text-align: center; }
 }
 @media (max-width: 560px) {
@@ -3643,7 +3649,7 @@ html, body { margin: 0; }
     io.observe(section);
   }
 
-  var wires = [], raf = null, visible = false;
+  var wires = [], raf = null, visible = false, hubGlow = 0;
 
   function clamp(x, a, b) { return x < a ? a : x > b ? b : x; }
 
@@ -3681,7 +3687,7 @@ html, body { margin: 0; }
         dot.setAttribute('class', 'snoooz-stack__dot');
         svg.appendChild(dot);
       }
-      wires.push({ lane: lane, path: path, grad: grad, dot: dot, t: (i * 0.21) % 1 });
+      wires.push({ lane: lane, path: path, grad: grad, dot: dot, t: (i * 0.21) % 1, prevT: (i * 0.21) % 1 });
     });
   }
 
@@ -3695,6 +3701,9 @@ html, body { margin: 0; }
     var base = grid.getBoundingClientRect();
     if (!base.width) return;
     svg.setAttribute('viewBox', '0 0 ' + base.width + ' ' + base.height);
+
+    hubGlow *= 0.92; /* glow decays each frame, dots re-ignite it on arrival */
+    var now = (window.performance && performance.now ? performance.now() : Date.now()) / 1000;
 
     var hr = hub.getBoundingClientRect();
     var hc = { x: hr.left - base.left + hr.width / 2, y: hr.top - base.top + hr.height / 2 };
@@ -3726,17 +3735,22 @@ html, body { margin: 0; }
       if (w.dot) {
         if (drawAmount > 0.85) {
           w.t += 0.0058;
-          if (w.t > 1) w.t -= 1;
+          if (w.t > 1) { w.t -= 1; hubGlow = 1; } /* dot reached Snoooz: flash the hub */
           var pt = w.path.getPointAtLength(w.t * len);
           w.dot.setAttribute('cx', pt.x);
           w.dot.setAttribute('cy', pt.y);
-          var f = Math.sin(w.t * Math.PI);
-          w.dot.setAttribute('opacity', (0.12 + 0.88 * f).toFixed(3));
+          var f = Math.sin(w.t * Math.PI);                 /* fade in/out at the ends */
+          var pulse = 0.5 + 0.5 * Math.sin(now * 7 + i);   /* pulsate as it travels */
+          w.dot.setAttribute('r', (3.6 + 2.6 * pulse).toFixed(2));
+          w.dot.setAttribute('opacity', (0.18 + 0.82 * f).toFixed(3));
         } else {
           w.dot.setAttribute('opacity', 0);
         }
       }
     });
+
+    hub.style.setProperty('--glow-blur', (8 + 48 * hubGlow).toFixed(1) + 'px');
+    hub.style.setProperty('--glow-a', (0.62 * hubGlow).toFixed(3));
   }
 
   function frame() { draw(progress()); raf = window.requestAnimationFrame(frame); }

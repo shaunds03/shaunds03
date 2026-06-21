@@ -117,6 +117,7 @@
   z-index: 2;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: 14px;
 }
 .snoooz-stack__lane {
@@ -183,6 +184,8 @@
 
 /* Snoooz hub node */
 .snoooz-stack__hub {
+  --glow-blur: 0px;
+  --glow-a: 0;
   position: relative;
   z-index: 2;
   display: flex;
@@ -195,7 +198,9 @@
   background:
     radial-gradient(circle at 22% 16%, rgba(214, 217, 160, 0.4), transparent 56%),
     linear-gradient(160deg, rgba(15, 91, 68, 0.1), rgba(255, 255, 255, 0.9) 60%);
-  box-shadow: 0 26px 60px rgba(15, 91, 68, 0.16);
+  box-shadow:
+    0 26px 60px rgba(15, 91, 68, 0.16),
+    0 0 var(--glow-blur) 2px rgba(24, 196, 125, var(--glow-a));
 }
 .snoooz-stack__hub-logo {
   display: inline-flex;
@@ -258,6 +263,7 @@
 /* Responsive: stack lanes above the hub; lines flow downward */
 @media (max-width: 900px) {
   .snoooz-stack__grid { grid-template-columns: 1fr; gap: 40px; }
+  .snoooz-stack__lanes { align-items: stretch; }
   .snoooz-stack__hub { align-items: center; text-align: center; }
 }
 @media (max-width: 560px) {
