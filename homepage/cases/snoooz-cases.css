@@ -34,19 +34,19 @@
   color: var(--snoooz-text);
   font-family: "Open Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   background:
-    radial-gradient(circle at 88% 90%, rgba(214, 217, 160, 0.22), transparent 32%),
+    radial-gradient(circle at 88% 90%, rgba(214, 217, 160, 0.24), transparent 34%),
     var(--snoooz-bg);
 }
 .snoooz-cases__container {
   width: 100%;
   max-width: var(--snoooz-max);
   margin: 0 auto;
-  padding: 84px 24px 92px;
+  padding: 96px 24px;
 }
 .snoooz-cases h2, .snoooz-cases h3, .snoooz-cases p { margin-top: 0; }
 
 /* Heading */
-.snoooz-cases__head { max-width: none; margin: 0 0 40px; }
+.snoooz-cases__head { max-width: none; margin: 0 0 44px; }
 .snoooz-cases__eyebrow {
   margin: 0 0 14px;
   color: var(--snoooz-primary);

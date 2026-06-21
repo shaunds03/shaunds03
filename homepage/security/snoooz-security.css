@@ -42,12 +42,12 @@
   width: 100%;
   max-width: var(--snoooz-max);
   margin: 0 auto;
-  padding: 84px 24px 92px;
+  padding: 96px 24px;
 }
 .snoooz-sec h2, .snoooz-sec h3, .snoooz-sec p { margin-top: 0; }
 
 /* Heading */
-.snoooz-sec__head { max-width: 740px; margin: 0 auto 40px; text-align: center; }
+.snoooz-sec__head { max-width: 740px; margin: 0 auto 44px; text-align: center; }
 .snoooz-sec__eyebrow {
   display: inline-flex;
   align-items: center;

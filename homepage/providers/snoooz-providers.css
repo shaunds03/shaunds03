@@ -50,7 +50,7 @@
   width: 100%;
   max-width: var(--snoooz-max);
   margin: 0 auto;
-  padding: 88px 24px 96px;
+  padding: 96px 24px;
 }
 .snoooz-net h2, .snoooz-net p { margin-top: 0; }
 
