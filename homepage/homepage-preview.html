@@ -1492,6 +1492,10 @@ html, body { margin: 0; }
   -webkit-text-fill-color: transparent;
   color: transparent;
 }
+/* Keep the headline on one line on desktop */
+@media (min-width: 901px) {
+  .snoooz-uc__head h2 { white-space: nowrap; }
+}
 .snoooz-uc__head p {
   max-width: 580px;
   margin: 0;
