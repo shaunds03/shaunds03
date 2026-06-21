@@ -3399,6 +3399,12 @@ html, body { margin: 0; }
 }
 .snoooz-cta__ent a { color: #fff; font-weight: 700; text-decoration: none; border-bottom: 1px solid rgba(255, 255, 255, 0.5); }
 
+/* Keep the headline and enterprise line on one line on desktop */
+@media (min-width: 768px) {
+  .snoooz-cta__band h2,
+  .snoooz-cta__ent { white-space: nowrap; }
+}
+
 /* Reveal */
 .snoooz-cta.is-reveal .snoooz-cta__band { opacity: 0; transform: translateY(24px); }
 .snoooz-cta.is-reveal.is-visible .snoooz-cta__band {
