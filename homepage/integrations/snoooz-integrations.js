@@ -87,7 +87,6 @@
     if (!base.width) return;
     svg.setAttribute('viewBox', '0 0 ' + base.width + ' ' + base.height);
 
-    hubGlow *= 0.92; /* glow decays each frame, dots re-ignite it on arrival */
     var now = (window.performance && performance.now ? performance.now() : Date.now()) / 1000;
 
     var hr = hub.getBoundingClientRect();
@@ -139,13 +138,16 @@
       }
     });
 
-    /* Glow once, the moment every line has finished connecting.
-       Re-arms only after the lines fully retract (scroll back up). */
-    if (allConnected && !connectedGlowed && !reduce) { hubGlow = 1; connectedGlowed = true; }
-    if (allRetracted) connectedGlowed = false;
+    /* Glow turns on once every line is connected and stays on. */
+    var target = allConnected ? 1 : 0;
+    if (reduce) hubGlow = target;
+    else hubGlow += (target - hubGlow) * 0.08;
+    if (hubGlow < 0.001) hubGlow = 0;
 
-    hub.style.setProperty('--glow-blur', (8 + 48 * hubGlow).toFixed(1) + 'px');
-    hub.style.setProperty('--glow-a', (0.62 * hubGlow).toFixed(3));
+    var breathe = reduce ? 1 : (0.9 + 0.1 * Math.sin(now * 2.2));
+    var g = hubGlow * breathe;
+    hub.style.setProperty('--glow-blur', (10 + 46 * g).toFixed(1) + 'px');
+    hub.style.setProperty('--glow-a', (0.6 * g).toFixed(3));
   }
 
   function frame() { draw(progress()); raf = window.requestAnimationFrame(frame); }
