@@ -54,7 +54,7 @@ html, body { margin: 0; }
 .snoooz-cases h2, .snoooz-cases h3, .snoooz-cases p { margin-top: 0; }
 
 /* Heading */
-.snoooz-cases__head { max-width: 720px; margin: 0 0 40px; }
+.snoooz-cases__head { max-width: none; margin: 0 0 40px; }
 .snoooz-cases__eyebrow {
   margin: 0 0 14px;
   color: var(--snoooz-primary);
@@ -65,10 +65,14 @@ html, body { margin: 0; }
 }
 .snoooz-cases__head h2 {
   margin: 0 0 14px;
-  font-size: clamp(28px, 4vw, 43px);
+  font-size: clamp(27px, 3.4vw, 40px);
   line-height: 1.08;
   letter-spacing: -0.038em;
   font-weight: 700;
+}
+/* Keep the headline on one line on desktop */
+@media (min-width: 1040px) {
+  .snoooz-cases__head h2 { white-space: nowrap; }
 }
 .snoooz-cases__head h2 .snoooz-cases__hl {
   background: linear-gradient(100deg, var(--snoooz-primary) 0%, var(--snoooz-secondary-hover) 100%);
@@ -159,7 +163,7 @@ html, body { margin: 0; }
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-top: 32px;
+  margin-top: 52px;
   color: var(--snoooz-muted);
   font-size: 15px;
 }
