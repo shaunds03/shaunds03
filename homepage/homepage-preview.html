@@ -897,12 +897,12 @@ html, body { margin: 0; }
 .snoooz-inbox.is-solved .snoooz-inbox__foot--solved { opacity: 1; }
 
 /* Caption below the inbox — appears once the inbox is solved */
-.snoooz-problem__caption {
+.snoooz-problem p.snoooz-problem__caption {
   position: absolute;
   top: 100%;
   left: 0;
   right: 0;
-  margin: 52px 0 0;
+  margin: 38px 0 0;
   text-align: center;
   font-size: clamp(18px, 2vw, 23px);
   font-weight: 700;
@@ -945,7 +945,7 @@ html, body { margin: 0; }
   .snoooz-problem__panel { position: relative; grid-area: 1 / 1; top: auto; left: auto; width: 100%; }
   .snoooz-problem__panel--problem { transform: none; }
   .snoooz-problem__panel--solution { transform: translateY(16px); }
-  .snoooz-problem__caption { position: static; margin-top: 30px; }
+  .snoooz-problem p.snoooz-problem__caption { position: static; margin-top: 38px; }
   .snoooz-inbox__list { height: 258px; }
 }
 
@@ -1359,12 +1359,12 @@ html, body { margin: 0; }
 .snoooz-auto__pill--escalate { color: var(--snoooz-primary-hover); background: var(--snoooz-secondary-soft); border: 1px solid rgba(165, 174, 71, 0.5); }
 
 /* Reassurance line */
-.snoooz-how__reassure {
+.snoooz-how p.snoooz-how__reassure {
   display: flex;
   align-items: center;
   gap: 10px;
   max-width: fit-content;
-  margin: 106px auto 0;
+  margin: 38px auto 0;
   padding: 14px 20px;
   border-radius: 999px;
   border: 1px solid rgba(15, 91, 68, 0.16);
@@ -1403,7 +1403,7 @@ html, body { margin: 0; }
   .snoooz-how__step .snoooz-how__copy,
   .snoooz-how__step .snoooz-how__app { order: 0 !important; }
   .snoooz-how__appbody { min-height: 300px; }
-  .snoooz-how__reassure { margin-top: 82px; }
+  .snoooz-how p.snoooz-how__reassure { margin-top: 38px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1886,17 +1886,21 @@ html, body { margin: 0; }
 .snoooz-net__node--5    { left: 50%; top: 88%; }
 
 /* Footer note */
-.snoooz-net__note {
+.snoooz-net p.snoooz-net__note {
   position: relative;
   z-index: 1;
-  max-width: 640px;
-  margin: 34px auto 0;
+  max-width: 760px;
+  margin: 38px auto 0;
   text-align: center;
   color: var(--snoooz-muted);
-  font-size: 14.5px;
+  font-size: clamp(15px, 1.5vw, 18px);
   line-height: 1.6;
 }
 .snoooz-net__note strong { color: var(--snoooz-text); font-weight: 700; }
+/* Keep the note on one line on desktop */
+@media (min-width: 1040px) {
+  .snoooz-net p.snoooz-net__note { white-space: nowrap; max-width: none; }
+}
 
 /* Responsive */
 @media (max-width: 640px) {
