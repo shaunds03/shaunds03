@@ -1638,10 +1638,11 @@ html, body { margin: 0; }
    Paste into your HubSpot module CSS field (or a <style> block).
    Brand tokens match the rest of the homepage.
 
-   A hub-and-spoke diagram: Snoooz sits in the center, email providers
-   around it. snoooz-providers.js draws the connector arrows between the
-   real element positions and animates green dots flowing into the hub,
-   so it stays aligned on any screen size.
+   A premium hub-and-spoke diagram: Snoooz glows at the center, provider
+   logos float around it on glass tiles. snoooz-providers.js draws thick
+   gradient connector lines (recomputed every frame so they stay attached
+   to the floating logos), animates green dots streaming into the hub, and
+   draws the lines in as you scroll.
    ============================================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap');
@@ -1657,7 +1658,7 @@ html, body { margin: 0; }
   --snoooz-secondary-hover: #A5AE47;
   --snoooz-secondary-soft: rgba(214, 217, 160, 0.26);
   --snoooz-shadow: 0 18px 50px rgba(15, 91, 68, 0.06);
-  --snoooz-dot: #18a76c;
+  --snoooz-dot: #18c47d;
   --snoooz-max: 1180px;
 }
 
@@ -1667,19 +1668,24 @@ html, body { margin: 0; }
 .snoooz-net *::after { box-sizing: border-box; }
 
 .snoooz-net {
+  position: relative;
   width: 100%;
   margin: 0;
+  overflow: hidden;
   color: var(--snoooz-text);
   font-family: "Open Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   background:
-    radial-gradient(circle at 50% 12%, rgba(214, 217, 160, 0.24), transparent 36%),
+    radial-gradient(circle at 50% 38%, rgba(214, 217, 160, 0.3), transparent 46%),
+    radial-gradient(circle at 50% 60%, rgba(15, 91, 68, 0.06), transparent 40%),
     var(--snoooz-bg);
 }
 .snoooz-net__container {
+  position: relative;
+  z-index: 1;
   width: 100%;
   max-width: var(--snoooz-max);
   margin: 0 auto;
-  padding: 84px 24px 92px;
+  padding: 88px 24px 96px;
 }
 .snoooz-net h2, .snoooz-net p { margin-top: 0; }
 
@@ -1719,12 +1725,12 @@ html, body { margin: 0; }
 .snoooz-net__stage {
   position: relative;
   width: 100%;
-  max-width: 880px;
-  margin: 40px auto 0;
-  padding-bottom: 54%;
+  max-width: 920px;
+  margin: 44px auto 0;
+  padding-bottom: 60%;
 }
 
-/* Wires (SVG overlay) */
+/* Wires (SVG overlay, sits beneath the tiles) */
 .snoooz-net__wires {
   position: absolute;
   inset: 0;
@@ -1732,91 +1738,159 @@ html, body { margin: 0; }
   height: 100%;
   overflow: visible;
   pointer-events: none;
+  z-index: 1;
 }
 .snoooz-net__wire {
   fill: none;
-  stroke: rgba(15, 91, 68, 0.28);
-  stroke-width: 1.6;
+  stroke-width: 4;
   stroke-linecap: round;
+  filter: drop-shadow(0 0 4px rgba(24, 196, 125, 0.35));
 }
 .snoooz-net__dot {
   fill: var(--snoooz-dot);
   opacity: 0;
-  filter: drop-shadow(0 0 4px rgba(24, 167, 108, 0.7));
+  filter: drop-shadow(0 0 7px rgba(24, 196, 125, 0.95));
 }
-.snoooz-net__wires marker path { fill: var(--snoooz-primary); }
 
-/* Provider nodes + hub (positioned by their centers) */
+/* Provider nodes + hub (outer = position, inner tile = floats) */
 .snoooz-net__node,
 .snoooz-net__hub {
   position: absolute;
   transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+.snoooz-net__node { width: 104px; height: 104px; }
+.snoooz-net__hub { width: 158px; height: 158px; z-index: 3; }
+
+.snoooz-net__tile,
+.snoooz-net__hub-tile {
+  position: relative;
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.95);
+  border-radius: 24px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,255,255,0.86));
   border: 1px solid rgba(223, 232, 226, 0.95);
-  box-shadow: 0 14px 34px rgba(15, 91, 68, 0.1);
+  box-shadow: 0 18px 40px rgba(15, 91, 68, 0.14), inset 0 1px 0 rgba(255,255,255,0.8);
   opacity: 0;
-  transition: opacity 0.5s ease;
+  transform: scale(0.82);
+  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.snoooz-net.is-visible .snoooz-net__node,
-.snoooz-net.is-visible .snoooz-net__hub { opacity: 1; }
+.snoooz-net.is-visible .snoooz-net__tile,
+.snoooz-net.is-visible .snoooz-net__hub-tile { opacity: 1; transform: scale(1); }
 
-.snoooz-net__node {
-  width: 66px; height: 66px;
-  padding: 13px;
-  z-index: 2;
+/* gentle colored halo behind each tile */
+.snoooz-net__tile::after {
+  content: "";
+  position: absolute;
+  inset: -14%;
+  border-radius: 30px;
+  background: radial-gradient(circle at 50% 40%, rgba(24, 196, 125, 0.18), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
 }
-.snoooz-net__node img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.snoooz-net__tile:hover::after { opacity: 1; }
+
+.snoooz-net__node img {
+  width: 100%; height: 100%;
+  padding: 22px;
+  object-fit: contain;
+  display: block;
+}
 .snoooz-net__node-label {
   position: absolute;
-  top: calc(100% + 7px);
+  top: calc(100% + 9px);
   left: 50%;
   transform: translateX(-50%);
   white-space: nowrap;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
   color: var(--snoooz-text);
 }
 
-/* Hub */
-.snoooz-net__hub {
-  width: 120px; height: 120px;
-  padding: 22px;
-  border-radius: 26px;
-  border-color: rgba(15, 91, 68, 0.22);
-  box-shadow: 0 22px 50px rgba(15, 91, 68, 0.2);
-  z-index: 3;
+/* Floating motion (inner tiles only, so the wires can follow them) */
+.snoooz-net.is-visible .snoooz-net__tile { animation: snoooz-net-float 6s ease-in-out infinite; }
+.snoooz-net__node--1 .snoooz-net__tile { animation-delay: 0s; }
+.snoooz-net__node--2 .snoooz-net__tile { animation-delay: -1.2s; }
+.snoooz-net__node--3 .snoooz-net__tile { animation-delay: -2.4s; }
+.snoooz-net__node--4 .snoooz-net__tile { animation-delay: -3.6s; }
+.snoooz-net__node--5 .snoooz-net__tile { animation-delay: -4.8s; }
+.snoooz-net__tile { transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease; }
+.snoooz-net__tile:hover {
+  animation-play-state: paused;
+  transform: translateY(-6px) scale(1.07);
+  box-shadow: 0 30px 56px rgba(15, 91, 68, 0.22);
 }
-.snoooz-net__hub img { width: 100%; height: 100%; object-fit: contain; display: block; }
-.snoooz-net__hub::before {
+
+@keyframes snoooz-net-float {
+  0%, 100% { transform: translateY(-7px); }
+  50%      { transform: translateY(7px); }
+}
+
+/* Hub */
+.snoooz-net__hub-tile {
+  border-radius: 32px;
+  border-color: rgba(15, 91, 68, 0.2);
+  box-shadow: 0 26px 60px rgba(15, 91, 68, 0.24), inset 0 1px 0 rgba(255,255,255,0.85);
+}
+.snoooz-net__hub-tile img { width: 100%; height: 100%; padding: 30px; object-fit: contain; display: block; }
+
+/* rotating conic glow behind the hub */
+.snoooz-net__hub-glow {
+  position: absolute;
+  inset: -26px;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg,
+    rgba(24, 196, 125, 0) 0deg,
+    rgba(24, 196, 125, 0.55) 90deg,
+    rgba(214, 217, 160, 0.5) 180deg,
+    rgba(15, 91, 68, 0.15) 270deg,
+    rgba(24, 196, 125, 0) 360deg);
+  filter: blur(10px);
+  opacity: 0;
+  transition: opacity 0.8s ease;
+  animation: snoooz-net-spin 7s linear infinite;
+  z-index: -1;
+}
+.snoooz-net.is-visible .snoooz-net__hub-glow { opacity: 0.85; }
+@keyframes snoooz-net-spin { to { transform: rotate(360deg); } }
+
+/* pulsing rings on the hub */
+.snoooz-net__hub-tile::before,
+.snoooz-net__hub-tile::after {
   content: "";
   position: absolute;
-  inset: -10px;
-  border-radius: 32px;
-  border: 2px solid rgba(15, 91, 68, 0.18);
-  animation: snoooz-net-pulse 2.6s ease-out infinite;
+  inset: -6px;
+  border-radius: 38px;
+  border: 2px solid rgba(15, 91, 68, 0.22);
+  opacity: 0;
 }
+.snoooz-net.is-visible .snoooz-net__hub-tile::before { animation: snoooz-net-pulse 3s ease-out infinite; }
+.snoooz-net.is-visible .snoooz-net__hub-tile::after { animation: snoooz-net-pulse 3s ease-out 1.5s infinite; }
 @keyframes snoooz-net-pulse {
   0%   { transform: scale(1);    opacity: 0.7; }
-  70%  { transform: scale(1.16); opacity: 0; }
-  100% { transform: scale(1.16); opacity: 0; }
+  70%  { transform: scale(1.22); opacity: 0; }
+  100% { transform: scale(1.22); opacity: 0; }
 }
 
 /* Node positions (desktop ring) */
-.snoooz-net__hub        { left: 50%; top: 49%; }
-.snoooz-net__node--1    { left: 21%; top: 19%; }
-.snoooz-net__node--2    { left: 79%; top: 19%; }
-.snoooz-net__node--3    { left: 10%; top: 56%; }
-.snoooz-net__node--4    { left: 90%; top: 56%; }
-.snoooz-net__node--5    { left: 50%; top: 86%; }
+.snoooz-net__hub        { left: 50%; top: 50%; }
+.snoooz-net__node--1    { left: 20%; top: 20%; }
+.snoooz-net__node--2    { left: 80%; top: 20%; }
+.snoooz-net__node--3    { left: 9%;  top: 58%; }
+.snoooz-net__node--4    { left: 91%; top: 58%; }
+.snoooz-net__node--5    { left: 50%; top: 88%; }
 
 /* Footer note */
 .snoooz-net__note {
+  position: relative;
+  z-index: 1;
   max-width: 640px;
-  margin: 30px auto 0;
+  margin: 34px auto 0;
   text-align: center;
   color: var(--snoooz-muted);
   font-size: 14.5px;
@@ -1826,23 +1900,29 @@ html, body { margin: 0; }
 
 /* Responsive */
 @media (max-width: 640px) {
-  .snoooz-net__container { padding: 60px 20px 68px; }
-  .snoooz-net__stage { padding-bottom: 108%; max-width: 420px; }
-  .snoooz-net__node { width: 50px; height: 50px; padding: 9px; border-radius: 14px; }
-  .snoooz-net__node-label { font-size: 11px; top: calc(100% + 5px); }
-  .snoooz-net__hub { width: 88px; height: 88px; padding: 16px; border-radius: 22px; }
-  .snoooz-net__hub        { left: 50%; top: 46%; }
-  .snoooz-net__node--1    { left: 23%; top: 14%; }
-  .snoooz-net__node--2    { left: 77%; top: 14%; }
-  .snoooz-net__node--3    { left: 15%; top: 44%; }
-  .snoooz-net__node--4    { left: 85%; top: 44%; }
-  .snoooz-net__node--5    { left: 50%; top: 80%; }
+  .snoooz-net__container { padding: 62px 20px 70px; }
+  .snoooz-net__stage { padding-bottom: 116%; max-width: 440px; }
+  .snoooz-net__node { width: 74px; height: 74px; }
+  .snoooz-net__node img { padding: 15px; }
+  .snoooz-net__node-label { font-size: 11.5px; top: calc(100% + 6px); }
+  .snoooz-net__hub { width: 112px; height: 112px; }
+  .snoooz-net__hub-tile img { padding: 22px; }
+  .snoooz-net__wire { stroke-width: 3.5; }
+  .snoooz-net__hub        { left: 50%; top: 47%; }
+  .snoooz-net__node--1    { left: 23%; top: 15%; }
+  .snoooz-net__node--2    { left: 77%; top: 15%; }
+  .snoooz-net__node--3    { left: 15%; top: 45%; }
+  .snoooz-net__node--4    { left: 85%; top: 45%; }
+  .snoooz-net__node--5    { left: 50%; top: 81%; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .snoooz-net__node,
-  .snoooz-net__hub { transition: none; }
-  .snoooz-net__hub::before { animation: none; }
+  .snoooz-net__tile,
+  .snoooz-net__hub-tile { transition: none; }
+  .snoooz-net.is-visible .snoooz-net__tile { animation: none; }
+  .snoooz-net__hub-glow,
+  .snoooz-net.is-visible .snoooz-net__hub-tile::before,
+  .snoooz-net.is-visible .snoooz-net__hub-tile::after { animation: none; }
 }
 
 </style>
@@ -2439,38 +2519,35 @@ html, body { margin: 0; }
 
     <div class="snoooz-net__stage" id="snooozNet">
       <svg class="snoooz-net__wires" preserveAspectRatio="none" aria-hidden="true">
-        <defs>
-          <marker id="snooozArrow" viewBox="0 0 10 10" refX="7.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
-            <path d="M0 0L10 5L0 10z" fill="var(--snoooz-primary)"></path>
-          </marker>
-        </defs>
+        <defs id="snooozNetDefs"></defs>
       </svg>
 
       <!-- Provider nodes -->
       <div class="snoooz-net__node snoooz-net__node--1">
-        <img src="https://snoooz.ai/hubfs/gmail_logo.png" alt="Gmail" loading="lazy">
+        <div class="snoooz-net__tile"><img src="https://snoooz.ai/hubfs/gmail_logo.png" alt="Gmail" loading="lazy"></div>
         <span class="snoooz-net__node-label">Gmail</span>
       </div>
       <div class="snoooz-net__node snoooz-net__node--2">
-        <img src="https://snoooz.ai/hubfs/outlook_logo.png" alt="Outlook" loading="lazy">
+        <div class="snoooz-net__tile"><img src="https://snoooz.ai/hubfs/outlook_logo.png" alt="Outlook" loading="lazy"></div>
         <span class="snoooz-net__node-label">Outlook</span>
       </div>
       <div class="snoooz-net__node snoooz-net__node--3">
-        <img src="https://snoooz.ai/hubfs/mini-hero-mail.png" alt="Apple Mail" loading="lazy">
+        <div class="snoooz-net__tile"><img src="https://snoooz.ai/hubfs/mini-hero-mail.png" alt="Apple Mail" loading="lazy"></div>
         <span class="snoooz-net__node-label">Apple Mail</span>
       </div>
       <div class="snoooz-net__node snoooz-net__node--4">
-        <img src="https://snoooz.ai/hubfs/yahoo-logo-illustration-in-square-background-free-png.png.webp" alt="Yahoo Mail" loading="lazy">
+        <div class="snoooz-net__tile"><img src="https://snoooz.ai/hubfs/yahoo-logo-illustration-in-square-background-free-png.png.webp" alt="Yahoo Mail" loading="lazy"></div>
         <span class="snoooz-net__node-label">Yahoo</span>
       </div>
       <div class="snoooz-net__node snoooz-net__node--5">
-        <img src="https://snoooz.ai/hubfs/smtp.webp" alt="IMAP and SMTP" loading="lazy">
+        <div class="snoooz-net__tile"><img src="https://snoooz.ai/hubfs/smtp.webp" alt="IMAP and SMTP" loading="lazy"></div>
         <span class="snoooz-net__node-label">IMAP / SMTP</span>
       </div>
 
       <!-- Snoooz hub -->
       <div class="snoooz-net__hub">
-        <img src="https://snoooz.ai/hubfs/Snoooz%20Logo-1.png" alt="Snoooz">
+        <span class="snoooz-net__hub-glow" aria-hidden="true"></span>
+        <div class="snoooz-net__hub-tile"><img src="https://snoooz.ai/hubfs/Snoooz%20Logo-1.png" alt="Snoooz"></div>
       </div>
     </div>
 
@@ -2994,10 +3071,11 @@ html, body { margin: 0; }
    Paste into your HubSpot module JS field (or a <script> block
    placed after the HTML). Self-contained, no dependencies.
 
-   Draws a connector arrow from each provider to the Snoooz hub between
-   their real on-screen positions, then animates green dots flowing along
-   each wire into the hub. Recomputes on resize; reduced-motion users get
-   static wires with no flowing dots.
+   For each provider it draws a thick gradient connector curve into the
+   Snoooz hub, recomputed every frame so it stays attached to the floating
+   tiles. Green dots stream along each curve into the hub. The lines draw
+   themselves in as the section scrolls into view. Reduced-motion users get
+   static, fully-drawn lines with no dots.
    ============================================================ */
 
 (function () {
@@ -3007,14 +3085,17 @@ html, body { margin: 0; }
   var stage = document.getElementById('snooozNet');
   if (!stage) return;
   var svg = stage.querySelector('.snoooz-net__wires');
-  var hub = stage.querySelector('.snoooz-net__hub');
-  var nodes = Array.prototype.slice.call(stage.querySelectorAll('.snoooz-net__node'));
+  var defs = document.getElementById('snooozNetDefs');
+  var hubTile = stage.querySelector('.snoooz-net__hub-tile');
   var section = document.getElementById('snooozNetSection') || stage;
-  if (!svg || !hub || !nodes.length) return;
+  var tiles = Array.prototype.slice.call(stage.querySelectorAll('.snoooz-net__node .snoooz-net__tile'));
+  if (!svg || !defs || !hubTile || !tiles.length) return;
 
-  var wires = [], dots = [], raf = null, visible = false, revealed = false;
+  var wires = [], raf = null, visible = false;
 
-  function centerOf(elm, base) {
+  function clamp(x, a, b) { return x < a ? a : x > b ? b : x; }
+
+  function center(elm, base) {
     var b = elm.getBoundingClientRect();
     return {
       x: b.left - base.left + b.width / 2,
@@ -3023,102 +3104,121 @@ html, body { margin: 0; }
     };
   }
 
-  function clearGenerated() {
-    var old = svg.querySelectorAll('.snoooz-net__wire, .snoooz-net__dot');
-    Array.prototype.forEach.call(old, function (e) { e.remove(); });
-    wires = []; dots = [];
+  function progress() {
+    var r = stage.getBoundingClientRect();
+    var vh = window.innerHeight || document.documentElement.clientHeight;
+    return clamp((vh * 0.80 - r.top) / (vh * 0.60), 0, 1);
   }
 
   function build() {
-    var base = stage.getBoundingClientRect();
-    if (!base.width) return;
-    svg.setAttribute('viewBox', '0 0 ' + base.width + ' ' + base.height);
-    clearGenerated();
-
-    var hc = centerOf(hub, base);
-
-    nodes.forEach(function (node, i) {
-      var pc = centerOf(node, base);
-      var dx = hc.x - pc.x, dy = hc.y - pc.y;
-      var dist = Math.hypot(dx, dy) || 1;
-      var ux = dx / dist, uy = dy / dist;
-      var sx = pc.x + ux * (pc.r + 4), sy = pc.y + uy * (pc.r + 4);
-      var ex = hc.x - ux * (hc.r + 9), ey = hc.y - uy * (hc.r + 9);
+    tiles.forEach(function (tile, i) {
+      var grad = document.createElementNS(NS, 'linearGradient');
+      grad.setAttribute('id', 'snzGrad' + i);
+      grad.setAttribute('gradientUnits', 'userSpaceOnUse');
+      var s0 = document.createElementNS(NS, 'stop');
+      s0.setAttribute('offset', '0');
+      s0.setAttribute('stop-color', '#0F5B44');
+      s0.setAttribute('stop-opacity', '0.05');
+      var s1 = document.createElementNS(NS, 'stop');
+      s1.setAttribute('offset', '1');
+      s1.setAttribute('stop-color', '#18c47d');
+      s1.setAttribute('stop-opacity', '1');
+      grad.appendChild(s0);
+      grad.appendChild(s1);
+      defs.appendChild(grad);
 
       var path = document.createElementNS(NS, 'path');
-      path.setAttribute('d', 'M' + sx + ' ' + sy + ' L' + ex + ' ' + ey);
       path.setAttribute('class', 'snoooz-net__wire');
-      path.setAttribute('marker-end', 'url(#snooozArrow)');
+      path.setAttribute('stroke', 'url(#snzGrad' + i + ')');
       svg.appendChild(path);
 
-      var len = path.getTotalLength();
-      path.style.strokeDasharray = len;
-      path.style.strokeDashoffset = revealed ? 0 : len;
-      wires.push(path);
-
+      var dots = [];
       if (!reduce) {
-        for (var k = 0; k < 2; k++) {
+        var sizes = [5, 3.2];
+        for (var k = 0; k < sizes.length; k++) {
           var c = document.createElementNS(NS, 'circle');
-          c.setAttribute('r', '4');
+          c.setAttribute('r', sizes[k]);
           c.setAttribute('class', 'snoooz-net__dot');
           svg.appendChild(c);
-          dots.push({ el: c, path: path, len: len, t: ((i * 0.17) + k * 0.5) % 1, speed: 0.0055 });
+          dots.push({ el: c, t: ((i * 0.19) + k * 0.13) % 1 });
         }
       }
+
+      wires.push({ tile: tile, path: path, grad: grad, dots: dots, sign: i % 2 ? 1 : -1 });
     });
   }
 
-  function reveal() {
-    revealed = true;
-    section.classList.add('is-visible');
-    wires.forEach(function (p, i) {
-      p.style.transition = 'stroke-dashoffset 0.9s ease ' + (i * 0.09) + 's';
-      p.style.strokeDashoffset = '0';
+  function draw(p) {
+    var base = stage.getBoundingClientRect();
+    if (!base.width) return;
+    svg.setAttribute('viewBox', '0 0 ' + base.width + ' ' + base.height);
+    var hc = center(hubTile, base);
+
+    wires.forEach(function (w, i) {
+      var pc = center(w.tile, base);
+      var dx = hc.x - pc.x, dy = hc.y - pc.y;
+      var dist = Math.hypot(dx, dy) || 1;
+      var ux = dx / dist, uy = dy / dist;
+
+      var sx = pc.x + ux * (pc.r * 0.84), sy = pc.y + uy * (pc.r * 0.84);
+      var ex = hc.x - ux * (hc.r * 0.80), ey = hc.y - uy * (hc.r * 0.80);
+
+      /* gentle curve via a perpendicular control point */
+      var mx = (sx + ex) / 2, my = (sy + ey) / 2;
+      var nx = -(ey - sy), ny = (ex - sx);
+      var nl = Math.hypot(nx, ny) || 1;
+      var off = dist * 0.10 * w.sign;
+      var cx = mx + (nx / nl) * off, cy = my + (ny / nl) * off;
+
+      w.path.setAttribute('d', 'M' + sx + ' ' + sy + ' Q' + cx + ' ' + cy + ' ' + ex + ' ' + ey);
+
+      w.grad.setAttribute('x1', sx); w.grad.setAttribute('y1', sy);
+      w.grad.setAttribute('x2', ex); w.grad.setAttribute('y2', ey);
+
+      var len = w.path.getTotalLength();
+      var drawAmount = clamp((p - i * 0.07) / 0.42, 0, 1);
+      w.path.style.strokeDasharray = len;
+      w.path.style.strokeDashoffset = len * (1 - drawAmount);
+
+      var flowing = drawAmount > 0.85;
+      w.dots.forEach(function (d) {
+        if (!flowing) { d.el.setAttribute('opacity', 0); return; }
+        d.t += 0.006;
+        if (d.t > 1) d.t -= 1;
+        var pt = w.path.getPointAtLength(d.t * len);
+        d.el.setAttribute('cx', pt.x);
+        d.el.setAttribute('cy', pt.y);
+        var f = Math.sin(d.t * Math.PI);
+        d.el.setAttribute('opacity', (0.12 + 0.88 * f).toFixed(3));
+      });
     });
   }
 
   function frame() {
-    for (var i = 0; i < dots.length; i++) {
-      var d = dots[i];
-      d.t += d.speed;
-      if (d.t > 1) d.t -= 1;
-      var p = d.path.getPointAtLength(d.t * d.len);
-      d.el.setAttribute('cx', p.x);
-      d.el.setAttribute('cy', p.y);
-      var f = Math.sin(d.t * Math.PI); /* fade in/out at the ends */
-      d.el.setAttribute('opacity', (0.12 + 0.88 * f).toFixed(3));
-    }
+    draw(progress());
     raf = window.requestAnimationFrame(frame);
   }
-  function startDots() { if (reduce || raf) return; raf = window.requestAnimationFrame(frame); }
-  function stopDots() { if (raf) { window.cancelAnimationFrame(raf); raf = null; } }
+  function start() { if (raf) return; raf = window.requestAnimationFrame(frame); }
+  function stop() { if (raf) { window.cancelAnimationFrame(raf); raf = null; } }
 
+  /* Reveal the tiles + (for reduced motion) draw the lines statically */
   var io = new IntersectionObserver(function (entries) {
     entries.forEach(function (e) {
       visible = e.isIntersecting;
-      if (visible) { if (!revealed) reveal(); startDots(); }
-      else stopDots();
+      if (visible) section.classList.add('is-visible');
+      if (reduce) { if (visible) draw(1); return; }
+      if (visible) start(); else stop();
     });
-  }, { threshold: 0.2 });
+  }, { threshold: 0.18 });
   io.observe(stage);
 
-  /* Build after layout settles */
-  window.requestAnimationFrame(function () {
-    build();
-    if (visible) { reveal(); startDots(); }
-  });
+  build();
+  window.requestAnimationFrame(function () { draw(reduce ? 1 : progress()); });
 
-  var resizeTimer;
+  var rt;
   window.addEventListener('resize', function () {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(function () {
-      var wasRevealed = revealed;
-      build();
-      if (wasRevealed) {
-        wires.forEach(function (p) { p.style.transition = 'none'; p.style.strokeDashoffset = '0'; });
-      }
-      if (visible) startDots();
-    }, 180);
+    clearTimeout(rt);
+    rt = setTimeout(function () { draw(reduce ? 1 : progress()); }, 150);
   });
 })();
 
