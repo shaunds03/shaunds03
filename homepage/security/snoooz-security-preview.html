@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Snoooz — Security preview</title>
+<style>
+html, body { margin: 0; }
+/* ============================================================
+   SNOOOZ HOMEPAGE — SECURITY / TRUST STYLES
+   Paste into your HubSpot module CSS field (or a <style> block).
+   Brand tokens match the rest of the homepage.
+
+   A clean trust band: heading, a row of compliance badges, three
+   reassurance points, and the Trust Center CTAs.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap');
+
+:root {
+  --snoooz-bg: #f7f9f4;
+  --snoooz-text: #102421;
+  --snoooz-muted: #60706d;
+  --snoooz-border: #dfe8e2;
+  --snoooz-primary: #0F5B44;
+  --snoooz-primary-hover: #053533;
+  --snoooz-secondary: #D6D9A0;
+  --snoooz-secondary-hover: #A5AE47;
+  --snoooz-secondary-soft: rgba(214, 217, 160, 0.26);
+  --snoooz-shadow: 0 18px 50px rgba(15, 91, 68, 0.06);
+  --snoooz-max: 1180px;
+}
+
+.snoooz-sec,
+.snoooz-sec *,
+.snoooz-sec *::before,
+.snoooz-sec *::after { box-sizing: border-box; }
+
+.snoooz-sec {
+  width: 100%;
+  margin: 0;
+  color: var(--snoooz-text);
+  font-family: "Open Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(15, 91, 68, 0.06), transparent 36%),
+    radial-gradient(circle at 50% 100%, rgba(214, 217, 160, 0.22), transparent 38%),
+    var(--snoooz-bg);
+}
+.snoooz-sec__container {
+  width: 100%;
+  max-width: var(--snoooz-max);
+  margin: 0 auto;
+  padding: 84px 24px 92px;
+}
+.snoooz-sec h2, .snoooz-sec h3, .snoooz-sec p { margin-top: 0; }
+
+/* Heading */
+.snoooz-sec__head { max-width: 740px; margin: 0 auto 40px; text-align: center; }
+.snoooz-sec__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 14px;
+  color: var(--snoooz-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  font-size: 13px;
+  font-weight: 700;
+}
+.snoooz-sec__eyebrow svg { width: 15px; height: 15px; }
+.snoooz-sec__head h2 {
+  margin: 0 0 14px;
+  font-size: clamp(28px, 4vw, 43px);
+  line-height: 1.08;
+  letter-spacing: -0.038em;
+  font-weight: 700;
+}
+.snoooz-sec__head h2 .snoooz-sec__hl {
+  background: linear-gradient(45deg, var(--snoooz-primary), #C2C879);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.snoooz-sec__head p {
+  max-width: 600px;
+  margin: 0 auto;
+  color: var(--snoooz-muted);
+  font-size: 18px;
+  line-height: 1.62;
+}
+
+/* Compliance badges */
+.snoooz-sec__badges {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 14px;
+  margin: 0 0 22px;
+}
+.snoooz-sec__badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 22px 12px;
+  border-radius: 18px;
+  border: 1px solid rgba(223, 232, 226, 0.95);
+  background: linear-gradient(180deg, rgba(255,255,255,0.94), rgba(255,255,255,0.8));
+  box-shadow: var(--snoooz-shadow);
+  backdrop-filter: blur(10px);
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.snoooz-sec__badge:hover {
+  transform: translateY(-4px);
+  border-color: rgba(15, 91, 68, 0.28);
+  box-shadow: 0 24px 54px rgba(15, 91, 68, 0.13);
+}
+.snoooz-sec__badge img {
+  width: 62px; height: 62px;
+  object-fit: contain;
+  border-radius: 999px;
+  background: #fff;
+  padding: 6px;
+  border: 1px solid rgba(15, 91, 68, 0.08);
+}
+.snoooz-sec__badge span { font-size: 12.5px; font-weight: 800; letter-spacing: 0.01em; text-align: center; }
+
+.snoooz-sec__note {
+  margin: 0 0 40px;
+  text-align: center;
+  color: rgba(96, 112, 109, 0.9);
+  font-size: 13.5px;
+}
+
+/* Reassurance points */
+.snoooz-sec__points {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 36px;
+}
+.snoooz-sec__point {
+  padding: 26px 24px;
+  border-radius: 20px;
+  border: 1px solid rgba(223, 232, 226, 0.95);
+  background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,255,255,0.76));
+  box-shadow: var(--snoooz-shadow);
+}
+.snoooz-sec__point-ico {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px; height: 46px;
+  margin-bottom: 16px;
+  border-radius: 13px;
+  color: var(--snoooz-primary);
+  background: linear-gradient(135deg, rgba(15, 91, 68, 0.1), rgba(214, 217, 160, 0.34));
+  border: 1px solid rgba(15, 91, 68, 0.14);
+}
+.snoooz-sec__point-ico svg { width: 22px; height: 22px; }
+.snoooz-sec__point h3 {
+  margin: 0 0 9px;
+  font-size: 17px;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  font-weight: 700;
+}
+.snoooz-sec__point p {
+  margin: 0;
+  color: var(--snoooz-muted);
+  font-size: 14.5px;
+  line-height: 1.6;
+}
+
+/* CTAs */
+.snoooz-sec__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+.snoooz-sec__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 50px;
+  padding: 13px 24px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+.snoooz-sec__btn--primary {
+  background: var(--snoooz-primary);
+  border: 1px solid var(--snoooz-primary);
+  color: #fff;
+  box-shadow: 0 14px 30px rgba(15, 91, 68, 0.22);
+}
+.snoooz-sec__btn--primary:hover { background: var(--snoooz-primary-hover); border-color: var(--snoooz-primary-hover); transform: translateY(-1px); }
+.snoooz-sec__btn--secondary {
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid var(--snoooz-border);
+  color: var(--snoooz-primary);
+}
+.snoooz-sec__btn--secondary:hover { background: var(--snoooz-secondary-soft); border-color: var(--snoooz-secondary-hover); }
+.snoooz-sec__btn svg { transition: transform 0.2s ease; }
+.snoooz-sec__btn--secondary:hover svg { transform: translateX(4px); }
+
+/* Reveal */
+.snoooz-sec.is-reveal .snoooz-sec__badge,
+.snoooz-sec.is-reveal .snoooz-sec__point { opacity: 0; transform: translateY(18px); }
+.snoooz-sec.is-reveal.is-visible .snoooz-sec__badge,
+.snoooz-sec.is-reveal.is-visible .snoooz-sec__point {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.snoooz-sec.is-reveal.is-visible .snoooz-sec__badge:nth-child(1) { transition-delay: 0.02s; }
+.snoooz-sec.is-reveal.is-visible .snoooz-sec__badge:nth-child(2) { transition-delay: 0.07s; }
+.snoooz-sec.is-reveal.is-visible .snoooz-sec__badge:nth-child(3) { transition-delay: 0.12s; }
+.snoooz-sec.is-reveal.is-visible .snoooz-sec__badge:nth-child(4) { transition-delay: 0.17s; }
+.snoooz-sec.is-reveal.is-visible .snoooz-sec__badge:nth-child(5) { transition-delay: 0.22s; }
+.snoooz-sec.is-reveal.is-visible .snoooz-sec__point:nth-child(1) { transition-delay: 0.06s; }
+.snoooz-sec.is-reveal.is-visible .snoooz-sec__point:nth-child(2) { transition-delay: 0.12s; }
+.snoooz-sec.is-reveal.is-visible .snoooz-sec__point:nth-child(3) { transition-delay: 0.18s; }
+
+/* Responsive */
+@media (max-width: 860px) {
+  .snoooz-sec__badges { grid-template-columns: repeat(3, 1fr); }
+  .snoooz-sec__points { grid-template-columns: 1fr; }
+}
+@media (max-width: 540px) {
+  .snoooz-sec__container { padding: 60px 18px 68px; }
+  .snoooz-sec__badges { grid-template-columns: repeat(2, 1fr); }
+  .snoooz-sec__btn { width: 100%; justify-content: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .snoooz-sec__badge,
+  .snoooz-sec__btn,
+  .snoooz-sec.is-reveal.is-visible .snoooz-sec__badge,
+  .snoooz-sec.is-reveal.is-visible .snoooz-sec__point { transition: none; }
+}
+
+</style>
+</head>
+<body>
+<section class="snoooz-sec" id="snooozSecuritySection" aria-label="Security and compliance">
+  <div class="snoooz-sec__container">
+
+    <div class="snoooz-sec__head">
+      <p class="snoooz-sec__eyebrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+        Security &amp; compliance
+      </p>
+      <h2>Built to pass your <span class="snoooz-sec__hl">security review</span>.</h2>
+      <p>Snoooz is independently verified for enterprise-grade security and compliance, so your customer data is handled to the standards your security and procurement teams expect.</p>
+    </div>
+
+    <div class="snoooz-sec__badges">
+      <a class="snoooz-sec__badge" href="/security" rel="noopener">
+        <img src="https://snoooz.ai/hubfs/10.png" alt="SOC 2 Type 2" loading="lazy">
+        <span>SOC 2 Type 2</span>
+      </a>
+      <a class="snoooz-sec__badge" href="/security" rel="noopener">
+        <img src="https://snoooz.ai/hubfs/logos/security/iso.png" alt="ISO 27001" loading="lazy">
+        <span>ISO 27001</span>
+      </a>
+      <a class="snoooz-sec__badge" href="/security" rel="noopener">
+        <img src="https://snoooz.ai/hubfs/11.png" alt="GDPR" loading="lazy">
+        <span>GDPR</span>
+      </a>
+      <a class="snoooz-sec__badge" href="/security" rel="noopener">
+        <img src="https://snoooz.ai/hubfs/logos/security/hipaa.png" alt="HIPAA" loading="lazy">
+        <span>HIPAA</span>
+      </a>
+      <a class="snoooz-sec__badge" href="/security" rel="noopener">
+        <img src="https://snoooz.ai/hubfs/9.png" alt="CASA Tier 2" loading="lazy">
+        <span>CASA Tier 2</span>
+      </a>
+    </div>
+
+    <p class="snoooz-sec__note">GDPR compliant, SOC 2 Type 2 certified, ISO 27001 certified, HIPAA compliant, and CASA Tier 2 accredited.</p>
+
+    <div class="snoooz-sec__points">
+      <div class="snoooz-sec__point">
+        <span class="snoooz-sec__point-ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M15 9l-6 6M9 9l6 6"/></svg>
+        </span>
+        <h3>Your email never trains public AI models.</h3>
+        <p>Your data is used only to run your workflows. It is never used to train general models, and never shared.</p>
+      </div>
+      <div class="snoooz-sec__point">
+        <span class="snoooz-sec__point-ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg>
+        </span>
+        <h3>EU data residency.</h3>
+        <p>A dedicated EU-hosted deployment keeps your application data and AI processing in the European Union.</p>
+      </div>
+      <div class="snoooz-sec__point">
+        <span class="snoooz-sec__point-ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/></svg>
+        </span>
+        <h3>Governance built in.</h3>
+        <p>Draft-first rollout, role-based access, and full activity logging give you oversight at every step.</p>
+      </div>
+    </div>
+
+    <div class="snoooz-sec__actions">
+      <a class="snoooz-sec__btn snoooz-sec__btn--primary" href="/security" rel="noopener">Request security docs, DPA &amp; subprocessor list</a>
+      <a class="snoooz-sec__btn snoooz-sec__btn--secondary" href="/security" rel="noopener">Visit the Trust Center
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+
+  </div>
+</section>
+<script>
+/* ============================================================
+   SNOOOZ HOMEPAGE — SECURITY / TRUST SCRIPTS
+   Paste into your HubSpot module JS field (or a <script> block
+   placed after the HTML). Adds a staggered reveal as the band
+   scrolls into view. Reduced-motion users get it immediately.
+   ============================================================ */
+
+(function () {
+  var section = document.getElementById('snooozSecuritySection');
+  if (!section) return;
+
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) return;
+
+  section.classList.add('is-reveal');
+
+  var io = new IntersectionObserver(function (entries, obs) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      section.classList.add('is-visible');
+      obs.disconnect();
+    });
+  }, { threshold: 0.15 });
+  io.observe(section);
+})();
+
+</script>
+</body>
+</html>

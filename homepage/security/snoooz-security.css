@@ -1,0 +1,233 @@
+/* ============================================================
+   SNOOOZ HOMEPAGE — SECURITY / TRUST STYLES
+   Paste into your HubSpot module CSS field (or a <style> block).
+   Brand tokens match the rest of the homepage.
+
+   A clean trust band: heading, a row of compliance badges, three
+   reassurance points, and the Trust Center CTAs.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap');
+
+:root {
+  --snoooz-bg: #f7f9f4;
+  --snoooz-text: #102421;
+  --snoooz-muted: #60706d;
+  --snoooz-border: #dfe8e2;
+  --snoooz-primary: #0F5B44;
+  --snoooz-primary-hover: #053533;
+  --snoooz-secondary: #D6D9A0;
+  --snoooz-secondary-hover: #A5AE47;
+  --snoooz-secondary-soft: rgba(214, 217, 160, 0.26);
+  --snoooz-shadow: 0 18px 50px rgba(15, 91, 68, 0.06);
+  --snoooz-max: 1180px;
+}
+
+.snoooz-sec,
+.snoooz-sec *,
+.snoooz-sec *::before,
+.snoooz-sec *::after { box-sizing: border-box; }
+
+.snoooz-sec {
+  width: 100%;
+  margin: 0;
+  color: var(--snoooz-text);
+  font-family: "Open Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(15, 91, 68, 0.06), transparent 36%),
+    radial-gradient(circle at 50% 100%, rgba(214, 217, 160, 0.22), transparent 38%),
+    var(--snoooz-bg);
+}
+.snoooz-sec__container {
+  width: 100%;
+  max-width: var(--snoooz-max);
+  margin: 0 auto;
+  padding: 84px 24px 92px;
+}
+.snoooz-sec h2, .snoooz-sec h3, .snoooz-sec p { margin-top: 0; }
+
+/* Heading */
+.snoooz-sec__head { max-width: 740px; margin: 0 auto 40px; text-align: center; }
+.snoooz-sec__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 14px;
+  color: var(--snoooz-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  font-size: 13px;
+  font-weight: 700;
+}
+.snoooz-sec__eyebrow svg { width: 15px; height: 15px; }
+.snoooz-sec__head h2 {
+  margin: 0 0 14px;
+  font-size: clamp(28px, 4vw, 43px);
+  line-height: 1.08;
+  letter-spacing: -0.038em;
+  font-weight: 700;
+}
+.snoooz-sec__head h2 .snoooz-sec__hl {
+  background: linear-gradient(45deg, var(--snoooz-primary), #C2C879);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.snoooz-sec__head p {
+  max-width: 600px;
+  margin: 0 auto;
+  color: var(--snoooz-muted);
+  font-size: 18px;
+  line-height: 1.62;
+}
+
+/* Compliance badges */
+.snoooz-sec__badges {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 14px;
+  margin: 0 0 22px;
+}
+.snoooz-sec__badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 22px 12px;
+  border-radius: 18px;
+  border: 1px solid rgba(223, 232, 226, 0.95);
+  background: linear-gradient(180deg, rgba(255,255,255,0.94), rgba(255,255,255,0.8));
+  box-shadow: var(--snoooz-shadow);
+  backdrop-filter: blur(10px);
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.snoooz-sec__badge:hover {
+  transform: translateY(-4px);
+  border-color: rgba(15, 91, 68, 0.28);
+  box-shadow: 0 24px 54px rgba(15, 91, 68, 0.13);
+}
+.snoooz-sec__badge img {
+  width: 62px; height: 62px;
+  object-fit: contain;
+  border-radius: 999px;
+  background: #fff;
+  padding: 6px;
+  border: 1px solid rgba(15, 91, 68, 0.08);
+}
+.snoooz-sec__badge span { font-size: 12.5px; font-weight: 800; letter-spacing: 0.01em; text-align: center; }
+
+.snoooz-sec__note {
+  margin: 0 0 40px;
+  text-align: center;
+  color: rgba(96, 112, 109, 0.9);
+  font-size: 13.5px;
+}
+
+/* Reassurance points */
+.snoooz-sec__points {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 36px;
+}
+.snoooz-sec__point {
+  padding: 26px 24px;
+  border-radius: 20px;
+  border: 1px solid rgba(223, 232, 226, 0.95);
+  background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,255,255,0.76));
+  box-shadow: var(--snoooz-shadow);
+}
+.snoooz-sec__point-ico {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px; height: 46px;
+  margin-bottom: 16px;
+  border-radius: 13px;
+  color: var(--snoooz-primary);
+  background: linear-gradient(135deg, rgba(15, 91, 68, 0.1), rgba(214, 217, 160, 0.34));
+  border: 1px solid rgba(15, 91, 68, 0.14);
+}
+.snoooz-sec__point-ico svg { width: 22px; height: 22px; }
+.snoooz-sec__point h3 {
+  margin: 0 0 9px;
+  font-size: 17px;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  font-weight: 700;
+}
+.snoooz-sec__point p {
+  margin: 0;
+  color: var(--snoooz-muted);
+  font-size: 14.5px;
+  line-height: 1.6;
+}
+
+/* CTAs */
+.snoooz-sec__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+.snoooz-sec__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 50px;
+  padding: 13px 24px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+.snoooz-sec__btn--primary {
+  background: var(--snoooz-primary);
+  border: 1px solid var(--snoooz-primary);
+  color: #fff;
+  box-shadow: 0 14px 30px rgba(15, 91, 68, 0.22);
+}
+.snoooz-sec__btn--primary:hover { background: var(--snoooz-primary-hover); border-color: var(--snoooz-primary-hover); transform: translateY(-1px); }
+.snoooz-sec__btn--secondary {
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid var(--snoooz-border);
+  color: var(--snoooz-primary);
+}
+.snoooz-sec__btn--secondary:hover { background: var(--snoooz-secondary-soft); border-color: var(--snoooz-secondary-hover); }
+.snoooz-sec__btn svg { transition: transform 0.2s ease; }
+.snoooz-sec__btn--secondary:hover svg { transform: translateX(4px); }
+
+/* Reveal */
+.snoooz-sec.is-reveal .snoooz-sec__badge,
+.snoooz-sec.is-reveal .snoooz-sec__point { opacity: 0; transform: translateY(18px); }
+.snoooz-sec.is-reveal.is-visible .snoooz-sec__badge,
+.snoooz-sec.is-reveal.is-visible .snoooz-sec__point {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.snoooz-sec.is-reveal.is-visible .snoooz-sec__badge:nth-child(1) { transition-delay: 0.02s; }
+.snoooz-sec.is-reveal.is-visible .snoooz-sec__badge:nth-child(2) { transition-delay: 0.07s; }
+.snoooz-sec.is-reveal.is-visible .snoooz-sec__badge:nth-child(3) { transition-delay: 0.12s; }
+.snoooz-sec.is-reveal.is-visible .snoooz-sec__badge:nth-child(4) { transition-delay: 0.17s; }
+.snoooz-sec.is-reveal.is-visible .snoooz-sec__badge:nth-child(5) { transition-delay: 0.22s; }
+.snoooz-sec.is-reveal.is-visible .snoooz-sec__point:nth-child(1) { transition-delay: 0.06s; }
+.snoooz-sec.is-reveal.is-visible .snoooz-sec__point:nth-child(2) { transition-delay: 0.12s; }
+.snoooz-sec.is-reveal.is-visible .snoooz-sec__point:nth-child(3) { transition-delay: 0.18s; }
+
+/* Responsive */
+@media (max-width: 860px) {
+  .snoooz-sec__badges { grid-template-columns: repeat(3, 1fr); }
+  .snoooz-sec__points { grid-template-columns: 1fr; }
+}
+@media (max-width: 540px) {
+  .snoooz-sec__container { padding: 60px 18px 68px; }
+  .snoooz-sec__badges { grid-template-columns: repeat(2, 1fr); }
+  .snoooz-sec__btn { width: 100%; justify-content: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .snoooz-sec__badge,
+  .snoooz-sec__btn,
+  .snoooz-sec.is-reveal.is-visible .snoooz-sec__badge,
+  .snoooz-sec.is-reveal.is-visible .snoooz-sec__point { transition: none; }
+}
