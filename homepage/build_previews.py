@@ -41,6 +41,7 @@ uc_css, uc_html, uc_js = read("use-cases", "snoooz-usecases.css"), read("use-cas
 net_css, net_html, net_js = read("providers", "snoooz-providers.css"), read("providers", "snoooz-providers.html"), read("providers", "snoooz-providers.js")
 int_css, int_html, int_js = read("integrations", "snoooz-integrations.css"), read("integrations", "snoooz-integrations.html"), read("integrations", "snoooz-integrations.js")
 proof_css, proof_html, proof_js = read("proof", "snoooz-proof.css"), read("proof", "snoooz-proof.html"), read("proof", "snoooz-proof.js")
+cases_css, cases_html, cases_js = read("cases", "snoooz-cases.css"), read("cases", "snoooz-cases.html"), read("cases", "snoooz-cases.js")
 
 # --- standalone section previews ---
 write("hero/snoooz-hero-preview.html", standalone("Snoooz — Hero preview", hero_css, hero_html, hero_js))
@@ -51,6 +52,7 @@ write("use-cases/snoooz-usecases-preview.html", standalone("Snoooz — Use cases
 write("providers/snoooz-providers-preview.html", standalone("Snoooz — Email providers preview", net_css, net_html, net_js))
 write("integrations/snoooz-integrations-preview.html", standalone("Snoooz — Business integrations preview", int_css, int_html, int_js))
 write("proof/snoooz-proof-preview.html", standalone("Snoooz — Inbox Impact Report preview", proof_css, proof_html, proof_js))
+write("cases/snoooz-cases-preview.html", standalone("Snoooz — Enterprise cases preview", cases_css, cases_html, cases_js))
 
 # --- combined homepage preview ---
 combined_css = (
@@ -62,6 +64,7 @@ combined_css = (
     + "\n\n/* ===== EMAIL PROVIDERS ===== */\n" + net_css
     + "\n\n/* ===== BUSINESS INTEGRATIONS ===== */\n" + int_css
     + "\n\n/* ===== PROOF / INBOX IMPACT REPORT ===== */\n" + proof_css
+    + "\n\n/* ===== PROOF / ENTERPRISE CASES ===== */\n" + cases_css
 )
 combined_body = (
     strip_leading_html_comment(hero_html)
@@ -72,8 +75,9 @@ combined_body = (
     + "\n\n" + strip_leading_html_comment(net_html)
     + "\n\n" + strip_leading_html_comment(int_html)
     + "\n\n" + strip_leading_html_comment(proof_html)
+    + "\n\n" + strip_leading_html_comment(cases_html)
 )
-combined_js = hero_js + "\n\n" + prob_js + "\n\n" + how_js + "\n\n" + uc_js + "\n\n" + net_js + "\n\n" + int_js + "\n\n" + proof_js
+combined_js = hero_js + "\n\n" + prob_js + "\n\n" + how_js + "\n\n" + uc_js + "\n\n" + net_js + "\n\n" + int_js + "\n\n" + proof_js + "\n\n" + cases_js
 combined = standalone("Snoooz — Homepage preview", combined_css, combined_body, combined_js)
 write("homepage-preview.html", combined)
 
