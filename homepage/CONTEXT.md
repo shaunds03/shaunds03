@@ -119,6 +119,10 @@ secondary = **Start free**.
   logo centered and provider logos around it. JS draws the connector arrows between real element
   positions and animates green dots flowing into the hub; recomputes on resize; mobile re-rings the
   nodes. CSS / HTML / JS + preview.
+- `homepage/integrations/` — business integrations (CRM, helpdesk, e-commerce, ERP, calendars):
+  a dark, futuristic bento grid with a neon-bordered Snoooz core, animated grid backdrop, cursor
+  spotlight, and logo chips. Intentionally a different style from the email-provider hub; fits in
+  one glance. CSS / HTML / JS + preview.
 - `homepage/build_previews.py` — regenerates every section preview + homepage-preview.html from
   source. Run after editing any section.
 - `homepage/homepage-preview.html` — assembled full-page preview (stacks all sections built so far).

@@ -1,0 +1,339 @@
+/* ============================================================
+   SNOOOZ HOMEPAGE — BUSINESS INTEGRATIONS (dark bento) STYLES
+   Paste into your HubSpot module CSS field (or a <style> block).
+
+   A futuristic, dark "command center" bento grid: glowing glass category
+   panels around a neon-bordered Snoooz core, an animated grid backdrop, a
+   cursor spotlight, and logo chips that light up. Sized to fit one glance.
+   Deliberately different from the light email-provider hub section.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap');
+
+.snoooz-int {
+  --int-text: #eef5f0;
+  --int-muted: rgba(232, 244, 237, 0.62);
+  --int-neon: #2fe39a;
+  --int-card: rgba(255, 255, 255, 0.045);
+  --int-border: rgba(255, 255, 255, 0.12);
+  --int-line: rgba(255, 255, 255, 0.06);
+  --int-max: 1180px;
+
+  position: relative;
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  color: var(--int-text);
+  font-family: "Open Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background:
+    radial-gradient(circle at 50% 8%, rgba(47, 227, 154, 0.16), transparent 42%),
+    radial-gradient(circle at 12% 90%, rgba(47, 227, 154, 0.1), transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(214, 217, 160, 0.1), transparent 38%),
+    linear-gradient(160deg, #0c2c22 0%, #07211b 55%, #051713 100%);
+}
+
+.snoooz-int,
+.snoooz-int *,
+.snoooz-int *::before,
+.snoooz-int *::after { box-sizing: border-box; }
+
+/* Animated grid backdrop */
+.snoooz-int__bg {
+  position: absolute;
+  inset: -2px;
+  z-index: 0;
+  background-image:
+    linear-gradient(var(--int-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--int-line) 1px, transparent 1px);
+  background-size: 46px 46px;
+  -webkit-mask: radial-gradient(circle at 50% 42%, #000 0%, transparent 72%);
+  mask: radial-gradient(circle at 50% 42%, #000 0%, transparent 72%);
+  animation: snoooz-int-pan 24s linear infinite;
+}
+@keyframes snoooz-int-pan {
+  from { background-position: 0 0, 0 0; }
+  to   { background-position: 46px 46px, 46px 46px; }
+}
+
+/* Cursor spotlight */
+.snoooz-int__cursor {
+  position: absolute;
+  z-index: 0;
+  width: 420px; height: 420px;
+  left: 0; top: 0;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(47, 227, 154, 0.16), transparent 66%);
+  mix-blend-mode: screen;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.snoooz-int__container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: var(--int-max);
+  margin: 0 auto;
+  padding: 72px 24px;
+}
+.snoooz-int h2, .snoooz-int h3, .snoooz-int p { margin-top: 0; }
+
+/* Heading */
+.snoooz-int__head { max-width: 720px; margin: 0 0 28px; }
+.snoooz-int__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 14px;
+  color: var(--int-neon);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 12.5px;
+  font-weight: 800;
+}
+.snoooz-int__eyebrow::before {
+  content: "";
+  width: 7px; height: 7px;
+  border-radius: 999px;
+  background: var(--int-neon);
+  box-shadow: 0 0 10px var(--int-neon);
+}
+.snoooz-int__head h2 {
+  margin: 0 0 12px;
+  font-size: clamp(27px, 3.9vw, 42px);
+  line-height: 1.08;
+  letter-spacing: -0.038em;
+  font-weight: 700;
+}
+.snoooz-int__head h2 .snoooz-int__hl {
+  background: linear-gradient(100deg, var(--int-neon), #b9e9a6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.snoooz-int__head p {
+  max-width: 580px;
+  margin: 0;
+  color: var(--int-muted);
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+/* Bento grid */
+.snoooz-int__bento {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: 1fr;
+  gap: 16px;
+  grid-template-areas:
+    "core core ecom crm"
+    "help erp  cal  cal";
+}
+.snoooz-int__core { grid-area: core; }
+.snoooz-int__card--ecom { grid-area: ecom; }
+.snoooz-int__card--crm  { grid-area: crm; }
+.snoooz-int__card--help { grid-area: help; }
+.snoooz-int__card--erp  { grid-area: erp; }
+.snoooz-int__card--cal  { grid-area: cal; }
+
+/* Cards */
+.snoooz-int__card {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 18px;
+  border-radius: 20px;
+  background: var(--int-card);
+  border: 1px solid var(--int-border);
+  backdrop-filter: blur(12px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+.snoooz-int__card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(47, 227, 154, 0.5);
+  background: rgba(47, 227, 154, 0.06);
+  box-shadow: 0 22px 48px rgba(0, 0, 0, 0.35), 0 0 28px rgba(47, 227, 154, 0.16);
+}
+
+.snoooz-int__card-head { display: flex; align-items: center; gap: 10px; }
+.snoooz-int__card-ico {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px; height: 34px;
+  flex: 0 0 auto;
+  border-radius: 10px;
+  color: var(--int-neon);
+  background: rgba(47, 227, 154, 0.1);
+  border: 1px solid rgba(47, 227, 154, 0.28);
+}
+.snoooz-int__card-ico svg { width: 18px; height: 18px; }
+.snoooz-int__card-name {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--int-text);
+}
+.snoooz-int__card-count {
+  margin-left: auto;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--int-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Logo chips */
+.snoooz-int__logos { display: flex; flex-wrap: wrap; gap: 9px; margin-top: auto; }
+.snoooz-int__chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px; height: 48px;
+  padding: 9px;
+  border-radius: 13px;
+  background: #fff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.28);
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+.snoooz-int__chip img { max-width: 100%; max-height: 100%; object-fit: contain; display: block; }
+.snoooz-int__card:hover .snoooz-int__chip { box-shadow: 0 10px 22px rgba(0, 0, 0, 0.3); }
+.snoooz-int__chip:hover {
+  transform: translateY(-4px) scale(1.08);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.36), 0 0 18px rgba(47, 227, 154, 0.5);
+}
+
+/* Core cell */
+.snoooz-int__core {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 14px;
+  padding: 26px;
+  border-radius: 22px;
+  border: 1px solid rgba(47, 227, 154, 0.28);
+  background:
+    radial-gradient(circle at 18% 20%, rgba(47, 227, 154, 0.18), transparent 55%),
+    linear-gradient(135deg, rgba(47, 227, 154, 0.12), rgba(5, 53, 51, 0.5));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+.snoooz-int__core::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: conic-gradient(from 0deg, transparent 0deg, var(--int-neon) 60deg, transparent 150deg, transparent 360deg);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  animation: snoooz-int-rotate 5s linear infinite;
+  pointer-events: none;
+}
+@keyframes snoooz-int-rotate { to { transform: rotate(360deg); } }
+
+.snoooz-int__core-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 132px; height: 50px;
+  padding: 8px 14px;
+  border-radius: 13px;
+  background: #fff;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.3);
+}
+.snoooz-int__core-logo img { max-width: 100%; max-height: 100%; object-fit: contain; display: block; }
+.snoooz-int__core h3 {
+  margin: 0;
+  font-size: clamp(19px, 2.1vw, 24px);
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+}
+.snoooz-int__core p {
+  margin: 0;
+  max-width: 360px;
+  color: var(--int-muted);
+  font-size: 14px;
+  line-height: 1.55;
+}
+.snoooz-int__core-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  align-self: flex-start;
+  color: var(--int-neon);
+  font-size: 14px;
+  font-weight: 800;
+  text-decoration: none;
+}
+.snoooz-int__core-link svg { transition: transform 0.2s ease; }
+.snoooz-int__core-link:hover svg { transform: translateX(4px); }
+
+/* Reveal (only when JS adds .is-reveal) */
+.snoooz-int.is-reveal .snoooz-int__core,
+.snoooz-int.is-reveal .snoooz-int__card {
+  opacity: 0;
+  transform: translateY(22px);
+}
+.snoooz-int.is-reveal.is-visible .snoooz-int__core,
+.snoooz-int.is-reveal.is-visible .snoooz-int__card {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.snoooz-int.is-reveal.is-visible .snoooz-int__core { transition-delay: 0s; }
+.snoooz-int.is-reveal.is-visible .snoooz-int__card--ecom { transition-delay: 0.07s; }
+.snoooz-int.is-reveal.is-visible .snoooz-int__card--crm  { transition-delay: 0.13s; }
+.snoooz-int.is-reveal.is-visible .snoooz-int__card--help { transition-delay: 0.19s; }
+.snoooz-int.is-reveal.is-visible .snoooz-int__card--erp  { transition-delay: 0.25s; }
+.snoooz-int.is-reveal.is-visible .snoooz-int__card--cal  { transition-delay: 0.31s; }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .snoooz-int { min-height: 0; }
+  .snoooz-int__bento {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      "core core"
+      "ecom crm"
+      "help erp"
+      "cal  cal";
+  }
+}
+@media (max-width: 540px) {
+  .snoooz-int__container { padding: 56px 18px; }
+  .snoooz-int__bento {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "core"
+      "ecom"
+      "crm"
+      "help"
+      "erp"
+      "cal";
+  }
+  .snoooz-int__chip { width: 44px; height: 44px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .snoooz-int__bg,
+  .snoooz-int__core::before { animation: none; }
+  .snoooz-int__cursor { display: none; }
+  .snoooz-int__card,
+  .snoooz-int__chip,
+  .snoooz-int.is-reveal.is-visible .snoooz-int__core,
+  .snoooz-int.is-reveal.is-visible .snoooz-int__card { transition: none; }
+}
