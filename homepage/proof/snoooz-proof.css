@@ -1,0 +1,209 @@
+/* ============================================================
+   SNOOOZ HOMEPAGE — PROOF / INBOX IMPACT REPORT STYLES
+   Paste into your HubSpot module CSS field (or a <style> block).
+   Brand tokens match the rest of the homepage.
+
+   Two columns: report copy on the left, a dark-green "impact dashboard"
+   card on the right whose figures count up when it scrolls into view.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap');
+
+:root {
+  --snoooz-bg: #f7f9f4;
+  --snoooz-text: #102421;
+  --snoooz-muted: #60706d;
+  --snoooz-border: #dfe8e2;
+  --snoooz-primary: #0F5B44;
+  --snoooz-primary-hover: #053533;
+  --snoooz-secondary: #D6D9A0;
+  --snoooz-secondary-hover: #A5AE47;
+  --snoooz-secondary-soft: rgba(214, 217, 160, 0.26);
+  --snoooz-shadow: 0 18px 50px rgba(15, 91, 68, 0.06);
+  --snoooz-max: 1180px;
+}
+
+.snoooz-proof,
+.snoooz-proof *,
+.snoooz-proof *::before,
+.snoooz-proof *::after { box-sizing: border-box; }
+
+.snoooz-proof {
+  width: 100%;
+  margin: 0;
+  color: var(--snoooz-text);
+  font-family: "Open Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background:
+    radial-gradient(circle at 12% 10%, rgba(214, 217, 160, 0.26), transparent 32%),
+    var(--snoooz-bg);
+}
+.snoooz-proof__container {
+  width: 100%;
+  max-width: var(--snoooz-max);
+  margin: 0 auto;
+  padding: 84px 24px 92px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: center;
+}
+.snoooz-proof h2, .snoooz-proof p { margin-top: 0; }
+
+/* Left: copy */
+.snoooz-proof__copy { min-width: 0; }
+.snoooz-proof__eyebrow {
+  margin: 0 0 14px;
+  color: var(--snoooz-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  font-size: 13px;
+  font-weight: 700;
+}
+.snoooz-proof__copy h2 {
+  margin: 0 0 18px;
+  font-size: clamp(28px, 3.9vw, 42px);
+  line-height: 1.1;
+  letter-spacing: -0.038em;
+  font-weight: 700;
+}
+.snoooz-proof__copy h2 span {
+  background: linear-gradient(100deg, var(--snoooz-primary) 0%, var(--snoooz-secondary-hover) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.snoooz-proof__lead {
+  max-width: 480px;
+  margin: 0 0 26px;
+  color: var(--snoooz-muted);
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+.snoooz-proof__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 18px; }
+.snoooz-proof__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 50px;
+  padding: 13px 24px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+.snoooz-proof__btn--primary {
+  background: var(--snoooz-primary);
+  border: 1px solid var(--snoooz-primary);
+  color: #fff;
+  box-shadow: 0 14px 30px rgba(15, 91, 68, 0.22);
+}
+.snoooz-proof__btn--primary:hover { background: var(--snoooz-primary-hover); border-color: var(--snoooz-primary-hover); transform: translateY(-1px); }
+.snoooz-proof__btn--secondary {
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid var(--snoooz-border);
+  color: var(--snoooz-primary);
+}
+.snoooz-proof__btn--secondary:hover { background: var(--snoooz-secondary-soft); border-color: var(--snoooz-secondary-hover); }
+
+.snoooz-proof__disclaimer { margin: 0; color: rgba(96, 112, 109, 0.85); font-size: 13px; line-height: 1.5; }
+
+/* Right: impact dashboard card */
+.snoooz-proof__card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 26px;
+  padding: 26px 28px 28px;
+  color: #fff;
+  background:
+    radial-gradient(circle at 86% -6%, rgba(214, 217, 160, 0.28), transparent 42%),
+    linear-gradient(150deg, var(--snoooz-primary) 0%, var(--snoooz-primary-hover) 100%);
+  box-shadow: 0 30px 70px rgba(15, 91, 68, 0.26);
+}
+.snoooz-proof__card-bar { display: flex; gap: 7px; margin-bottom: 22px; }
+.snoooz-proof__card-bar span { width: 11px; height: 11px; border-radius: 999px; background: rgba(255, 255, 255, 0.32); }
+
+.snoooz-proof__mini {
+  display: inline-block;
+  margin-bottom: 14px;
+  color: var(--snoooz-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 12px;
+  font-weight: 800;
+}
+.snoooz-proof__main { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-bottom: 22px; }
+.snoooz-proof__main strong {
+  font-size: clamp(44px, 6vw, 58px);
+  line-height: 1;
+  letter-spacing: -0.05em;
+  font-weight: 800;
+}
+.snoooz-proof__main span { color: rgba(255, 255, 255, 0.82); font-size: 15px; font-weight: 600; }
+
+.snoooz-proof__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+.snoooz-proof__grid div {
+  padding: 16px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+.snoooz-proof__grid strong {
+  display: block;
+  font-size: 26px;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-weight: 800;
+}
+.snoooz-proof__grid span { display: block; margin-top: 6px; color: rgba(255, 255, 255, 0.72); font-size: 12.5px; font-weight: 600; }
+
+.snoooz-proof__flow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+}
+.snoooz-proof__flow span {
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+/* Reveal */
+.snoooz-proof.is-reveal .snoooz-proof__copy,
+.snoooz-proof.is-reveal .snoooz-proof__card { opacity: 0; transform: translateY(20px); }
+.snoooz-proof.is-reveal.is-visible .snoooz-proof__copy,
+.snoooz-proof.is-reveal.is-visible .snoooz-proof__card {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.snoooz-proof.is-reveal.is-visible .snoooz-proof__card { transition-delay: 0.1s; }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .snoooz-proof__container { grid-template-columns: 1fr; gap: 40px; }
+}
+@media (max-width: 560px) {
+  .snoooz-proof__container { padding: 60px 18px 68px; }
+  .snoooz-proof__btn { width: 100%; justify-content: center; }
+  .snoooz-proof__grid { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .snoooz-proof__btn { transition: none; }
+  .snoooz-proof.is-reveal.is-visible .snoooz-proof__copy,
+  .snoooz-proof.is-reveal.is-visible .snoooz-proof__card { transition: none; }
+}
