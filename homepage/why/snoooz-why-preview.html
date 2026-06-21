@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Snoooz — Why Snoooz preview</title>
+<style>
+html, body { margin: 0; }
+/* ============================================================
+   SNOOOZ HOMEPAGE — WHY SNOOOZ (differentiation) STYLES
+   Paste into your HubSpot module CSS field (or a <style> block).
+   Brand tokens match the rest of the homepage.
+
+   Three comparison cards: what the alternative does (muted) vs what
+   Snoooz does (green), plus a link to the comparison pages.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap');
+
+:root {
+  --snoooz-bg: #f7f9f4;
+  --snoooz-text: #102421;
+  --snoooz-muted: #60706d;
+  --snoooz-border: #dfe8e2;
+  --snoooz-primary: #0F5B44;
+  --snoooz-primary-hover: #053533;
+  --snoooz-secondary: #D6D9A0;
+  --snoooz-secondary-hover: #A5AE47;
+  --snoooz-secondary-soft: rgba(214, 217, 160, 0.26);
+  --snoooz-shadow: 0 18px 50px rgba(15, 91, 68, 0.06);
+  --snoooz-muted-2: #97a39f;
+  --snoooz-max: 1180px;
+}
+
+.snoooz-why,
+.snoooz-why *,
+.snoooz-why *::before,
+.snoooz-why *::after { box-sizing: border-box; }
+
+.snoooz-why {
+  width: 100%;
+  margin: 0;
+  color: var(--snoooz-text);
+  font-family: "Open Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background:
+    radial-gradient(circle at 14% 8%, rgba(214, 217, 160, 0.24), transparent 32%),
+    var(--snoooz-bg);
+}
+.snoooz-why__container {
+  width: 100%;
+  max-width: var(--snoooz-max);
+  margin: 0 auto;
+  padding: 84px 24px 92px;
+}
+.snoooz-why h2, .snoooz-why h3, .snoooz-why p { margin-top: 0; }
+
+/* Heading */
+.snoooz-why__head { max-width: 720px; margin: 0 0 40px; }
+.snoooz-why__eyebrow {
+  margin: 0 0 14px;
+  color: var(--snoooz-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  font-size: 13px;
+  font-weight: 700;
+}
+.snoooz-why__head h2 {
+  margin: 0 0 14px;
+  font-size: clamp(28px, 4vw, 43px);
+  line-height: 1.08;
+  letter-spacing: -0.038em;
+  font-weight: 700;
+}
+.snoooz-why__head h2 .snoooz-why__hl {
+  background: linear-gradient(100deg, var(--snoooz-primary) 0%, var(--snoooz-secondary-hover) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.snoooz-why__head p {
+  max-width: 580px;
+  margin: 0;
+  color: var(--snoooz-muted);
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+/* Cards */
+.snoooz-why__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+.snoooz-why__card {
+  display: flex;
+  flex-direction: column;
+  padding: 26px 24px;
+  border-radius: 22px;
+  border: 1px solid rgba(223, 232, 226, 0.95);
+  background: linear-gradient(180deg, rgba(255,255,255,0.94), rgba(255,255,255,0.8));
+  box-shadow: var(--snoooz-shadow);
+  backdrop-filter: blur(10px);
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.snoooz-why__card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(15, 91, 68, 0.26);
+  box-shadow: 0 28px 64px rgba(15, 91, 68, 0.13);
+}
+
+.snoooz-why__tag {
+  align-self: flex-start;
+  margin-bottom: 18px;
+  padding: 6px 13px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: var(--snoooz-muted);
+  background: rgba(96, 112, 109, 0.08);
+  border: 1px solid rgba(96, 112, 109, 0.16);
+}
+
+.snoooz-why__row { display: flex; gap: 12px; }
+.snoooz-why__row + .snoooz-why__row { margin-top: 12px; }
+.snoooz-why__ico {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px; height: 26px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 800;
+  margin-top: 1px;
+}
+.snoooz-why__row--other .snoooz-why__ico {
+  color: var(--snoooz-muted-2);
+  background: rgba(151, 163, 159, 0.14);
+}
+.snoooz-why__row--other .snoooz-why__ico::before { content: "\00D7"; }
+.snoooz-why__row--other p { margin: 0; color: var(--snoooz-muted); font-size: 14.5px; line-height: 1.55; }
+
+.snoooz-why__row--snoooz {
+  margin-top: 16px;
+  padding: 14px;
+  border-radius: 15px;
+  background: linear-gradient(135deg, rgba(15, 91, 68, 0.06), rgba(214, 217, 160, 0.18));
+  border: 1px solid rgba(15, 91, 68, 0.14);
+}
+.snoooz-why__row--snoooz .snoooz-why__ico {
+  color: #fff;
+  background: var(--snoooz-primary);
+}
+.snoooz-why__row--snoooz .snoooz-why__ico::before { content: "\2713"; }
+.snoooz-why__row--snoooz p { margin: 0; color: var(--snoooz-text); font-size: 15px; line-height: 1.55; font-weight: 600; }
+.snoooz-why__row--snoooz p strong { font-weight: 800; }
+
+/* Compare link */
+.snoooz-why__foot { margin-top: 36px; }
+.snoooz-why__compare {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 22px;
+  border-radius: 999px;
+  border: 1px solid var(--snoooz-border);
+  background: rgba(255, 255, 255, 0.86);
+  color: var(--snoooz-primary);
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+.snoooz-why__compare:hover { background: var(--snoooz-secondary-soft); border-color: var(--snoooz-secondary-hover); transform: translateY(-1px); }
+.snoooz-why__compare svg { transition: transform 0.2s ease; }
+.snoooz-why__compare:hover svg { transform: translateX(4px); }
+
+/* Reveal */
+.snoooz-why.is-reveal .snoooz-why__card { opacity: 0; transform: translateY(20px); }
+.snoooz-why.is-reveal.is-visible .snoooz-why__card {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.snoooz-why.is-reveal.is-visible .snoooz-why__card:nth-child(1) { transition-delay: 0.04s; }
+.snoooz-why.is-reveal.is-visible .snoooz-why__card:nth-child(2) { transition-delay: 0.12s; }
+.snoooz-why.is-reveal.is-visible .snoooz-why__card:nth-child(3) { transition-delay: 0.2s; }
+
+/* Responsive */
+@media (max-width: 860px) {
+  .snoooz-why__grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 540px) {
+  .snoooz-why__container { padding: 60px 18px 68px; }
+  .snoooz-why__compare { width: 100%; justify-content: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .snoooz-why__card,
+  .snoooz-why__compare svg,
+  .snoooz-why.is-reveal.is-visible .snoooz-why__card { transition: none; }
+}
+
+</style>
+</head>
+<body>
+<section class="snoooz-why" id="snooozWhySection" aria-label="Why teams choose Snoooz">
+  <div class="snoooz-why__container">
+
+    <div class="snoooz-why__head">
+      <p class="snoooz-why__eyebrow">Why Snoooz</p>
+      <h2>Why teams choose <span class="snoooz-why__hl">Snoooz</span>.</h2>
+      <p>Snoooz is not a faster way to type or a smarter auto-reply. It runs the inbox.</p>
+    </div>
+
+    <div class="snoooz-why__grid">
+
+      <article class="snoooz-why__card">
+        <span class="snoooz-why__tag">vs a personal AI assistant</span>
+        <div class="snoooz-why__row snoooz-why__row--other">
+          <span class="snoooz-why__ico" aria-hidden="true"></span>
+          <p>Personal assistants make one person faster and never send on their own.</p>
+        </div>
+        <div class="snoooz-why__row snoooz-why__row--snoooz">
+          <span class="snoooz-why__ico" aria-hidden="true"></span>
+          <p>Snoooz runs the <strong>whole inbox</strong> and replies for you once you trust it.</p>
+        </div>
+      </article>
+
+      <article class="snoooz-why__card">
+        <span class="snoooz-why__tag">vs a generic autoresponder</span>
+        <div class="snoooz-why__row snoooz-why__row--other">
+          <span class="snoooz-why__ico" aria-hidden="true"></span>
+          <p>A canned auto-reply just says "we got your message."</p>
+        </div>
+        <div class="snoooz-why__row snoooz-why__row--snoooz">
+          <span class="snoooz-why__ico" aria-hidden="true"></span>
+          <p>Snoooz answers the <strong>actual question</strong>, from your own knowledge.</p>
+        </div>
+      </article>
+
+      <article class="snoooz-why__card">
+        <span class="snoooz-why__tag">vs hiring more reps</span>
+        <div class="snoooz-why__row snoooz-why__row--other">
+          <span class="snoooz-why__ico" aria-hidden="true"></span>
+          <p>More inbound usually means adding more headcount.</p>
+        </div>
+        <div class="snoooz-why__row snoooz-why__row--snoooz">
+          <span class="snoooz-why__ico" aria-hidden="true"></span>
+          <p>Snoooz handles the repetitive volume around the clock and <strong>escalates only what needs a person</strong>.</p>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="snoooz-why__foot">
+      <a class="snoooz-why__compare" href="/compare" rel="noopener">Compare Snoooz with Fyxer, Serif, and Jace
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+
+  </div>
+</section>
+<script>
+/* ============================================================
+   SNOOOZ HOMEPAGE — WHY SNOOOZ SCRIPTS
+   Paste into your HubSpot module JS field (or a <script> block
+   placed after the HTML). Staggered reveal on scroll into view.
+   Reduced-motion users get the cards immediately.
+   ============================================================ */
+
+(function () {
+  var section = document.getElementById('snooozWhySection');
+  if (!section) return;
+
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) return;
+
+  section.classList.add('is-reveal');
+
+  var io = new IntersectionObserver(function (entries, obs) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      section.classList.add('is-visible');
+      obs.disconnect();
+    });
+  }, { threshold: 0.2 });
+  io.observe(section);
+})();
+
+</script>
+</body>
+</html>
