@@ -1,111 +1,111 @@
 <!-- ============================================================
-     SNOOOZ HOMEPAGE — BUSINESS INTEGRATIONS (dark bento) HTML
+     SNOOOZ HOMEPAGE — BUSINESS INTEGRATIONS (lanes -> hub) HTML
      Paste into your HubSpot module HTML field (or a rich-text/HTML block).
-     Requires the matching CSS and JS (JS adds the reveal + cursor spotlight).
+     Requires the matching CSS and JS. The JS draws a connector line from
+     each lane into the Snoooz node and flows a green dot along it on scroll.
      ============================================================ -->
 
-<section class="snoooz-int" id="snooozIntSection" aria-label="Snoooz business integrations">
-  <div class="snoooz-int__bg" aria-hidden="true"></div>
-  <div class="snoooz-int__cursor" aria-hidden="true"></div>
+<section class="snoooz-stack" id="snooozStackSection" aria-label="Snoooz business integrations">
+  <div class="snoooz-stack__container">
 
-  <div class="snoooz-int__container">
-
-    <div class="snoooz-int__head">
-      <p class="snoooz-int__eyebrow">Business integrations</p>
-      <h2>Wired into the tools <span class="snoooz-int__hl">your business runs on</span>.</h2>
+    <div class="snoooz-stack__head">
+      <p class="snoooz-stack__eyebrow">Business integrations</p>
+      <h2>Wired into the tools <span class="snoooz-stack__hl">your business runs on</span>.</h2>
       <p>CRM, helpdesk, e-commerce, ERP, and calendars. Snoooz reads and writes across the systems your team already relies on.</p>
     </div>
 
-    <div class="snoooz-int__bento">
+    <div class="snoooz-stack__grid" id="snooozStack">
+      <svg class="snoooz-stack__wires" preserveAspectRatio="none" aria-hidden="true">
+        <defs id="snooozStackDefs"></defs>
+      </svg>
 
-      <!-- Snoooz core -->
-      <article class="snoooz-int__core">
-        <span class="snoooz-int__core-logo"><img src="https://snoooz.ai/hubfs/Snoooz%20Logo-1.png" alt="Snoooz"></span>
-        <h3>One assistant, wired into your stack.</h3>
-        <p>Replies are accurate and actions actually happen, because Snoooz works inside the tools you already run.</p>
-        <a class="snoooz-int__core-link" href="#">Explore all integrations
+      <div class="snoooz-stack__lanes">
+
+        <!-- E-commerce -->
+        <div class="snoooz-stack__lane">
+          <div class="snoooz-stack__lane-head">
+            <span class="snoooz-stack__lane-ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            </span>
+            <span class="snoooz-stack__lane-name"><strong>E-commerce</strong><span>Orders &amp; shipping</span></span>
+          </div>
+          <div class="snoooz-stack__lane-logos">
+            <span class="snoooz-stack__chip"><img src="https://1000logos.net/wp-content/uploads/2020/08/Shopify-Logo.png" alt="Shopify" loading="lazy"></span>
+            <span class="snoooz-stack__chip"><img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/woocommerce-icon.png" alt="WooCommerce" loading="lazy"></span>
+            <span class="snoooz-stack__chip"><img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/bigcommerce-icon.png" alt="BigCommerce" loading="lazy"></span>
+          </div>
+        </div>
+
+        <!-- CRM -->
+        <div class="snoooz-stack__lane">
+          <div class="snoooz-stack__lane-head">
+            <span class="snoooz-stack__lane-ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </span>
+            <span class="snoooz-stack__lane-name"><strong>CRM</strong><span>Customer context</span></span>
+          </div>
+          <div class="snoooz-stack__lane-logos">
+            <span class="snoooz-stack__chip"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Salesforce.com_logo.svg/3840px-Salesforce.com_logo.svg.png" alt="Salesforce" loading="lazy"></span>
+            <span class="snoooz-stack__chip"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/HubSpot_Logo.svg/1280px-HubSpot_Logo.svg.png" alt="HubSpot" loading="lazy"></span>
+          </div>
+        </div>
+
+        <!-- Helpdesk -->
+        <div class="snoooz-stack__lane">
+          <div class="snoooz-stack__lane-head">
+            <span class="snoooz-stack__lane-ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><path d="M4.93 4.93l4.24 4.24M14.83 14.83l4.24 4.24M14.83 9.17l4.24-4.24M4.93 19.07l4.24-4.24"/></svg>
+            </span>
+            <span class="snoooz-stack__lane-name"><strong>Helpdesk</strong><span>Tickets &amp; docs</span></span>
+          </div>
+          <div class="snoooz-stack__lane-logos">
+            <span class="snoooz-stack__chip"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c8/Zendesk_logo.svg" alt="Zendesk" loading="lazy"></span>
+            <span class="snoooz-stack__chip"><img src="https://upload.wikimedia.org/wikipedia/commons/6/62/Intercom_logo.png" alt="Intercom" loading="lazy"></span>
+          </div>
+        </div>
+
+        <!-- ERP -->
+        <div class="snoooz-stack__lane">
+          <div class="snoooz-stack__lane-head">
+            <span class="snoooz-stack__lane-ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+            </span>
+            <span class="snoooz-stack__lane-name"><strong>ERP</strong><span>Records &amp; orders</span></span>
+          </div>
+          <div class="snoooz-stack__lane-logos">
+            <span class="snoooz-stack__chip"><img src="https://img.favpng.com/0/19/8/logo-sap-erp-sap-se-enterprise-resource-planning-organization-png-favpng-4juCDiA3y89GPJudhbXMqiZhn.jpg" alt="SAP" loading="lazy"></span>
+            <span class="snoooz-stack__chip"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Microsoft_Dynamics_365_Logo_%282021–present%29.svg/960px-Microsoft_Dynamics_365_Logo_%282021–present%29.svg.png?_=20250601180652" alt="Microsoft Dynamics" loading="lazy"></span>
+            <span class="snoooz-stack__chip"><img src="https://odoocdn.com/openerp_website/static/src/img/assets/png/odoo_logo.png" alt="Odoo" loading="lazy"></span>
+          </div>
+        </div>
+
+        <!-- Calendars -->
+        <div class="snoooz-stack__lane">
+          <div class="snoooz-stack__lane-head">
+            <span class="snoooz-stack__lane-ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+            </span>
+            <span class="snoooz-stack__lane-name"><strong>Calendars</strong><span>Scheduling</span></span>
+          </div>
+          <div class="snoooz-stack__lane-logos">
+            <span class="snoooz-stack__chip"><img src="https://cdn-icons-png.flaticon.com/512/5968/5968499.png" alt="Google Calendar" loading="lazy"></span>
+            <span class="snoooz-stack__chip"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvirpYHvMwcdRUZ2j8xxz0ljombxukBucICYZWKhwSM4gxmz8fiuF8q-tq&s=10" alt="Outlook Calendar" loading="lazy"></span>
+            <span class="snoooz-stack__chip"><img src="https://cdn.prod.website-files.com/6995bfb8e3e1359ecf9c33a8/6995bfb8e3e1359ecf9c50de_idoHNAJiuQ.webp" alt="Calendly" loading="lazy"></span>
+            <span class="snoooz-stack__chip"><img src="https://cdn.prod.website-files.com/61c9fe00acd90d5e82f7014d/63f7f5831318dee38408fad1_Group%20694.png" alt="ChiliPiper" loading="lazy"></span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Snoooz node -->
+      <div class="snoooz-stack__hub">
+        <span class="snoooz-stack__hub-logo"><img src="https://snoooz.ai/hubfs/Snoooz%20Logo-1.png" alt="Snoooz"></span>
+        <h3>Your whole stack, in one assistant.</h3>
+        <p>Every tool feeds Snoooz, so replies are accurate and the right action actually happens.</p>
+        <a class="snoooz-stack__hub-link" href="#">Explore all integrations
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
-      </article>
-
-      <!-- E-commerce -->
-      <article class="snoooz-int__card snoooz-int__card--ecom">
-        <div class="snoooz-int__card-head">
-          <span class="snoooz-int__card-ico" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-          </span>
-          <span class="snoooz-int__card-name">E-commerce</span>
-          <span class="snoooz-int__card-count">03</span>
-        </div>
-        <div class="snoooz-int__logos">
-          <span class="snoooz-int__chip"><img src="https://1000logos.net/wp-content/uploads/2020/08/Shopify-Logo.png" alt="Shopify" loading="lazy"></span>
-          <span class="snoooz-int__chip"><img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/woocommerce-icon.png" alt="WooCommerce" loading="lazy"></span>
-          <span class="snoooz-int__chip"><img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/bigcommerce-icon.png" alt="BigCommerce" loading="lazy"></span>
-        </div>
-      </article>
-
-      <!-- CRM -->
-      <article class="snoooz-int__card snoooz-int__card--crm">
-        <div class="snoooz-int__card-head">
-          <span class="snoooz-int__card-ico" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-          </span>
-          <span class="snoooz-int__card-name">CRM</span>
-          <span class="snoooz-int__card-count">02</span>
-        </div>
-        <div class="snoooz-int__logos">
-          <span class="snoooz-int__chip"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Salesforce.com_logo.svg/3840px-Salesforce.com_logo.svg.png" alt="Salesforce" loading="lazy"></span>
-          <span class="snoooz-int__chip"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/HubSpot_Logo.svg/1280px-HubSpot_Logo.svg.png" alt="HubSpot" loading="lazy"></span>
-        </div>
-      </article>
-
-      <!-- Helpdesk -->
-      <article class="snoooz-int__card snoooz-int__card--help">
-        <div class="snoooz-int__card-head">
-          <span class="snoooz-int__card-ico" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><path d="M4.93 4.93l4.24 4.24M14.83 14.83l4.24 4.24M14.83 9.17l4.24-4.24M14.83 9.17l3.53-3.53M4.93 19.07l4.24-4.24"/></svg>
-          </span>
-          <span class="snoooz-int__card-name">Helpdesk</span>
-          <span class="snoooz-int__card-count">02</span>
-        </div>
-        <div class="snoooz-int__logos">
-          <span class="snoooz-int__chip"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c8/Zendesk_logo.svg" alt="Zendesk" loading="lazy"></span>
-          <span class="snoooz-int__chip"><img src="https://upload.wikimedia.org/wikipedia/commons/6/62/Intercom_logo.png" alt="Intercom" loading="lazy"></span>
-        </div>
-      </article>
-
-      <!-- ERP -->
-      <article class="snoooz-int__card snoooz-int__card--erp">
-        <div class="snoooz-int__card-head">
-          <span class="snoooz-int__card-ico" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
-          </span>
-          <span class="snoooz-int__card-name">ERP</span>
-          <span class="snoooz-int__card-count">03</span>
-        </div>
-        <div class="snoooz-int__logos">
-          <span class="snoooz-int__chip"><img src="https://img.favpng.com/0/19/8/logo-sap-erp-sap-se-enterprise-resource-planning-organization-png-favpng-4juCDiA3y89GPJudhbXMqiZhn.jpg" alt="SAP" loading="lazy"></span>
-          <span class="snoooz-int__chip"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Microsoft_Dynamics_365_Logo_%282021–present%29.svg/960px-Microsoft_Dynamics_365_Logo_%282021–present%29.svg.png?_=20250601180652" alt="Microsoft Dynamics" loading="lazy"></span>
-          <span class="snoooz-int__chip"><img src="https://odoocdn.com/openerp_website/static/src/img/assets/png/odoo_logo.png" alt="Odoo" loading="lazy"></span>
-        </div>
-      </article>
-
-      <!-- Calendars -->
-      <article class="snoooz-int__card snoooz-int__card--cal">
-        <div class="snoooz-int__card-head">
-          <span class="snoooz-int__card-ico" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-          </span>
-          <span class="snoooz-int__card-name">Calendars &amp; scheduling</span>
-          <span class="snoooz-int__card-count">04</span>
-        </div>
-        <div class="snoooz-int__logos">
-          <span class="snoooz-int__chip"><img src="https://cdn-icons-png.flaticon.com/512/5968/5968499.png" alt="Google Calendar" loading="lazy"></span>
-          <span class="snoooz-int__chip"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvirpYHvMwcdRUZ2j8xxz0ljombxukBucICYZWKhwSM4gxmz8fiuF8q-tq&s=10" alt="Outlook Calendar" loading="lazy"></span>
-          <span class="snoooz-int__chip"><img src="https://cdn.prod.website-files.com/6995bfb8e3e1359ecf9c33a8/6995bfb8e3e1359ecf9c50de_idoHNAJiuQ.webp" alt="Calendly" loading="lazy"></span>
-          <span class="snoooz-int__chip"><img src="https://cdn.prod.website-files.com/61c9fe00acd90d5e82f7014d/63f7f5831318dee38408fad1_Group%20694.png" alt="ChiliPiper" loading="lazy"></span>
-        </div>
-      </article>
+      </div>
 
     </div>
   </div>
