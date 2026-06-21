@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Snoooz — FAQ preview</title>
+<style>
+html, body { margin: 0; }
+/* ============================================================
+   SNOOOZ HOMEPAGE — FAQ STYLES
+   Paste into your HubSpot module CSS field (or a <style> block).
+   Brand tokens match the rest of the homepage.
+
+   Two columns: intro on the left, an accessible accordion on the right.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap');
+
+:root {
+  --snoooz-bg: #f7f9f4;
+  --snoooz-text: #102421;
+  --snoooz-muted: #60706d;
+  --snoooz-border: #dfe8e2;
+  --snoooz-primary: #0F5B44;
+  --snoooz-primary-hover: #053533;
+  --snoooz-secondary: #D6D9A0;
+  --snoooz-secondary-hover: #A5AE47;
+  --snoooz-secondary-soft: rgba(214, 217, 160, 0.26);
+  --snoooz-shadow: 0 18px 50px rgba(15, 91, 68, 0.06);
+  --snoooz-max: 1180px;
+}
+
+.snoooz-faq,
+.snoooz-faq *,
+.snoooz-faq *::before,
+.snoooz-faq *::after { box-sizing: border-box; }
+
+.snoooz-faq {
+  width: 100%;
+  margin: 0;
+  color: var(--snoooz-text);
+  font-family: "Open Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background:
+    radial-gradient(circle at 88% 8%, rgba(214, 217, 160, 0.22), transparent 30%),
+    var(--snoooz-bg);
+}
+.snoooz-faq__container {
+  width: 100%;
+  max-width: var(--snoooz-max);
+  margin: 0 auto;
+  padding: 84px 24px 92px;
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 56px;
+  align-items: start;
+}
+.snoooz-faq h2, .snoooz-faq h3, .snoooz-faq p { margin-top: 0; }
+
+/* Left intro */
+.snoooz-faq__intro { position: sticky; top: 92px; }
+.snoooz-faq__eyebrow {
+  margin: 0 0 14px;
+  color: var(--snoooz-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  font-size: 13px;
+  font-weight: 700;
+}
+.snoooz-faq__intro h2 {
+  margin: 0 0 14px;
+  font-size: clamp(28px, 3.8vw, 40px);
+  line-height: 1.1;
+  letter-spacing: -0.038em;
+  font-weight: 700;
+}
+.snoooz-faq__intro h2 span {
+  background: linear-gradient(100deg, var(--snoooz-primary) 0%, var(--snoooz-secondary-hover) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.snoooz-faq__intro p { margin: 0 0 20px; color: var(--snoooz-muted); font-size: 16.5px; line-height: 1.6; max-width: 320px; }
+.snoooz-faq__intro a {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--snoooz-primary);
+  font-size: 15px;
+  font-weight: 800;
+  text-decoration: none;
+}
+.snoooz-faq__intro a svg { transition: transform 0.2s ease; }
+.snoooz-faq__intro a:hover svg { transform: translateX(4px); }
+
+/* Accordion */
+.snoooz-faq__list { display: flex; flex-direction: column; gap: 12px; }
+.snoooz-faq__item {
+  border: 1px solid rgba(223, 232, 226, 0.95);
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.94), rgba(255,255,255,0.82));
+  box-shadow: var(--snoooz-shadow);
+  overflow: hidden;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.snoooz-faq__item.is-open { border-color: rgba(15, 91, 68, 0.26); box-shadow: 0 20px 46px rgba(15, 91, 68, 0.1); }
+
+.snoooz-faq__q {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 22px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  font-size: 16.5px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--snoooz-text);
+}
+.snoooz-faq__q:focus-visible { outline: 3px solid rgba(15, 91, 68, 0.45); outline-offset: -3px; border-radius: 16px; }
+.snoooz-faq__chev {
+  flex: 0 0 auto;
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px; height: 30px;
+  border-radius: 999px;
+  background: rgba(15, 91, 68, 0.08);
+  color: var(--snoooz-primary);
+  transition: transform 0.3s ease, background 0.25s ease;
+}
+.snoooz-faq__item.is-open .snoooz-faq__chev { transform: rotate(180deg); background: var(--snoooz-primary); color: #fff; }
+
+.snoooz-faq__a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+.snoooz-faq__a-inner { padding: 0 22px 22px; color: var(--snoooz-muted); font-size: 15px; line-height: 1.65; }
+.snoooz-faq__a-inner a { color: var(--snoooz-primary); font-weight: 700; text-decoration: none; border-bottom: 1px solid rgba(15, 91, 68, 0.35); }
+
+/* Reveal */
+.snoooz-faq.is-reveal .snoooz-faq__item { opacity: 0; transform: translateY(14px); }
+.snoooz-faq.is-reveal.is-visible .snoooz-faq__item {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.snoooz-faq.is-reveal.is-visible .snoooz-faq__item:nth-child(2) { transition-delay: 0.04s; }
+.snoooz-faq.is-reveal.is-visible .snoooz-faq__item:nth-child(3) { transition-delay: 0.08s; }
+.snoooz-faq.is-reveal.is-visible .snoooz-faq__item:nth-child(4) { transition-delay: 0.12s; }
+.snoooz-faq.is-reveal.is-visible .snoooz-faq__item:nth-child(5) { transition-delay: 0.16s; }
+.snoooz-faq.is-reveal.is-visible .snoooz-faq__item:nth-child(n+6) { transition-delay: 0.2s; }
+
+/* Responsive */
+@media (max-width: 860px) {
+  .snoooz-faq__container { grid-template-columns: 1fr; gap: 32px; }
+  .snoooz-faq__intro { position: static; }
+}
+@media (max-width: 540px) {
+  .snoooz-faq__container { padding: 60px 18px 68px; }
+  .snoooz-faq__q { padding: 18px; font-size: 15.5px; }
+  .snoooz-faq__a-inner { padding: 0 18px 18px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .snoooz-faq__item,
+  .snoooz-faq__chev,
+  .snoooz-faq__a,
+  .snoooz-faq.is-reveal.is-visible .snoooz-faq__item { transition: none; }
+}
+
+</style>
+</head>
+<body>
+<section class="snoooz-faq" id="snooozFaqSection" aria-label="Frequently asked questions">
+  <div class="snoooz-faq__container">
+
+    <div class="snoooz-faq__intro">
+      <p class="snoooz-faq__eyebrow">FAQ</p>
+      <h2>Questions, <span>answered</span>.</h2>
+      <p>Everything teams ask before putting Snoooz on their inboxes.</p>
+      <a href="/book-a-demo" rel="noopener">Still have questions? Book a demo
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+
+    <div class="snoooz-faq__list">
+
+      <div class="snoooz-faq__item">
+        <button class="snoooz-faq__q" type="button" aria-expanded="false">What is Snoooz?<span class="snoooz-faq__chev" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></button>
+        <div class="snoooz-faq__a"><div class="snoooz-faq__a-inner">Snoooz is an AI email assistant that runs your business inboxes. It reads incoming email, drafts and sends replies from your own knowledge, routes conversations to the right team, follows up, and escalates anything that needs a human, across support, sales, and shared inboxes.</div></div>
+      </div>
+
+      <div class="snoooz-faq__item">
+        <button class="snoooz-faq__q" type="button" aria-expanded="false">How is this different from a personal AI email assistant?<span class="snoooz-faq__chev" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></button>
+        <div class="snoooz-faq__a"><div class="snoooz-faq__a-inner">Personal assistants help one individual write faster and typically never send for you. Snoooz runs shared and business inboxes, replies on its own once you trust it, is trained on your company's knowledge, and routes work across teams.</div></div>
+      </div>
+
+      <div class="snoooz-faq__item">
+        <button class="snoooz-faq__q" type="button" aria-expanded="false">Will Snoooz send emails without our approval?<span class="snoooz-faq__chev" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></button>
+        <div class="snoooz-faq__a"><div class="snoooz-faq__a-inner">Only when you turn that on. Every inbox starts in review mode, where Snoooz drafts and your team approves. You enable auto-send per inbox and per workflow, whenever you are ready.</div></div>
+      </div>
+
+      <div class="snoooz-faq__item">
+        <button class="snoooz-faq__q" type="button" aria-expanded="false">What is Snoooz trained on?<span class="snoooz-faq__chev" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></button>
+        <div class="snoooz-faq__a"><div class="snoooz-faq__a-inner">Your FAQs, help center, documents, policies, and past replies, so answers match how your team actually responds. Your email is never used to train public AI models.</div></div>
+      </div>
+
+      <div class="snoooz-faq__item">
+        <button class="snoooz-faq__q" type="button" aria-expanded="false">Which inboxes and email providers does it support?<span class="snoooz-faq__chev" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></button>
+        <div class="snoooz-faq__a"><div class="snoooz-faq__a-inner">Gmail, Outlook, and any IMAP/SMTP mailbox (Zoho, Apple, Yahoo, cPanel, and more), whether they are personal inboxes or shared addresses like support@ and info@.</div></div>
+      </div>
+
+      <div class="snoooz-faq__item">
+        <button class="snoooz-faq__q" type="button" aria-expanded="false">Is Snoooz secure and compliant?<span class="snoooz-faq__chev" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></button>
+        <div class="snoooz-faq__a"><div class="snoooz-faq__a-inner">Yes. Snoooz is SOC 2 Type 2, ISO 27001, HIPAA, GDPR, and CASA Tier 2, with a dedicated EU-hosted option for data residency. Security documentation, DPAs, and a subprocessor list are available on request.</div></div>
+      </div>
+
+      <div class="snoooz-faq__item">
+        <button class="snoooz-faq__q" type="button" aria-expanded="false">Does it connect to our other tools?<span class="snoooz-faq__chev" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></button>
+        <div class="snoooz-faq__a"><div class="snoooz-faq__a-inner">Yes. CRMs (Salesforce, HubSpot), helpdesks (Zendesk, Intercom), e-commerce (Shopify, WooCommerce, BigCommerce), ERPs (SAP, Dynamics, Odoo), and calendars (Google, Outlook, Calendly, ChiliPiper). Snoooz also supports bring-your-own-key with 300+ models, an MCP server, and webhooks.</div></div>
+      </div>
+
+      <div class="snoooz-faq__item">
+        <button class="snoooz-faq__q" type="button" aria-expanded="false">How fast can we get started?<span class="snoooz-faq__chev" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></button>
+        <div class="snoooz-faq__a"><div class="snoooz-faq__a-inner">Connect an inbox in minutes and run in review mode the same day. Larger teams get white-glove onboarding and a dedicated specialist.</div></div>
+      </div>
+
+      <div class="snoooz-faq__item">
+        <button class="snoooz-faq__q" type="button" aria-expanded="false">How is Snoooz priced?<span class="snoooz-faq__chev" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></button>
+        <div class="snoooz-faq__a"><div class="snoooz-faq__a-inner">Plans scale from a single inbox to full teams. Enterprise includes custom seats, onboarding, security review, custom integrations, and volume discounts. <a href="/pricing" rel="noopener">See pricing</a>.</div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<script>
+/* ============================================================
+   SNOOOZ HOMEPAGE — FAQ SCRIPTS
+   Paste into your HubSpot module JS field (or a <script> block
+   placed after the HTML). Runs the accordion (with smooth height)
+   and a staggered reveal. Reduced-motion users get instant toggles.
+   ============================================================ */
+
+(function () {
+  var section = document.getElementById('snooozFaqSection');
+  if (!section) return;
+
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var items = Array.prototype.slice.call(section.querySelectorAll('.snoooz-faq__item'));
+
+  items.forEach(function (item) {
+    var btn = item.querySelector('.snoooz-faq__q');
+    var panel = item.querySelector('.snoooz-faq__a');
+    if (!btn || !panel) return;
+
+    btn.addEventListener('click', function () {
+      var open = item.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (reduce) {
+        panel.style.maxHeight = open ? 'none' : '0px';
+        return;
+      }
+      if (open) {
+        panel.style.maxHeight = panel.scrollHeight + 'px';
+      } else {
+        panel.style.maxHeight = panel.scrollHeight + 'px';
+        requestAnimationFrame(function () { panel.style.maxHeight = '0px'; });
+      }
+    });
+
+    /* keep an open panel sized correctly after fonts/resize */
+    panel.addEventListener('transitionend', function () {
+      if (item.classList.contains('is-open')) panel.style.maxHeight = 'none';
+    });
+  });
+
+  window.addEventListener('resize', function () {
+    items.forEach(function (item) {
+      if (!item.classList.contains('is-open')) return;
+      var panel = item.querySelector('.snoooz-faq__a');
+      if (panel) panel.style.maxHeight = 'none';
+    });
+  });
+
+  /* Reveal */
+  if (!reduce) {
+    section.classList.add('is-reveal');
+    var io = new IntersectionObserver(function (entries, obs) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        section.classList.add('is-visible');
+        obs.disconnect();
+      });
+    }, { threshold: 0.1 });
+    io.observe(section);
+  }
+})();
+
+</script>
+</body>
+</html>
