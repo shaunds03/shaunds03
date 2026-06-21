@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Snoooz — Final CTA preview</title>
+<style>
+html, body { margin: 0; }
+/* ============================================================
+   SNOOOZ HOMEPAGE — FINAL CTA STYLES
+   Paste into your HubSpot module CSS field (or a <style> block).
+   Brand tokens match the rest of the homepage.
+
+   A premium dark-green closing band: headline, "what you'll see"
+   bullets, demo-first buttons, and an enterprise line.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap');
+
+:root {
+  --snoooz-bg: #f7f9f4;
+  --snoooz-text: #102421;
+  --snoooz-muted: #60706d;
+  --snoooz-primary: #0F5B44;
+  --snoooz-primary-hover: #053533;
+  --snoooz-secondary: #D6D9A0;
+  --snoooz-secondary-hover: #A5AE47;
+  --snoooz-max: 1180px;
+}
+
+.snoooz-cta,
+.snoooz-cta *,
+.snoooz-cta *::before,
+.snoooz-cta *::after { box-sizing: border-box; }
+
+.snoooz-cta {
+  width: 100%;
+  margin: 0;
+  color: #fff;
+  font-family: "Open Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--snoooz-bg);
+}
+.snoooz-cta__container {
+  width: 100%;
+  max-width: var(--snoooz-max);
+  margin: 0 auto;
+  padding: 40px 24px 92px;
+}
+.snoooz-cta h2, .snoooz-cta p { margin-top: 0; }
+
+.snoooz-cta__band {
+  position: relative;
+  overflow: hidden;
+  border-radius: 30px;
+  padding: 64px 32px;
+  text-align: center;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(214, 217, 160, 0.26), transparent 44%),
+    radial-gradient(circle at 84% 110%, rgba(47, 227, 154, 0.2), transparent 46%),
+    linear-gradient(150deg, var(--snoooz-primary) 0%, var(--snoooz-primary-hover) 100%);
+  box-shadow: 0 34px 80px rgba(15, 91, 68, 0.28);
+}
+/* faint grid texture */
+.snoooz-cta__band::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 48px 48px;
+  -webkit-mask: radial-gradient(circle at 50% 40%, #000, transparent 72%);
+  mask: radial-gradient(circle at 50% 40%, #000, transparent 72%);
+  pointer-events: none;
+}
+.snoooz-cta__inner { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; }
+
+.snoooz-cta__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 16px;
+  color: var(--snoooz-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 12.5px;
+  font-weight: 800;
+}
+.snoooz-cta__eyebrow::before {
+  content: "";
+  width: 7px; height: 7px;
+  border-radius: 999px;
+  background: var(--snoooz-secondary);
+  box-shadow: 0 0 10px rgba(214, 217, 160, 0.9);
+}
+.snoooz-cta__band h2 {
+  margin: 0 0 16px;
+  font-size: clamp(30px, 4.4vw, 46px);
+  line-height: 1.06;
+  letter-spacing: -0.04em;
+  font-weight: 700;
+}
+.snoooz-cta__band > .snoooz-cta__inner > p {
+  max-width: 560px;
+  margin: 0 auto 26px;
+  color: rgba(255, 255, 255, 0.84);
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.snoooz-cta__bullets {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 18px;
+  margin: 0 auto 30px;
+  list-style: none;
+  padding: 0;
+}
+.snoooz-cta__bullets li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #fff;
+  font-size: 14.5px;
+  font-weight: 600;
+}
+.snoooz-cta__bullets li::before {
+  content: "\2713";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px; height: 22px;
+  flex: 0 0 auto;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.16);
+  color: var(--snoooz-secondary);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.snoooz-cta__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-bottom: 22px; }
+.snoooz-cta__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 54px;
+  padding: 15px 28px;
+  border-radius: 999px;
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+.snoooz-cta__btn--primary {
+  background: #fff;
+  border: 1px solid #fff;
+  color: var(--snoooz-primary);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.18);
+}
+.snoooz-cta__btn--primary:hover { background: var(--snoooz-secondary); border-color: var(--snoooz-secondary); transform: translateY(-1px); }
+.snoooz-cta__btn--primary svg { transition: transform 0.2s ease; }
+.snoooz-cta__btn--primary:hover svg { transform: translateX(3px); }
+.snoooz-cta__btn--secondary {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #fff;
+}
+.snoooz-cta__btn--secondary:hover { background: rgba(255, 255, 255, 0.16); border-color: #fff; }
+
+.snoooz-cta__ent {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.74);
+  font-size: 14px;
+}
+.snoooz-cta__ent a { color: #fff; font-weight: 700; text-decoration: none; border-bottom: 1px solid rgba(255, 255, 255, 0.5); }
+
+/* Reveal */
+.snoooz-cta.is-reveal .snoooz-cta__band { opacity: 0; transform: translateY(24px); }
+.snoooz-cta.is-reveal.is-visible .snoooz-cta__band {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Responsive */
+@media (max-width: 560px) {
+  .snoooz-cta__container { padding: 32px 16px 68px; }
+  .snoooz-cta__band { padding: 48px 22px; border-radius: 24px; }
+  .snoooz-cta__btn { width: 100%; justify-content: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .snoooz-cta__btn,
+  .snoooz-cta.is-reveal.is-visible .snoooz-cta__band { transition: none; }
+}
+
+</style>
+</head>
+<body>
+<section class="snoooz-cta" id="snooozCtaSection" aria-label="See Snoooz answer your real inbound">
+  <div class="snoooz-cta__container">
+    <div class="snoooz-cta__band">
+      <div class="snoooz-cta__inner">
+
+        <p class="snoooz-cta__eyebrow">Book a demo</p>
+        <h2>See Snoooz answer your real inbound.</h2>
+        <p>Book a 20-minute demo and watch Snoooz trained on your own docs, drafting in your voice, routing to your team, and escalating only what needs you.</p>
+
+        <ul class="snoooz-cta__bullets">
+          <li>Trained on your docs</li>
+          <li>Drafting in your voice</li>
+          <li>Routing and escalating to your team</li>
+        </ul>
+
+        <div class="snoooz-cta__actions">
+          <a class="snoooz-cta__btn snoooz-cta__btn--primary" href="https://snoooz.ai/book-a-demo" target="_blank" rel="noopener">
+            Book a demo
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a class="snoooz-cta__btn snoooz-cta__btn--secondary" href="https://app.snoooz.ai/setup" target="_blank" rel="noopener">Start free</a>
+        </div>
+
+        <p class="snoooz-cta__ent">50+ seats? <a href="https://snoooz.ai/book-a-demo" target="_blank" rel="noopener">Talk to sales</a> about volume pricing, onboarding, and DPAs.</p>
+
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+/* ============================================================
+   SNOOOZ HOMEPAGE — FINAL CTA SCRIPTS
+   Paste into your HubSpot module JS field (or a <script> block
+   placed after the HTML). Reveals the band on scroll into view.
+   ============================================================ */
+
+(function () {
+  var section = document.getElementById('snooozCtaSection');
+  if (!section) return;
+
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) return;
+
+  section.classList.add('is-reveal');
+
+  var io = new IntersectionObserver(function (entries, obs) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      section.classList.add('is-visible');
+      obs.disconnect();
+    });
+  }, { threshold: 0.2 });
+  io.observe(section);
+})();
+
+</script>
+</body>
+</html>

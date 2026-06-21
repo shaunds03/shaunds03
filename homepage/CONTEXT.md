@@ -123,8 +123,21 @@ secondary = **Start free**.
   a dark, futuristic bento grid with a neon-bordered Snoooz core, animated grid backdrop, cursor
   spotlight, and logo chips. Intentionally a different style from the email-provider hub; fits in
   one glance. CSS / HTML / JS + preview.
+- `homepage/proof/` — Inbox Impact Report teaser: copy + dark-green dashboard card with figures
+  that count up on scroll. CSS / HTML / JS + preview.
+- `homepage/cases/` — enterprise case cards (Gong, Noriance, GlobalFoundries, Cadillac Fairview),
+  framed as use-case patterns (no invented metrics). CSS / HTML / JS + preview.
+- `homepage/security/` — security/trust band: compliance badges + three reassurance points + Trust
+  Center CTAs. CSS / HTML / JS + preview.
+- `homepage/why/` — Why Snoooz differentiation cards (vs personal assistant / autoresponder /
+  hiring), link to /compare. CSS / HTML / JS + preview.
+- `homepage/faq/` — accessible accordion of the enterprise FAQs. CSS / HTML / JS + preview.
+- `homepage/cta/` — final demo-first CTA band (dark green). CSS / HTML / JS + preview.
 - `homepage/build_previews.py` — regenerates every section preview + homepage-preview.html from
   source. Run after editing any section.
+
+Section order (homepage-preview.html): hero, social-proof, problem, how-it-works, use-cases,
+providers, integrations, proof, cases, security, why, faq, cta.
 - `homepage/homepage-preview.html` — assembled full-page preview (stacks all sections built so far).
 
 Content rule: no em dashes in user-facing copy.
