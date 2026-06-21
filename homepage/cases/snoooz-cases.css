@@ -151,7 +151,7 @@
 }
 
 /* Footer line */
-.snoooz-cases__foot {
+.snoooz-cases p.snoooz-cases__foot {
   display: flex;
   align-items: center;
   gap: 8px;
