@@ -8,8 +8,8 @@ behaviour and JS are the Fyxer page's; only the copy changes, plus one new block
 | File | What it is |
 |---|---|
 | `snoooz-vs-shortwave.html` | Single-file HubSpot page template (CSS + JS inlined in `{% raw %}` blocks, extends `layouts/base.html`). This is the one to upload. |
-| `snoooz-vs-shortwave.css` | The same CSS, standalone, if you'd rather split it into a module. |
-| `snoooz-vs-shortwave.js` | The same JS, standalone. **Byte-for-byte identical to the Fyxer page's JS.** |
+| `snoooz-vs-shortwave.css` | Standalone CSS, if you'd rather split it into a module. **Byte-for-byte the Fyxer `.css` file**, with three content strings changed and the part 9 block added. |
+| `snoooz-vs-shortwave.js` | Standalone JS. Byte-for-byte the Fyxer page's inline JS. |
 | `snoooz-vs-shortwave-preview.html` | Plain-HTML preview for local checking (no HubL). |
 
 ## SEO
@@ -20,6 +20,26 @@ behaviour and JS are the Fyxer page's; only the copy changes, plus one new block
 - **Slug:** `/alternatives/shortwave`
 - **Target keywords:** Snoooz vs Shortwave, Shortwave alternative, AI email automation for
   shared inboxes
+
+## A note on the two CSS variants
+
+The Fyxer page ships in two forms and they are not identical: the single-file HTML template
+carries a slightly newer inline CSS than the standalone `fyxercomparison.css`. The inline
+version has two extra blocks — a `@media (max-width: 620px)` refinement of the how-it-works
+step tiles, and a `html:not(.snzc-anim)` reveal failsafe paired with a line at the top of the
+inline JS.
+
+`snoooz-vs-shortwave.css` is built on the **standalone Fyxer CSS**, so it is a true
+content-only swap of the file you already have working. `snoooz-vs-shortwave.html` keeps the
+newer inline CSS, exactly as the Fyxer template does.
+
+The two routes are alternatives — use the single-file template *or* the split files, never
+both — and each is internally consistent. Verified at 1280px and 390px: they render the same,
+and the 620px block turned out to change nothing visible at 390px.
+
+The reveal failsafe only matters if the JS fails to load: with it, revealable blocks stay
+visible; without it, they stay hidden. That is the Fyxer standalone behaviour too. The
+`classList.add('snzc-anim')` line at the top of the JS is inert in the split route.
 
 ## What differs from the Fyxer page
 

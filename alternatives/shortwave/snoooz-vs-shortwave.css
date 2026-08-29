@@ -1539,32 +1539,6 @@ html, body { margin: 0; background: var(--snoooz-bg); }
   .snzc-say { padding: 32px 24px; }
 }
 
-/* Mobile: let the step tiles use the full card width.
-   The 44px number badge used to hold its own grid column, squeezing the
-   copy into a narrow strip. Floating it lets the heading sit beside the
-   badge and the paragraph run the full width of the card. */
-@media (max-width: 620px) {
-  .snzc-works__list { gap: 12px; }
-  .snzc-works__card {
-    display: block;
-    padding: 16px 16px 18px;
-    border-radius: 18px;
-  }
-  .snzc-works__card::after { content: ""; display: block; clear: both; }
-  .snzc-works__k {
-    float: left;
-    width: 36px; height: 36px;
-    margin: 1px 12px 4px 0;
-    border-radius: 10px;
-    font-size: 14px;
-  }
-  .snzc-works__card h3 { margin: 0 0 6px; font-size: 17px; line-height: 1.28; }
-  .snzc-works__card p { font-size: 14.5px; line-height: 1.55; }
-  .snzc-works__uses { margin-top: 34px; gap: 12px; }
-  .snzc-works__use { padding: 18px; border-radius: 18px; }
-  .snzc-works__use-ico { width: 38px; height: 38px; margin-bottom: 11px; }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .snzc-works__grid,
   .snzc-works__use,
@@ -1924,31 +1898,6 @@ html, body { margin: 0; background: var(--snoooz-bg); }
   .snoooz-proof.is-reveal.is-visible .snoooz-proof__card { transition: none; }
 }
 
-/* ---------------- Reveal failsafe ----------------
-   Several blocks start at opacity:0 and are revealed when the page JS adds
-   .is-in on scroll. The JS adds .snzc-anim to <html> as its first statement,
-   so if it ever fails to load this block forces those blocks visible.
-   It overrides ONLY the reveal properties - all padding, backgrounds and
-   layout still come from the rules above. */
-html:not(.snzc-anim) .snzc-vs__cell,
-html:not(.snzc-anim) .snzc-vs__cell--them,
-html:not(.snzc-anim) .snzc-vs__cell--us,
-html:not(.snzc-anim) .snzc-vs__node-dot,
-html:not(.snzc-anim) .snzc-vs__end-dot,
-html:not(.snzc-anim) .snzc-vs__fair,
-html:not(.snzc-anim) .snzc-tbl__row--body,
-html:not(.snzc-anim) .snzc-cta__banner,
-html:not(.snzc-anim) .snzc-works__grid,
-html:not(.snzc-anim) .snzc-works__card,
-html:not(.snzc-anim) .snzc-works__use,
-html:not(.snzc-anim) .snzc-say,
-html:not(.snzc-anim) .snzc-faq__item {
-  opacity: 1 !important;
-  transform: none !important;
-}
-
-/* =================== end CSS =================== */
-
 /* ===================== CSS (part 9) - SAME EMAIL, TWO OUTCOMES ===================== */
 /* Self-contained block, built from the same tokens as the rest of the page.
    Deliberately needs no JS: everything is visible on paint, so nothing can
@@ -2100,3 +2049,5 @@ html:not(.snzc-anim) .snzc-faq__item {
   .snzc-story__case-head { padding: 16px 18px; }
   .snzc-story__out { padding: 20px 18px; }
 }
+
+/* =================== end CSS =================== */
