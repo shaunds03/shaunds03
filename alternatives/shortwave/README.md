@@ -59,10 +59,15 @@ visible; without it, they stay hidden. That is the Fyxer standalone behaviour to
 
 ## Before publishing
 
-1. **Hero video.** The `<source>` points at
-   `https://snoooz.ai/hubfs/Snoooz%20VS%20Shortwave%20video%20-%20compressed.mp4`, which does
-   not exist yet. Upload a Shortwave cut to HubSpot Files under that name, or point the tag at
-   another video. If there is never going to be one, drop the `.snzc-hero__stage` block.
+1. **Hero visual.** The slot holds an inline SVG, not a video — a mock of `support@yourco.com`
+   with three messages answered, escalated and followed up. It is drawn in the page's own
+   palette and uses `.snzc-hero__video-media`, the class the `<video>` used, so no CSS changed.
+   Nothing is fetched, so it can never render blank.
+
+   To put a video back later: replace the `<svg>` with the `<video>` markup left commented
+   directly above it, upload the file to HubSpot Files, and uncomment the play button below it.
+   The hero JS looks up `#snzcHeroVideo` and `#snzcHeroPlay` and no-ops when they are absent,
+   so it needs no change either way.
 2. **Re-verify the plan claims.** The 3/10/50 AI-filter caps and the per-seat pricing come from
    Shortwave's public pricing page. Re-check at each quarterly content review — pricing pages move.
 3. **Do not** claim Shortwave lacks SOC 2 or ISO 27001. The page only says CASA Tier 2 is what

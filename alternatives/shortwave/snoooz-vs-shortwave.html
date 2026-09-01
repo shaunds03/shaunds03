@@ -2172,20 +2172,82 @@ html:not(.snzc-anim) .snzc-faq__item {
       <div class="snzc-hero__stage">
         <div class="snzc-hero__video">
 
-          <!-- Snoooz vs Shortwave walkthrough. Autoplays muted + looped;
-               the play button restarts it with sound.
-               NOTE: upload the Shortwave cut to HubSpot Files at the path below,
-               or point the <source> at whichever video you want in this slot. -->
-          <video class="snzc-hero__video-media" id="snzcHeroVideo"
-                 muted autoplay loop playsinline preload="metadata">
-            <source src="https://snoooz.ai/hubfs/Snoooz%20VS%20Shortwave%20video%20-%20compressed.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
+          <!-- Static hero visual. Drawn inline so the frame is never blank and
+               there is no asset to upload or 404. It uses .snzc-hero__video-media,
+               the same class the <video> used, so no CSS changes were needed.
 
-          <!-- Play button - JS unmutes + restarts the video with sound -->
+               TO SWAP IN A VIDEO LATER: replace this whole <svg> with the markup
+               below, upload the file to HubSpot Files under a matching name, and
+               put the play button back (commented out under the svg).
+
+               <video class="snzc-hero__video-media" id="snzcHeroVideo"
+                      muted autoplay loop playsinline preload="metadata"
+                      poster="https://snoooz.ai/hubfs/snoooz-vs-shortwave-poster.png">
+                 <source src="https://snoooz.ai/hubfs/YOUR-FILE.mp4" type="video/mp4">
+               </video>
+          -->
+          <svg class="snzc-hero__video-media" viewBox="0 0 800 450"
+               preserveAspectRatio="xMidYMid slice" role="img"
+               aria-labelledby="snzcHeroArtTitle snzcHeroArtDesc">
+            <title id="snzcHeroArtTitle">A shared inbox being resolved by Snoooz</title>
+            <desc id="snzcHeroArtDesc">Three messages in support@yourco.com: a pricing question answered and sent, an angry refund thread escalated to an account owner, and a quiet quote request followed up on, all without a person opening the inbox.</desc>
+
+            <g font-family="'Open Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+
+              <!-- Card -->
+              <rect x="40" y="36" width="720" height="378" rx="20" fill="#ffffff" fill-opacity="0.94" stroke="#dfe8e2"/>
+
+              <!-- Title bar -->
+              <circle cx="66" cy="60" r="4.5" fill="#60706d" fill-opacity="0.28"/>
+              <circle cx="82" cy="60" r="4.5" fill="#60706d" fill-opacity="0.28"/>
+              <circle cx="98" cy="60" r="4.5" fill="#60706d" fill-opacity="0.28"/>
+              <text x="122" y="65" font-size="16" font-weight="600" fill="#102421">support@yourco.com</text>
+              <rect x="572" y="47" width="164" height="26" rx="13" fill="#0F5B44" fill-opacity="0.10" stroke="#0F5B44" stroke-opacity="0.22"/>
+              <circle cx="588" cy="60" r="4" fill="#0F5B44"/>
+              <text x="601" y="64.5" font-size="12" font-weight="700" fill="#0F5B44">SNOOOZ RUNNING</text>
+              <line x1="40" y1="88" x2="760" y2="88" stroke="#dfe8e2"/>
+
+              <!-- Row 1 -->
+              <circle cx="76" cy="132" r="17" fill="#0F5B44" fill-opacity="0.10"/>
+              <text x="76" y="137" font-size="13" font-weight="700" fill="#0F5B44" text-anchor="middle">A</text>
+              <text x="106" y="126" font-size="15.5" font-weight="600" fill="#102421">Acme Inc</text>
+              <text x="106" y="148" font-size="13.5" fill="#60706d">Can you confirm pricing and Salesforce support?</text>
+              <rect x="572" y="118" width="164" height="28" rx="14" fill="#0F5B44"/>
+              <path d="M589.5 132.5l4 4 7.5-8" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              <text x="607.5" y="136" font-size="12" font-weight="700" fill="#ffffff">Answered &amp; sent</text>
+              <line x1="66" y1="174" x2="734" y2="174" stroke="#dfe8e2"/>
+
+              <!-- Row 2 -->
+              <circle cx="76" cy="226" r="17" fill="#0F5B44" fill-opacity="0.10"/>
+              <text x="76" y="231" font-size="13" font-weight="700" fill="#0F5B44" text-anchor="middle">N</text>
+              <text x="106" y="220" font-size="15.5" font-weight="600" fill="#102421">Nina R.</text>
+              <text x="106" y="242" font-size="13.5" fill="#60706d">Third time I have asked about my refund.</text>
+              <rect x="572" y="212" width="164" height="28" rx="14" fill="#A5AE47" fill-opacity="0.18" stroke="#A5AE47" stroke-opacity="0.45"/>
+              <text x="654" y="230" font-size="12" font-weight="700" fill="#0F5B44" text-anchor="middle">Escalated to Dana</text>
+              <line x1="66" y1="268" x2="734" y2="268" stroke="#dfe8e2"/>
+
+              <!-- Row 3 -->
+              <circle cx="76" cy="320" r="17" fill="#0F5B44" fill-opacity="0.10"/>
+              <text x="76" y="325" font-size="13" font-weight="700" fill="#0F5B44" text-anchor="middle">P</text>
+              <text x="106" y="314" font-size="15.5" font-weight="600" fill="#102421">Priya S.</text>
+              <text x="106" y="336" font-size="13.5" fill="#60706d">Following up on the quote I asked about.</text>
+              <rect x="572" y="306" width="164" height="28" rx="14" fill="#0F5B44" fill-opacity="0.10" stroke="#0F5B44" stroke-opacity="0.22"/>
+              <text x="654" y="324" font-size="12" font-weight="700" fill="#0F5B44" text-anchor="middle">Follow-up sent</text>
+
+              <!-- Footer -->
+              <line x1="40" y1="374" x2="760" y2="374" stroke="#dfe8e2"/>
+              <circle cx="72" cy="394" r="8" fill="#0F5B44" fill-opacity="0.10"/>
+              <path d="M68.5 394l2.5 2.5 4.5-5" stroke="#0F5B44" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              <text x="88" y="398.5" font-size="13" fill="#60706d">Handled at 2:14am, in the inbox your team already uses.</text>
+
+            </g>
+          </svg>
+
+          <!-- Play button - only needed when a <video> is in the slot.
           <button class="snzc-hero__play" id="snzcHeroPlay" type="button" aria-label="Play the Snoooz vs Shortwave video with sound">
             <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
           </button>
+          -->
         </div>
       </div>
 
