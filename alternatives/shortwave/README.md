@@ -59,15 +59,16 @@ visible; without it, they stay hidden. That is the Fyxer standalone behaviour to
 
 ## Before publishing
 
-1. **Hero visual.** The slot holds an inline SVG, not a video — a mock of `support@yourco.com`
-   with three messages answered, escalated and followed up. It is drawn in the page's own
-   palette and uses `.snzc-hero__video-media`, the class the `<video>` used, so no CSS changed.
-   Nothing is fetched, so it can never render blank.
+1. **Hero video.** The slot embeds
+   `https://snoooz.ai/hubfs/Snoooz%20VS%20Fyxer%20video%20-%20compressed.mp4` with **native
+   browser controls** (`controls muted autoplay loop playsinline`). There is no custom play
+   button: the hero JS looks up `#snzcHeroPlay`, does not find it, and no-ops, so the script
+   is unchanged and the browser owns play/pause/scrub/volume/fullscreen.
 
-   To put a video back later: replace the `<svg>` with the `<video>` markup left commented
-   directly above it, upload the file to HubSpot Files, and uncomment the play button below it.
-   The hero JS looks up `#snzcHeroVideo` and `#snzcHeroPlay` and no-ops when they are absent,
-   so it needs no change either way.
+   Two things to note. It is the **Fyxer-branded cut** — swap the `<source>` when a Shortwave
+   version exists, and nothing else needs to change. And it autoplays muted and loops, matching
+   the Fyxer hero; drop `autoplay loop` if you would rather it wait for a click.
+
 2. **Re-verify the plan claims.** The 3/10/50 AI-filter caps and the per-seat pricing come from
    Shortwave's public pricing page. Re-check at each quarterly content review — pricing pages move.
 3. **Do not** claim Shortwave lacks SOC 2 or ISO 27001. The page only says CASA Tier 2 is what
